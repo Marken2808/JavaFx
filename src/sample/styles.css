@@ -1,5 +1,5 @@
 .body {
-    -fx-background-image:url('file:/G:/project/JavaFX/JavaFx_Card/src/images/background/stadium.jpg');
+    -fx-background-image:url('../images/background/stadium.jpg');
     -fx-background-size: cover;
 }
 .header {
