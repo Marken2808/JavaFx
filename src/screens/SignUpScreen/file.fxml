@@ -55,7 +55,7 @@
                            <HBox.margin>
                               <Insets />
                            </HBox.margin></Label>
-                        <JFXDatePicker prefWidth="140.0">
+                        <JFXDatePicker fx:id="datePicker" onAction="#checkingAge" prefWidth="140.0">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -69,7 +69,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <JFXSlider indicatorPosition="RIGHT" majorTickUnit="20.0" showTickLabels="true">
+                        <JFXSlider fx:id="ageSlider" disable="true" indicatorPosition="RIGHT" majorTickUnit="100.0" showTickLabels="true" value="1.0">
                            <HBox.margin>
                               <Insets left="40.0" top="20.0" />
                            </HBox.margin>
@@ -78,7 +78,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton buttonType="RAISED" style="-fx-background-color: #00ffaa;" text="Sign Up" />
+                        <JFXButton fx:id="signUp" buttonType="RAISED" style="-fx-background-color: #00ffaa;" text="Sign Up" />
                      </children>
                   </HBox>
                </children>

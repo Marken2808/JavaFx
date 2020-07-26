@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,13 +10,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
+      <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@styles.css">
          <children>
             <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <ImageView pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="menu1" fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                      <image>
                         <Image url="@../icon/png/menu.png" />
                      </image>
@@ -50,6 +52,5 @@
             </StackPane>
          </children>
       </HBox>
-      <StackPane prefHeight="50.0" styleClass="header" stylesheets="@styles.css" />
    </children>
 </AnchorPane>
