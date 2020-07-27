@@ -1,7 +1,6 @@
 package resources.controllers;
 
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,17 +18,15 @@ public class HomeController implements Initializable {
     private JFXDrawer drawer;
 
     @FXML
-    private JFXHamburger menu;
-
-    @FXML
-    private ImageView menu1;
+    private ImageView menu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             VBox menuLeft = FXMLLoader.load(getClass().getResource("../FilesFXML/MenuLeft.fxml"));
+            //StackPane card = FXMLLoader.load(getClass().getResource("../FilesFXML/FloatingCard.fxml"));
             drawer.setSidePane(menuLeft);
-            menu1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            menu.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
 
                 if (drawer.isClosed() || drawer.isClosing()) {
                     drawer.open();
