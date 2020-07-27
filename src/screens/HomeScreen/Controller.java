@@ -1,4 +1,4 @@
-package sample;
+package screens.HomeScreen;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -27,7 +27,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            VBox menuLeft = FXMLLoader.load(getClass().getResource("../drawers/MenuLeft.fxml"));
+            VBox menuLeft = FXMLLoader.load(getClass().getResource("../../drawers/MenuLeft.fxml"));
             drawer.setSidePane(menuLeft);
             menu1.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screens.HomeScreen.Controller">
    <children>
       <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@styles.css">
@@ -19,7 +19,7 @@
                <children>
                   <ImageView fx:id="menu1" fitHeight="150.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                      <image>
-                        <Image url="@../icon/png/menu.png" />
+                        <Image url="@../../icon/png/menu.png" />
                      </image>
                   </ImageView>
                </children>
@@ -42,7 +42,7 @@
                <children>
                   <ImageView pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../icon/png/search.png" />
+                        <Image url="@../../icon/png/search.png" />
                      </image>
                   </ImageView>
                </children>
