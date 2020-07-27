@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.MenuLeftController">
+   <children>
+      <VBox alignment="TOP_CENTER">
+         <children>
+            <ImageView fx:id="avatar" fitHeight="150.0" fitWidth="202.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/background/1.jpg" />
+               </image></ImageView>
+            <JFXButton prefHeight="100.0" prefWidth="200.0" text="&lt;User&gt;" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" prefHeight="270.0" prefWidth="201.0">
+         <children>
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Home" />
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Category" />
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="About" />
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Setting" />
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="122.0" prefWidth="201.0">
+         <children>
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Dashboard" />
+            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Sign Out" />
+         </children>
+      </VBox>
+   </children>
+</VBox>
