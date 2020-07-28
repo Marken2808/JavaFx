@@ -22,7 +22,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Username:" />
-                        <JFXTextField>
+                        <JFXTextField fx:id="new_user">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -32,7 +32,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Password" />
-                        <JFXTextField>
+                        <JFXTextField fx:id="new_pass">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -42,7 +42,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Confirm" />
-                        <JFXTextField>
+                        <JFXTextField fx:id="check_pass">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -78,7 +78,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <JFXButton fx:id="signUp" buttonType="RAISED" style="-fx-background-color: #00ffaa;" text="Sign Up" />
+                        <JFXButton fx:id="signUp" buttonType="RAISED" onAction="#makeRegister" style="-fx-background-color: #00ffaa;" text="Sign Up" />
                      </children>
                   </HBox>
                </children>

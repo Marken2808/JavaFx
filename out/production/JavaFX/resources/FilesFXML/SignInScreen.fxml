@@ -45,7 +45,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <JFXButton fx:id="signIn" buttonType="RAISED" onAction="#makeLogin" style="-fx-background-color: #00ffaa;" text="Sign In" />
-                        <JFXButton fx:id="signUp" text="Sign Up" />
+                        <JFXButton fx:id="signUp" onAction="#letRegister" text="Sign Up" />
                      </children>
                      <VBox.margin>
                         <Insets />
