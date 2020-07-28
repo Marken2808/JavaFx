@@ -46,7 +46,7 @@ public class SignUpController implements Initializable {
         Period p = Period.between(date,today);
         double age = p.getYears();
         ageSlider.setValue(age);
-
+        ageSlider.setShowTickLabels(true);
     }
 
     Connection connection = null;

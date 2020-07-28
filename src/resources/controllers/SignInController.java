@@ -54,10 +54,11 @@ public class SignInController implements Initializable {
                     JOptionPane.showMessageDialog(null,"Username and Password is correct");
 
                     signIn.getScene().getWindow().hide();
-                    Parent homeRoot = FXMLLoader.load(getClass().getResource("/resources/FilesFXML/HomeScreen.fxml"));
+                    Parent homeRoot = FXMLLoader.load(getClass().getResource("/resources/filesFXML/HomeScreen.fxml"));
                     Stage homeStage = new Stage();
                     Scene homeScene = new Scene(homeRoot);
                     homeStage.setScene(homeScene);
+                    homeStage.setResizable(false);
                     homeStage.show();
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect user");
@@ -73,7 +74,7 @@ public class SignInController implements Initializable {
     @FXML
     void letRegister(ActionEvent e) throws IOException {
         signUp.getScene().getWindow().hide();
-        Parent signUpRoot = FXMLLoader.load(getClass().getResource("/resources/FilesFXML/SignUpScreen.fxml"));
+        Parent signUpRoot = FXMLLoader.load(getClass().getResource("/resources/filesFXML/SignUpScreen.fxml"));
         Stage signUpStage = new Stage();
         Scene signUpScene = new Scene(signUpRoot);
         signUpStage.setScene(signUpScene);

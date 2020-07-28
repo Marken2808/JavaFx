@@ -10,7 +10,7 @@ public class HomeScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("../../resources/FilesFXML/HomeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../resources/filesFXML/HomeScreen.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
