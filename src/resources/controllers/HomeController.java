@@ -57,10 +57,10 @@ public class HomeController implements Initializable {
 
                 if (centerCard.isClosed() || centerCard.isClosing()) {
                     centerCard.open();
-                    leftCard.open();
+//                    leftCard.open();
                 } else {
                     centerCard.close();
-                    leftCard.close();
+//                    leftCard.close();
                 }
             });
 

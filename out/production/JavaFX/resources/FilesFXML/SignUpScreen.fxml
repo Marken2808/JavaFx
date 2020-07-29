@@ -22,7 +22,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Username:" />
-                        <JFXTextField fx:id="new_user">
+                        <JFXTextField fx:id="new_user" onMouseClicked="#isEmpty">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -32,7 +32,7 @@
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <Label text="Password" />
-                        <JFXTextField fx:id="new_pass">
+                        <JFXTextField fx:id="new_pass" onMouseClicked="#isEmpty">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>

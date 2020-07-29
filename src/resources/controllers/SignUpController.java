@@ -4,9 +4,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import resources.mySQLconnection;
 
 import javax.swing.*;
@@ -47,6 +50,39 @@ public class SignUpController implements Initializable {
         double age = p.getYears();
         ageSlider.setValue(age);
         ageSlider.setShowTickLabels(true);
+    }
+
+    @FXML
+    void isEmpty(MouseEvent event) {
+        RequiredFieldValidator userEmpty = new RequiredFieldValidator("Enter username !!!");
+        RequiredFieldValidator passEmpty = new RequiredFieldValidator("Enter password !!!");
+
+        new_user.getValidators().add(userEmpty);
+        new_pass.getValidators().add(passEmpty);
+
+        new_user.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
+            if(!newValue){
+                if(new_user.validate()) {
+                    signUp.setDisable(false);
+                }
+                else {
+                    signUp.setDisable(true);
+                }
+            }
+
+        });
+
+        new_pass.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
+            if(!newValue){
+                if(new_pass.validate()) {
+                    signUp.setDisable(false);
+                }
+                else {
+                    signUp.setDisable(true);
+                }
+
+            }
+        });
     }
 
     Connection connection = null;

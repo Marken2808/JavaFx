@@ -4,7 +4,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import resources.mySQLconnection;
 
@@ -24,6 +26,16 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class SignInController implements Initializable {
+
+    @FXML
+    private AnchorPane signInPane;
+
+
+    @FXML
+    private Label userLength;
+
+    @FXML
+    private Label passLength;
 
     @FXML
     private JFXTextField user;
@@ -81,18 +93,50 @@ public class SignInController implements Initializable {
         signUpStage.show();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        RequiredFieldValidator validator = new RequiredFieldValidator();
-        user.getValidators().add(validator);
-        validator.setMessage("No input given!");
-        user.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-                if(!newValue){
-                    user.validate();
+
+    @FXML
+    void isEmpty(MouseEvent event) {
+        RequiredFieldValidator userEmpty = new RequiredFieldValidator("Enter username ⚠");
+        RequiredFieldValidator passEmpty = new RequiredFieldValidator("Enter password ⚠");
+
+        user.getValidators().add(userEmpty);
+        pass.getValidators().add(passEmpty);
+
+        int length = user.getText().length();
+        System.out.println("real"+length);
+        if(length<3&&length>0){
+            userLength.setVisible(true);
+        }else{
+            userLength.setVisible(false);
+        }
+
+        user.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
+            if(!newValue){
+                if(user.validate()) {
+                    signIn.setDisable(false);
+                }
+                else {
+                    signIn.setDisable(true);
                 }
             }
         });
+
+        pass.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
+            if(!newValue){
+                if(pass.validate()) {
+                    signIn.setDisable(false);
+                }
+                else {
+                    signIn.setDisable(true);
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
     }
 }

@@ -2,4 +2,7 @@
     -fx-background-image: url("../images/background/stadium.jpg");
     -fx-background-size: cover;
 }
+.error{
+    -fx-max-width: 10;
+}
 

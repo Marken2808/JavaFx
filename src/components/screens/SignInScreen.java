@@ -14,10 +14,14 @@ public class SignInScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/filesFXML/SignInScreen.fxml"));
         Scene scene = new Scene(root);
+
+        //scene.getStylesheets().addAll(styles);
         primaryStage.setScene(scene);
         primaryStage.show();
+
 
     }
 }

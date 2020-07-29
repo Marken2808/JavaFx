@@ -13,7 +13,7 @@
                <image>
                   <Image url="@../images/background/1.jpg" />
                </image></ImageView>
-            <JFXButton prefHeight="100.0" prefWidth="200.0" text="&lt;User&gt;" />
+            <JFXButton fx:id="user" onAction="#setUser" prefHeight="100.0" prefWidth="200.0" text="&lt;User&gt;" />
          </children>
       </VBox>
       <VBox alignment="TOP_CENTER" prefHeight="270.0" prefWidth="201.0">
@@ -26,7 +26,7 @@
       </VBox>
       <VBox alignment="BOTTOM_CENTER" prefHeight="122.0" prefWidth="201.0">
          <children>
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Dashboard" />
+            <JFXButton fx:id="dashboard" onAction="#isShown" prefHeight="50.0" prefWidth="200.0" text="Dashboard" />
             <JFXButton prefHeight="50.0" prefWidth="200.0" text="Sign Out" />
          </children>
       </VBox>

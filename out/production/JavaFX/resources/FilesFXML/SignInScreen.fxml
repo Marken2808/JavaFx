@@ -12,26 +12,31 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignInStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.SignInController">
+<AnchorPane fx:id="signInPane" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignInStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.SignInController">
    <children>
       <StackPane layoutX="350.0" prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0">
+                  <HBox alignment="CENTER" prefHeight="40.0">
                      <children>
                         <Label text="Username:">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField fx:id="user" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
+                        <JFXTextField id="error" fx:id="user" onMouseClicked="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </JFXTextField>
                      </children>
                   </HBox>
+                  <Label fx:id="userLength" contentDisplay="CENTER" text="More than 3 characters" textFill="RED" visible="false">
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label text="Password:">
@@ -39,19 +44,27 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXPasswordField fx:id="pass" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
+                        <JFXPasswordField fx:id="pass" onMouseClicked="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
                      </children>
                   </HBox>
+                  <Label fx:id="passLength" contentDisplay="CENTER" text="More than 3 characters" textFill="RED" visible="false">
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <JFXButton fx:id="signIn" buttonType="RAISED" onAction="#makeLogin" style="-fx-background-color: #00ffaa;" text="Sign In" />
                         <JFXButton fx:id="signUp" onAction="#letRegister" text="Sign Up" />
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
                </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
             </VBox>
          </children>
       </StackPane>
