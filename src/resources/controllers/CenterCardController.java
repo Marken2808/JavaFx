@@ -2,6 +2,8 @@ package resources.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
@@ -12,8 +14,15 @@ public class CenterCardController implements Initializable {
     @FXML
     private StackPane centerCard;
 
+    @FXML
+    private Group model;
+
+    @FXML
+    private ParallelCamera perspectiveCamera;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
 
     }

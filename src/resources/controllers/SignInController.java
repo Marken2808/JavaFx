@@ -3,7 +3,6 @@ package resources.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import resources.mySQLconnection;
@@ -32,10 +31,10 @@ public class SignInController implements Initializable {
 
 
     @FXML
-    private Label userLength;
+    private Label userWarning;
 
     @FXML
-    private Label passLength;
+    private Label passWarning;
 
     @FXML
     private JFXTextField user;
@@ -49,12 +48,12 @@ public class SignInController implements Initializable {
     @FXML
     private JFXButton signUp;
 
-    Connection connection = null;
-    ResultSet rs = null;
-    PreparedStatement pst =null;
-
     @FXML
     void makeLogin(ActionEvent event) {
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement pst =null;
+
         connection = mySQLconnection.ConnectDataBase();
         String query = "Select * from users where username = ? and password = ?";
             try{
@@ -64,7 +63,6 @@ public class SignInController implements Initializable {
                 rs = pst.executeQuery();
                 if(rs.next()){
                     JOptionPane.showMessageDialog(null,"Username and Password is correct");
-
                     signIn.getScene().getWindow().hide();
                     Parent homeRoot = FXMLLoader.load(getClass().getResource("/resources/filesFXML/HomeScreen.fxml"));
                     Stage homeStage = new Stage();
@@ -74,12 +72,10 @@ public class SignInController implements Initializable {
                     homeStage.show();
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect user");
-
                 }
             }
             catch ( Exception e){
                 JOptionPane.showMessageDialog(null,e);
-
             }
     }
 
@@ -93,50 +89,55 @@ public class SignInController implements Initializable {
         signUpStage.show();
     }
 
-
     @FXML
-    void isEmpty(MouseEvent event) {
-        RequiredFieldValidator userEmpty = new RequiredFieldValidator("Enter username ⚠");
-        RequiredFieldValidator passEmpty = new RequiredFieldValidator("Enter password ⚠");
+    void isEmpty(KeyEvent event) {
 
-        user.getValidators().add(userEmpty);
-        pass.getValidators().add(passEmpty);
+        user.textProperty().addListener((ObservableValue<? extends String> observableValue, String oldValue, String newValue) -> {
 
-        int length = user.getText().length();
-        System.out.println("real"+length);
-        if(length<3&&length>0){
-            userLength.setVisible(true);
-        }else{
-            userLength.setVisible(false);
+            if(checkingCorrection(user, userWarning)== false){
+                signIn.setDisable(true);
+            }
+            
+        });
+        pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
+            if(checkingCorrection(pass, passWarning) == false){
+                signIn.setDisable(true);
+            }
+        });
+
+    }
+
+    public boolean checkingCorrection(Object obj, Label lb){
+        int length = checkingLength(obj);
+
+        if(length==0){
+            lb.setText("Please fulfill !");
+            return false;
+
+        } else if(length>0 && length<3){
+            lb.setText("At lease 3 characters !");
+            return false;
+
+        } else{
+            lb.setText("Correct");
+            signIn.setDisable(false);
+            return true;
         }
 
-        user.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
-            if(!newValue){
-                if(user.validate()) {
-                    signIn.setDisable(false);
-                }
-                else {
-                    signIn.setDisable(true);
-                }
-            }
-        });
+    }
 
-        pass.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
-            if(!newValue){
-                if(pass.validate()) {
-                    signIn.setDisable(false);
-                }
-                else {
-                    signIn.setDisable(true);
-                }
-
-            }
-        });
+    public int checkingLength(Object obj){
+        int length = 0;
+        if(obj instanceof JFXTextField){
+            length = user.getText().length();
+        } else if(obj instanceof JFXPasswordField) {
+            length = pass.getText().length();
+        }
+        return length;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        signIn.setDisable(true);
     }
 }

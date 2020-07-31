@@ -56,7 +56,7 @@
                   </StackPane>
                </children>
             </HBox>
-            <BorderPane prefHeight="510.0">
+            <BorderPane fx:id="borderPane" prefHeight="510.0">
                <left>
                   <StackPane prefWidth="300.0" BorderPane.alignment="CENTER">
                      <children>

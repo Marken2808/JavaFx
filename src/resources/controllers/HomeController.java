@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -16,6 +17,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+
+
+    @FXML
+    private BorderPane borderPane;
 
     @FXML
     private JFXDrawer drawer;
@@ -32,6 +37,19 @@ public class HomeController implements Initializable {
     @FXML
     private ImageView menu;
 
+    public void drawerChecking(Object cls){
+        if(drawer.isOpened() || drawer.isOpening()) {
+            menu.setImage(new Image("./resources/images/icon/menu.png"));
+            drawer.close();
+        }
+        else if(cls instanceof ImageView){
+            if (drawer.isClosed() || drawer.isClosing()) {
+                drawer.open();
+                menu.setImage(new Image("./resources/images/icon/x.png"));
+            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -43,14 +61,11 @@ public class HomeController implements Initializable {
             centerCard.setSidePane(testCenterCard);
 
             menu.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                drawerChecking(menu);
+            });
 
-                if (drawer.isClosed() || drawer.isClosing()) {
-                    drawer.open();
-                    menu.setImage(new Image("./resources/images/icon/x.png"));
-                } else {
-                    drawer.close();
-                    menu.setImage(new Image("./resources/images/icon/menu.png"));
-                }
+            borderPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+                drawerChecking(borderPane);
             });
 
             viewcard.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {

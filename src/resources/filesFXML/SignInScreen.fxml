@@ -25,14 +25,14 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField id="error" fx:id="user" onMouseClicked="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
+                        <JFXTextField id="error" fx:id="user" onKeyPressed="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
                         </JFXTextField>
                      </children>
                   </HBox>
-                  <Label fx:id="userLength" contentDisplay="CENTER" text="More than 3 characters" textFill="RED" visible="false">
+                  <Label fx:id="userWarning" contentDisplay="CENTER" textFill="RED">
                      <VBox.margin>
                         <Insets right="20.0" />
                      </VBox.margin>
@@ -44,10 +44,10 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXPasswordField fx:id="pass" onMouseClicked="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
+                        <JFXPasswordField fx:id="pass" onKeyPressed="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
                      </children>
                   </HBox>
-                  <Label fx:id="passLength" contentDisplay="CENTER" text="More than 3 characters" textFill="RED" visible="false">
+                  <Label fx:id="passWarning" contentDisplay="CENTER" textFill="RED">
                      <VBox.margin>
                         <Insets right="20.0" />
                      </VBox.margin>
