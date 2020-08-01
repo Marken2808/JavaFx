@@ -91,47 +91,44 @@ public class SignInController implements Initializable {
 
     @FXML
     void isEmpty(KeyEvent event) {
+        
+        boolean userCheck = checkingCorrection(user,userWarning);
+        System.out.println(userCheck);
+        boolean passCheck = checkingCorrection(pass,passWarning);
+        System.out.println(passCheck);
 
-        user.textProperty().addListener((ObservableValue<? extends String> observableValue, String oldValue, String newValue) -> {
-
-            if(checkingCorrection(user, userWarning)== false){
-                signIn.setDisable(true);
-            }
-            
-        });
-        pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            if(checkingCorrection(pass, passWarning) == false){
-                signIn.setDisable(true);
-            }
-        });
-
+        if(userCheck && passCheck){
+            signIn.setDisable(false);
+        }else{
+            signIn.setDisable(true);
+        }
     }
 
     public boolean checkingCorrection(Object obj, Label lb){
-        int length = checkingLength(obj);
-
-        if(length==0){
-            lb.setText("Please fulfill !");
-            return false;
-
-        } else if(length>0 && length<3){
-            lb.setText("At lease 3 characters !");
-            return false;
-
-        } else{
-            lb.setText("Correct");
-            signIn.setDisable(false);
-            return true;
-        }
-
-    }
-
-    public int checkingLength(Object obj){
-        int length = 0;
+        int length;
         if(obj instanceof JFXTextField){
             length = user.getText().length();
+            checkingLength(length,lb);
+            if(length<3){
+                return false;
+            }
         } else if(obj instanceof JFXPasswordField) {
             length = pass.getText().length();
+            checkingLength(length,lb);
+            if(length<3){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int checkingLength(int length,Label lb){
+        if(length==0){
+            lb.setText("Please fulfill !");
+        } else if(length>0 && length<3){
+            lb.setText("At lease 3 characters !");
+        } else{
+            lb.setText("Correct");
         }
         return length;
     }
@@ -139,5 +136,11 @@ public class SignInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);
+        user.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
+            checkingCorrection(user, userWarning);
+        });
+        pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
+            checkingCorrection(pass, passWarning);
+        });
     }
 }

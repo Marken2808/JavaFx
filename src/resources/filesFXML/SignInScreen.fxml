@@ -25,7 +25,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXTextField id="error" fx:id="user" onKeyPressed="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
+                        <JFXTextField id="error" fx:id="user" onKeyReleased="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter Username">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -44,7 +44,7 @@
                               <Insets right="20.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXPasswordField fx:id="pass" onKeyPressed="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
+                        <JFXPasswordField fx:id="pass" onKeyReleased="#isEmpty" prefHeight="30.0" prefWidth="120.0" promptText="Enter password" />
                      </children>
                   </HBox>
                   <Label fx:id="passWarning" contentDisplay="CENTER" textFill="RED">
