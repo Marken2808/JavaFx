@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -17,69 +18,99 @@
    <children>
       <StackPane prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER_RIGHT">
                <children>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
                      <children>
-                        <Label text="Username:" />
-                        <JFXTextField fx:id="new_user" onMouseClicked="#isEmpty">
+                        <Label text="Username:">
                            <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Password" />
-                        <JFXTextField fx:id="new_pass" onMouseClicked="#isEmpty">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Confirm" />
-                        <JFXTextField fx:id="check_pass">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                        </JFXTextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Birthday">
-                           <HBox.margin>
-                              <Insets />
+                              <Insets left="15.0" />
                            </HBox.margin></Label>
-                        <JFXDatePicker fx:id="datePicker" onAction="#checkingAge" prefWidth="140.0">
+                        <JFXTextField fx:id="new_user" onKeyReleased="#isEmpty" prefColumnCount="10">
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <Label fx:id="userWarning" textAlignment="CENTER" textFill="RED">
+                     <VBox.margin>
+                        <Insets right="15.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Password:">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin></Label>
+                        <JFXPasswordField fx:id="new_pass" onKeyReleased="#isEmpty" prefColumnCount="10">
+                           <HBox.margin>
+                              <Insets left="53.0" />
+                           </HBox.margin>
+                        </JFXPasswordField>
+                     </children>
+                  </HBox>
+                  <Label fx:id="passWarning" textAlignment="CENTER" textFill="RED">
+                     <VBox.margin>
+                        <Insets right="15.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Confirm Password:">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin></Label>
+                        <JFXPasswordField fx:id="check_pass" onKeyReleased="#isRight" prefColumnCount="10">
+                           <HBox.margin>
+                              <Insets left="6.0" />
+                           </HBox.margin>
+                        </JFXPasswordField>
+                     </children>
+                  </HBox>
+                  <Label fx:id="confirmWarning" textAlignment="CENTER" textFill="RED">
+                     <VBox.margin>
+                        <Insets right="15.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Birthday:">
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin></Label>
+                        <JFXDatePicker fx:id="datePicker" onAction="#checkingAge" prefWidth="125.0">
+                           <HBox.margin>
+                              <Insets left="60.0" />
                            </HBox.margin>
                         </JFXDatePicker>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                  <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label text="Age">
                            <HBox.margin>
-                              <Insets />
+                              <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXSlider fx:id="ageSlider" disable="true" indicatorPosition="RIGHT" majorTickUnit="100.0" showTickLabels="true" value="1.0">
+                        <JFXSlider fx:id="ageSlider" disable="true" indicatorPosition="RIGHT" majorTickUnit="100.0" prefWidth="120.0" showTickLabels="true" value="1.0">
                            <HBox.margin>
-                              <Insets left="40.0" top="20.0" />
+                              <Insets left="80.0" top="20.0" />
                            </HBox.margin>
                         </JFXSlider>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER">
                      <children>
                         <JFXButton fx:id="signUp" buttonType="RAISED" onAction="#makeRegister" style="-fx-background-color: #00ffaa;" text="Sign Up" />
                      </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>

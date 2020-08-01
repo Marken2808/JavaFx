@@ -91,11 +91,10 @@ public class SignInController implements Initializable {
 
     @FXML
     void isEmpty(KeyEvent event) {
-        
         boolean userCheck = checkingCorrection(user,userWarning);
-        System.out.println(userCheck);
+        //System.out.println(userCheck);
         boolean passCheck = checkingCorrection(pass,passWarning);
-        System.out.println(passCheck);
+        //System.out.println(passCheck);
 
         if(userCheck && passCheck){
             signIn.setDisable(false);
