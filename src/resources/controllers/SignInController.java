@@ -3,6 +3,7 @@ package resources.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,9 +12,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import resources.mySQLconnection;
 
 import javax.swing.*;
@@ -29,6 +33,11 @@ public class SignInController implements Initializable {
     @FXML
     private AnchorPane signInPane;
 
+    @FXML
+    private ImageView userWarningImg;
+
+    @FXML
+    private ImageView passWarningImg;
 
     @FXML
     private Label userWarning;
@@ -107,39 +116,65 @@ public class SignInController implements Initializable {
         int length;
         if(obj instanceof JFXTextField){
             length = user.getText().length();
-            checkingLength(length,lb);
-            if(length<3){
-                return false;
-            }
+            return checkingLength(length,lb);
         } else if(obj instanceof JFXPasswordField) {
             length = pass.getText().length();
-            checkingLength(length,lb);
-            if(length<3){
-                return false;
-            }
+            return checkingLength(length,lb);
         }
-        return true;
+        return false;
     }
 
-    public int checkingLength(int length,Label lb){
+    public boolean checkingLength(int length,Label lb){
         if(length==0){
-            lb.setText("Please fulfill !");
+            lb.setText("Please fulfill");
         } else if(length>0 && length<3){
-            lb.setText("At lease 3 characters !");
+            lb.setText("At lease 3 characters");
         } else{
             lb.setText("Correct");
+            return true;
         }
-        return length;
+        return false;
+    }
+
+    public void warningImage(boolean isCorrect, ImageView img, Label lb){
+        FadeTransition fade = new FadeTransition();
+        fade.setDuration(Duration.millis(1000));
+        fade.setFromValue(10);
+        fade.setToValue(0);
+        fade.setNode(lb);
+        fade.setCycleCount(1);
+
+
+        lb.getStyleClass().clear();
+        img.setVisible(true);
+        lb.setVisible(true);
+        if(!isCorrect){
+
+            img.setImage(new Image("./resources/images/icon/alert-circle.png"));
+            lb.getStyleClass().add("failed");
+        }else {
+
+            lb.getStyleClass().add("succeed");
+            img.setImage(new Image("./resources/images/icon/check-circle.png"));
+
+            fade.play();
+        }
+
+
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);
         user.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            checkingCorrection(user, userWarning);
+            boolean isCorrect = checkingCorrection(user, userWarning);
+            warningImage(isCorrect,userWarningImg,userWarning);
         });
+
         pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            checkingCorrection(pass, passWarning);
+            boolean isCorrect = checkingCorrection(pass, passWarning);
+            warningImage(isCorrect,passWarningImg,passWarning);
         });
     }
 }

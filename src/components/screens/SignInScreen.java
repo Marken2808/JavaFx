@@ -17,8 +17,6 @@ public class SignInScreen extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("../../resources/filesFXML/SignInScreen.fxml"));
         Scene scene = new Scene(root);
-
-        //scene.getStylesheets().addAll(styles);
         primaryStage.setScene(scene);
         primaryStage.show();
 

@@ -13,70 +13,94 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignUpStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.SignUpController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;">
          <children>
-            <VBox alignment="CENTER_RIGHT">
+            <VBox alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
-                     <children>
-                        <Label text="Username:">
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin></Label>
-                        <JFXTextField fx:id="new_user" onKeyReleased="#isEmpty" prefColumnCount="10">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </JFXTextField>
-                     </children>
+                  <Label text="Register">
+                     <font>
+                        <Font name="Segoe UI" size="28.0" />
+                     </font>
                      <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
-                  <Label fx:id="userWarning" textAlignment="CENTER" textFill="RED">
-                     <VBox.margin>
-                        <Insets right="15.0" top="5.0" />
+                        <Insets bottom="15.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER_LEFT">
+                  <VBox alignment="CENTER_RIGHT">
                      <children>
-                        <Label text="Password:">
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin></Label>
-                        <JFXPasswordField fx:id="new_pass" onKeyReleased="#isEmpty" prefColumnCount="10">
-                           <HBox.margin>
-                              <Insets left="53.0" />
-                           </HBox.margin>
-                        </JFXPasswordField>
+                        <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT">
+                           <children>
+                              <Label text="Username:">
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXTextField fx:id="new_user" onKeyReleased="#isEmpty" prefColumnCount="10">
+                                 <HBox.margin>
+                                    <Insets left="50.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <Label fx:id="userWarning" text="ád" textAlignment="CENTER" textFill="RED">
+                           <VBox.margin>
+                              <Insets right="15.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="passWarning" textAlignment="CENTER" textFill="RED">
-                     <VBox.margin>
-                        <Insets right="15.0" top="5.0" />
-                     </VBox.margin>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT">
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT">
                      <children>
-                        <Label text="Confirm Password:">
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin></Label>
-                        <JFXPasswordField fx:id="check_pass" onKeyReleased="#isRight" prefColumnCount="10">
-                           <HBox.margin>
-                              <Insets left="6.0" />
-                           </HBox.margin>
-                        </JFXPasswordField>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="Password:">
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXPasswordField fx:id="new_pass" onKeyReleased="#isEmpty" prefColumnCount="10">
+                                 <HBox.margin>
+                                    <Insets left="53.0" />
+                                 </HBox.margin>
+                              </JFXPasswordField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="passWarning" text="ád" textAlignment="CENTER" textFill="RED">
+                           <VBox.margin>
+                              <Insets right="15.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
-                  </HBox>
-                  <Label fx:id="confirmWarning" textAlignment="CENTER" textFill="RED">
-                     <VBox.margin>
-                        <Insets right="15.0" top="5.0" />
-                     </VBox.margin>
-                  </Label>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT">
+                     <children>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <Label text="Confirm Password:">
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXPasswordField fx:id="check_pass" onKeyReleased="#isRight" prefColumnCount="10">
+                                 <HBox.margin>
+                                    <Insets left="6.0" />
+                                 </HBox.margin>
+                              </JFXPasswordField>
+                           </children>
+                        </HBox>
+                        <Label fx:id="confirmWarning" text="ăerd" textAlignment="CENTER" textFill="RED">
+                           <VBox.margin>
+                              <Insets right="15.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label text="Birthday:">
@@ -89,6 +113,9 @@
                            </HBox.margin>
                         </JFXDatePicker>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <HBox alignment="CENTER_LEFT">
                      <children>
@@ -119,6 +146,11 @@
       <ImageView fitHeight="285.0" fitWidth="236.0" layoutX="267.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/player/messi/16-17.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="backArrow" fitHeight="28.0" fitWidth="28.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+         <image>
+            <Image url="@../images/icon/chevron-left.png" />
          </image>
       </ImageView>
    </children>

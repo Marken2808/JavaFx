@@ -4,12 +4,19 @@ import com.jfoenix.controls.*;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import resources.mySQLconnection;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,6 +53,19 @@ public class SignUpController implements Initializable {
 
     @FXML
     private JFXButton signUp;
+
+    @FXML
+    private ImageView backArrow;
+
+    @FXML
+    void goBack(MouseEvent event) throws IOException {
+        backArrow.getScene().getWindow().hide();
+        Parent signInRoot = FXMLLoader.load(getClass().getResource("/resources/filesFXML/SignInScreen.fxml"));
+        Stage signInStage = new Stage();
+        Scene signInScene = new Scene(signInRoot);
+        signInStage.setScene(signInScene);
+        signInStage.show();
+    }
 
     @FXML
     void checkingAge(ActionEvent event) {
