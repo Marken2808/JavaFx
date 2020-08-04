@@ -48,11 +48,22 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <Label fx:id="userWarning" text="ád" textAlignment="CENTER" textFill="RED">
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label fx:id="userWarning" disable="true" textAlignment="CENTER" textFill="RED" />
+                              <ImageView fx:id="userWarningImg" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                 <image>
+                                    <Image url="@../images/icon/alert-circle.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
                            <VBox.margin>
-                              <Insets right="15.0" top="2.0" />
+                              <Insets right="10.0" top="3.0" />
                            </VBox.margin>
-                        </Label>
+                        </HBox>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_RIGHT">
@@ -71,11 +82,22 @@
                               </JFXPasswordField>
                            </children>
                         </HBox>
-                        <Label fx:id="passWarning" text="ád" textAlignment="CENTER" textFill="RED">
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label fx:id="passWarning" disable="true" textAlignment="CENTER" textFill="RED" />
+                              <ImageView fx:id="passWarningImg" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                 <image>
+                                    <Image url="@../images/icon/alert-circle.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
                            <VBox.margin>
-                              <Insets right="15.0" top="2.0" />
+                              <Insets right="10.0" top="3.0" />
                            </VBox.margin>
-                        </Label>
+                        </HBox>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER_RIGHT">
@@ -87,18 +109,29 @@
                                     <Insets left="15.0" />
                                  </HBox.margin>
                               </Label>
-                              <JFXPasswordField fx:id="check_pass" onKeyReleased="#isRight" prefColumnCount="10">
+                              <JFXPasswordField fx:id="check_pass" onKeyReleased="#isEmpty" prefColumnCount="10">
                                  <HBox.margin>
                                     <Insets left="6.0" />
                                  </HBox.margin>
                               </JFXPasswordField>
                            </children>
                         </HBox>
-                        <Label fx:id="confirmWarning" text="ăerd" textAlignment="CENTER" textFill="RED">
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label fx:id="confirmWarning" disable="true" textAlignment="CENTER" textFill="RED" />
+                              <ImageView fx:id="confirmWarningImg" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                 <image>
+                                    <Image url="@../images/icon/alert-circle.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                           </children>
                            <VBox.margin>
-                              <Insets right="15.0" top="2.0" />
+                              <Insets right="10.0" top="3.0" />
                            </VBox.margin>
-                        </Label>
+                        </HBox>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_LEFT">

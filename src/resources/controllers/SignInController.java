@@ -3,8 +3,6 @@ package resources.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.FadeTransition;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,12 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import resources.mySQLconnection;
 
 import javax.swing.*;
@@ -27,6 +23,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
+
+import static resources.functions.duplicated.isAllDone;
+import static resources.functions.duplicated.isEmptyField;
 
 public class SignInController implements Initializable {
 
@@ -59,19 +58,16 @@ public class SignInController implements Initializable {
 
     @FXML
     void makeLogin(ActionEvent event) {
-        Connection connection = null;
-        ResultSet rs = null;
-        PreparedStatement pst =null;
 
-        connection = mySQLconnection.ConnectDataBase();
+        Connection connection = mySQLconnection.ConnectDataBase();
         String query = "Select * from users where username = ? and password = ?";
             try{
-                pst = connection.prepareStatement(query);
+                PreparedStatement pst = connection.prepareStatement(query);
                 pst.setString(1,user.getText());
                 pst.setString(2,pass.getText());
-                rs = pst.executeQuery();
+                ResultSet rs = pst.executeQuery();
                 if(rs.next()){
-                    JOptionPane.showMessageDialog(null,"Username and Password is correct");
+                    JOptionPane.showMessageDialog(null,"Login Successfully");
                     signIn.getScene().getWindow().hide();
                     Parent homeRoot = FXMLLoader.load(getClass().getResource("/resources/filesFXML/HomeScreen.fxml"));
                     Stage homeStage = new Stage();
@@ -80,7 +76,7 @@ public class SignInController implements Initializable {
                     homeStage.setResizable(false);
                     homeStage.show();
                 }else{
-                    JOptionPane.showMessageDialog(null,"Incorrect user");
+                    JOptionPane.showMessageDialog(null,"Incorrect user !");
                 }
             }
             catch ( Exception e){
@@ -100,81 +96,15 @@ public class SignInController implements Initializable {
 
     @FXML
     void isEmpty(KeyEvent event) {
-        boolean userCheck = checkingCorrection(user,userWarning);
-        //System.out.println(userCheck);
-        boolean passCheck = checkingCorrection(pass,passWarning);
-        //System.out.println(passCheck);
-
-        if(userCheck && passCheck){
-            signIn.setDisable(false);
-        }else{
-            signIn.setDisable(true);
-        }
-    }
-
-    public boolean checkingCorrection(Object obj, Label lb){
-        int length;
-        if(obj instanceof JFXTextField){
-            length = user.getText().length();
-            return checkingLength(length,lb);
-        } else if(obj instanceof JFXPasswordField) {
-            length = pass.getText().length();
-            return checkingLength(length,lb);
-        }
-        return false;
-    }
-
-    public boolean checkingLength(int length,Label lb){
-        if(length==0){
-            lb.setText("Please fulfill");
-        } else if(length>0 && length<3){
-            lb.setText("At lease 3 characters");
-        } else{
-            lb.setText("Correct");
-            return true;
-        }
-        return false;
-    }
-
-    public void warningImage(boolean isCorrect, ImageView img, Label lb){
-        FadeTransition fade = new FadeTransition();
-        fade.setDuration(Duration.millis(1000));
-        fade.setFromValue(10);
-        fade.setToValue(0);
-        fade.setNode(lb);
-        fade.setCycleCount(1);
-
-
-        lb.getStyleClass().clear();
-        img.setVisible(true);
-        lb.setVisible(true);
-        if(!isCorrect){
-
-            img.setImage(new Image("./resources/images/icon/alert-circle.png"));
-            lb.getStyleClass().add("failed");
-        }else {
-
-            lb.getStyleClass().add("succeed");
-            img.setImage(new Image("./resources/images/icon/check-circle.png"));
-
-            fade.play();
-        }
-
-
-
+        Boolean isEmptyUser = isEmptyField(user,userWarning,userWarningImg);
+        Boolean isEmptyPass = isEmptyField(pass,passWarning,passWarningImg);
+        Boolean loadButton = isEmptyUser && isEmptyPass;
+        isAllDone(loadButton,signIn);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);
-        user.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            boolean isCorrect = checkingCorrection(user, userWarning);
-            warningImage(isCorrect,userWarningImg,userWarning);
-        });
 
-        pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            boolean isCorrect = checkingCorrection(pass, passWarning);
-            warningImage(isCorrect,passWarningImg,passWarning);
-        });
     }
 }

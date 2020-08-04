@@ -4,9 +4,9 @@
 }
 .failed{
     -fx-text-fill:#f90606;
-    /*-fx-text-fill:deeppink;*/
 }
-.succeed{
-    -fx-text-fill:#06dd06;
+.succeed {
+    -fx-text-fill: #06dd06;
 }
+
 

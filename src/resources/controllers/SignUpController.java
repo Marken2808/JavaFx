@@ -1,7 +1,6 @@
 package resources.controllers;
 
 import com.jfoenix.controls.*;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +24,8 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ResourceBundle;
 
+import static resources.functions.duplicated.*;
+
 public class SignUpController implements Initializable {
 
     @FXML
@@ -44,6 +45,15 @@ public class SignUpController implements Initializable {
 
     @FXML
     private Label confirmWarning;
+
+    @FXML
+    private ImageView userWarningImg;
+
+    @FXML
+    private ImageView passWarningImg;
+
+    @FXML
+    private ImageView confirmWarningImg;
 
     @FXML
     private JFXDatePicker datePicker;
@@ -77,38 +87,6 @@ public class SignUpController implements Initializable {
         ageSlider.setShowTickLabels(true);
     }
 
-//    @FXML
-//    void isEmpty(MouseEvent event) {
-//        RequiredFieldValidator userEmpty = new RequiredFieldValidator("Enter username !!!");
-//        RequiredFieldValidator passEmpty = new RequiredFieldValidator("Enter password !!!");
-//
-//        new_user.getValidators().add(userEmpty);
-//        new_pass.getValidators().add(passEmpty);
-//
-//        new_user.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
-//            if(!newValue){
-//                if(new_user.validate()) {
-//                    signUp.setDisable(false);
-//                }
-//                else {
-//                    signUp.setDisable(true);
-//                }
-//            }
-//
-//        });
-//
-//        new_pass.focusedProperty().addListener((ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) -> {
-//            if(!newValue){
-//                if(new_pass.validate()) {
-//                    signUp.setDisable(false);
-//                }
-//                else {
-//                    signUp.setDisable(true);
-//                }
-//
-//            }
-//        });
-//    }
 
     Connection connection = null;
     ResultSet rs = null;
@@ -132,67 +110,18 @@ public class SignUpController implements Initializable {
     }
 
     @FXML
-    void isRight(KeyEvent event) {
-        String pass = new_pass.getText();
-        String check = check_pass.getText();
-        if(check.equals(pass)){
-            confirmWarning.setText("Matched");
-        } else if(check.length()<pass.length()){
-            confirmWarning.setText("Not enough");
-        } else {
-            confirmWarning.setText("Not match");
-        }
-    }
-
-    @FXML
     void isEmpty(KeyEvent event) {
-        boolean userCheck = checkingCorrection(new_user,userWarning);
-        boolean passCheck = checkingCorrection(new_pass,passWarning);
+        Boolean isEmptyUser = isEmptyField(new_user,userWarning,userWarningImg);
+        Boolean isEmptyPass = isEmptyField(new_pass,passWarning,passWarningImg);
+        Boolean isConfirmPass = isConfirmRight(new_pass,check_pass,confirmWarning,confirmWarningImg);
 
-        if(userCheck && passCheck){
-            signUp.setDisable(false);
-        }else{
-            signUp.setDisable(true);
-        }
-    }
-
-    public boolean checkingCorrection(Object obj, Label lb){
-        int length;
-        if(obj instanceof JFXTextField){
-            length = new_user.getText().length();
-            checkingLength(length,lb);
-            if(length<3){
-                return false;
-            }
-        } else if(obj instanceof JFXPasswordField) {
-            length = new_pass.getText().length();
-            checkingLength(length,lb);
-            if(length<3){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public int checkingLength(int length,Label lb){
-        if(length==0){
-            lb.setText("Please fulfill !");
-        } else if(length>0 && length<3){
-            lb.setText("At lease 3 characters !");
-        } else{
-            lb.setText("Correct");
-        }
-        return length;
+        //System.out.println("user "+isEmptyUser + " pass "+isEmptyPass + " conf "+isConfirmPass);
+        Boolean loadButton = isEmptyUser && isEmptyPass && isConfirmPass;
+        isAllDone(loadButton,signUp);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signUp.setDisable(true);
-        new_user.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            checkingCorrection(new_user, userWarning);
-        });
-        new_pass.textProperty().addListener((ObservableValue<? extends String> observableValue, String s, String s2) -> {
-            checkingCorrection(new_pass, passWarning);
-        });
     }
 }
