@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<StackPane fx:id="centerCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.CenterCardController">
+<StackPane fx:id="centerCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="300.0" style="-fx-background-color: red;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.components.CenterCardController">
    <children>
       <Group fx:id="model" />
       <ParallelCamera fx:id="perspectiveCamera" />

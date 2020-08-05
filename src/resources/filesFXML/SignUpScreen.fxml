@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignUpStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.SignUpController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignUpStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.SignUpController">
    <children>
       <StackPane prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;">
          <children>
@@ -181,10 +181,17 @@
             <Image url="@../images/player/messi/16-17.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="backArrow" fitHeight="28.0" fitWidth="28.0" onMouseClicked="#goBack" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
-         <image>
-            <Image url="@../images/icon/chevron-left.png" />
-         </image>
-      </ImageView>
+      <JFXButton fx:id="backArrow" alignment="CENTER" buttonType="RAISED" graphicTextGap="0.0" onMouseClicked="#goBack" text=" " textAlignment="CENTER" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icon/chevron-left.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <padding>
+            <Insets bottom="3.0" left="3.0" top="5.0" />
+         </padding>
+      </JFXButton>
    </children>
 </AnchorPane>

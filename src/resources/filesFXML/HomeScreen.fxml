@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@../stylesheets/HomeStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.HomeController">
+<AnchorPane fx:id="anchorPane" prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@../stylesheets/HomeStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.HomeController">
    <children>
       <VBox>
          <children>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@../stylesheets/HomeStyles.css">
+            <HBox fx:id="headerPane" alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@../stylesheets/HomeStyles.css">
                <children>
                   <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -56,41 +54,9 @@
                   </StackPane>
                </children>
             </HBox>
-            <BorderPane fx:id="borderPane" prefHeight="510.0">
-               <left>
-                  <StackPane prefWidth="300.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXDrawer fx:id="leftCard" defaultDrawerSize="450.0" direction="BOTTOM">
-                           <StackPane.margin>
-                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                           </StackPane.margin>
-                        </JFXDrawer>
-                     </children></StackPane>
-               </left>
-               <center>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXDrawer fx:id="centerCard" defaultDrawerSize="450.0" direction="BOTTOM">
-                           <StackPane.margin>
-                              <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                           </StackPane.margin>
-                        </JFXDrawer>
-                     </children>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin></StackPane>
-               </center>
-               <right>
-                  <StackPane prefHeight="150.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
-               </right>
-               <bottom>
-                  <JFXButton fx:id="viewcard" buttonType="RAISED" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: white;" text="View" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </BorderPane.margin></JFXButton>
-               </bottom></BorderPane>
+            <StackPane fx:id="bodyPane" prefHeight="510.0" prefWidth="1000.0" />
          </children>
       </VBox>
-      <JFXDrawer fx:id="drawer" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />
+      <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

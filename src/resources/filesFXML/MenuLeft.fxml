@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.MenuLeftController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.drawers.MenuLeftController">
    <children>
       <VBox alignment="TOP_CENTER">
          <children>
@@ -13,22 +16,139 @@
                <image>
                   <Image url="@../images/background/1.jpg" />
                </image></ImageView>
-            <JFXButton fx:id="user" onAction="#setUser" prefHeight="100.0" prefWidth="200.0" text="&lt;User&gt;" />
+            <JFXButton fx:id="user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#setUser" prefHeight="50.0" prefWidth="200.0" text="&lt;User&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/user.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="User">
+                           <HBox.margin>
+                              <Insets left="55.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic></JFXButton>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" prefHeight="270.0" prefWidth="201.0">
+      <VBox alignment="TOP_CENTER">
          <children>
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Home" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Category" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="About" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Setting" />
+            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;Home&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/home.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Home">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic></JFXButton>
+            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;Category&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/box.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Category">
+                           <HBox.margin>
+                              <Insets left="45.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic></JFXButton>
+            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;About&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/help-circle.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="About">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic></JFXButton>
+            <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;Setting&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/settings.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Setting">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic></JFXButton>
          </children>
       </VBox>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="122.0" prefWidth="201.0">
+      <VBox alignment="CENTER">
          <children>
-            <JFXButton fx:id="dashboard" onAction="#isShown" prefHeight="50.0" prefWidth="200.0" text="Dashboard" />
-            <JFXButton prefHeight="50.0" prefWidth="200.0" text="Sign Out" />
+            <JFXButton fx:id="dashboard" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#isShown" prefHeight="50.0" prefWidth="200.0" text="&lt;Dashboard&gt;">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/activity.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Dashboard">
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="signOut" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onMouseClicked="#makeLogOut" prefHeight="50.0" prefWidth="200.0" text="&lt; Log out&gt;" textAlignment="CENTER">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icon/log-out.png" />
+                           </image>
+                        </ImageView>
+                        <Label text="Log out">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
          </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
       </VBox>
    </children>
 </VBox>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="signInPane" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignInStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.SignInController">
+<AnchorPane fx:id="signInPane" prefHeight="400.0" prefWidth="600.0" styleClass="body" stylesheets="@../stylesheets/SignInStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.SignInController">
    <children>
       <StackPane layoutX="350.0" prefHeight="400.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;">
          <children>
