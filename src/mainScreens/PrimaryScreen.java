@@ -6,11 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class HomeScreen extends Application {
+public class PrimaryScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(HomeScreen.class.getResource("../resources/filesFXML/HomeScreen.fxml"));
+        Parent root = FXMLLoader.load(PrimaryScreen.class.getResource("../resources/filesFXML/PrimaryScreen.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

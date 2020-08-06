@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import resources.controllers.functions.Preferences;
 import resources.mySQLconnection;
 
 import javax.swing.*;
@@ -51,27 +52,37 @@ public class SignInController implements Initializable {
     @FXML
     private JFXButton signUp;
 
-    @FXML
-    void makeLogin(ActionEvent event) {
 
+
+    public void createConnection() throws IOException {
+        Preferences save = new Preferences();
+        String userDB = user.getText() ;
+        String passDB = pass.getText() ;
         Connection connection = mySQLconnection.ConnectDataBase();
         String query = "Select * from users where username = ? and password = ?";
-            try{
-                PreparedStatement pst = connection.prepareStatement(query);
-                pst.setString(1,user.getText());
-                pst.setString(2,pass.getText());
-                ResultSet rs = pst.executeQuery();
-                if(rs.next()){
-                    JOptionPane.showMessageDialog(null,"Login Successfully");
-                    letMake(signIn,"HomeScreen.fxml");
-                }else{
-                    JOptionPane.showMessageDialog(null,"Incorrect user !");
-                }
+        try{
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1,userDB);
+            pst.setString(2,passDB);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null,"Login Successfully");
+                letMake(signIn,"PrimaryScreen.fxml");
+            }else{
+                JOptionPane.showMessageDialog(null,"Incorrect user !");
             }
-            catch ( Exception e){
-                JOptionPane.showMessageDialog(null,e);
-            }
+        }
+        catch ( Exception e){
+            //JOptionPane.showMessageDialog(null,e);
+        }
     }
+
+
+    @FXML
+    void makeLogin(ActionEvent event) throws IOException {
+        createConnection();
+    }
+
 
     @FXML
     void letRegister(ActionEvent e) throws IOException {
@@ -89,6 +100,5 @@ public class SignInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);
-
     }
 }

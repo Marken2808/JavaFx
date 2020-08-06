@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class mySQLconnection {
+
     Connection connection = null;
 
     public static Connection ConnectDataBase(){

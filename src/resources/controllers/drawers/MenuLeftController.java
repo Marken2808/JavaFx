@@ -3,14 +3,21 @@ package resources.controllers.drawers;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import static resources.controllers.functions.duplicatedForms.*;
+import static resources.controllers.functions.duplicatedForms.letMake;
 
-public class MenuLeftController {
+public class MenuLeftController implements Initializable {
+
+    @FXML
+    private VBox drawerPane;
 
     @FXML
     private ImageView avatar;
@@ -20,6 +27,15 @@ public class MenuLeftController {
 
     @FXML
     private JFXButton dashboard;
+
+    @FXML
+    private JFXButton isHome;
+
+
+    @FXML
+    void isHomeClicked(MouseEvent event) {
+        System.out.println("Home click");
+    }
 
     @FXML
     private JFXButton signOut;
@@ -39,4 +55,9 @@ public class MenuLeftController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+    }
 }

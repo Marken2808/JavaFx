@@ -91,7 +91,7 @@ public class SignUpController implements Initializable {
             JOptionPane.showMessageDialog(null,"Saved");
         }
         catch ( Exception e){
-            JOptionPane.showMessageDialog(null,e);
+            //JOptionPane.showMessageDialog(null,e);
         }
     }
 
