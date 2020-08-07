@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import resources.controllers.functions.Preferences;
 import resources.mySQLconnection;
 
 import javax.swing.*;
@@ -52,10 +51,33 @@ public class SignInController implements Initializable {
     @FXML
     private JFXButton signUp;
 
+    private static SignInController instance;
+    public SignInController(){
+        instance = this;
+    }
+    public static SignInController getInstance(){
+        if(instance == null){
+            instance = new SignInController();
+        }
+        return instance;
+    }
+    public String username(){
+        return user.getText();
+    }
+    public String password(){
+        return pass.getText();
+    }
 
+    public boolean role(){
+        if(user.getText().equals("admin")){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public void createConnection() throws IOException {
-        Preferences save = new Preferences();
+
         String userDB = user.getText() ;
         String passDB = pass.getText() ;
         Connection connection = mySQLconnection.ConnectDataBase();
@@ -68,6 +90,7 @@ public class SignInController implements Initializable {
             if(rs.next()){
                 JOptionPane.showMessageDialog(null,"Login Successfully");
                 letMake(signIn,"PrimaryScreen.fxml");
+
             }else{
                 JOptionPane.showMessageDialog(null,"Incorrect user !");
             }
@@ -82,7 +105,6 @@ public class SignInController implements Initializable {
     void makeLogin(ActionEvent event) throws IOException {
         createConnection();
     }
-
 
     @FXML
     void letRegister(ActionEvent e) throws IOException {
@@ -100,5 +122,6 @@ public class SignInController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);
+
     }
 }

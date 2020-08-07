@@ -13,12 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import resources.controllers.functions.Users;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static resources.controllers.functions.Preferences.mapList;
 
 public class PrimaryController implements Initializable {
 
@@ -27,6 +26,12 @@ public class PrimaryController implements Initializable {
 
     @FXML
     private Label title;
+
+    @FXML
+    private Label typeUser;
+
+    @FXML
+    private Label typePass;
 
     @FXML
     private ImageView menu;
@@ -92,8 +97,11 @@ public class PrimaryController implements Initializable {
             }
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Users.setUsername(typeUser);
+        Users.setPassword(typePass);
 
     }
 

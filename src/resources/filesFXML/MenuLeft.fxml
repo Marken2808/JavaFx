@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="drawerPane" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.drawers.MenuLeftController">
    <children>
@@ -15,7 +16,7 @@
             <Image url="@../images/background/1.jpg" />
          </image>
       </ImageView>
-      <JFXButton fx:id="user" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#setUser" prefHeight="50.0" prefWidth="200.0" text="&lt;User&gt;">
+      <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;User&gt;">
          <graphic>
             <HBox alignment="CENTER_LEFT">
                <children>
@@ -24,11 +25,18 @@
                         <Image url="@../images/icon/user.png" />
                      </image>
                   </ImageView>
-                  <Label text="User">
-                     <HBox.margin>
-                        <Insets left="55.0" />
-                     </HBox.margin>
-                  </Label>
+                  <HBox alignment="CENTER" prefHeight="41.0" prefWidth="135.0">
+                     <children>
+                        <Label fx:id="typeUser" alignment="CENTER" contentDisplay="CENTER" text="User">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Segoe UI Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
          </graphic>
@@ -105,7 +113,7 @@
             </HBox>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="dashboard" accessibleText="Dashboard" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" onAction="#isShown" prefHeight="50.0" prefWidth="200.0" text="&lt;Dashboard&gt;">
+      <JFXButton fx:id="dashboard" accessibleText="Dashboard" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" prefHeight="50.0" prefWidth="200.0" text="&lt;Dashboard&gt;">
          <graphic>
             <HBox alignment="CENTER_LEFT">
                <children>

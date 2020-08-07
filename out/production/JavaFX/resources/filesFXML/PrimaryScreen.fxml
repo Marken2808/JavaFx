@@ -54,7 +54,25 @@
                   </StackPane>
                </children>
             </HBox>
-            <StackPane fx:id="bodyPane" onMouseClicked="#isBodyClicked" prefHeight="510.0" prefWidth="1000.0" />
+            <StackPane fx:id="bodyPane" onMouseClicked="#isBodyClicked" prefHeight="510.0" prefWidth="1000.0">
+               <children>
+                  <Label fx:id="typeUser" style="-fx-background-color: white;" text="typeUser">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets right="100.0" />
+                     </StackPane.margin>
+                  </Label>
+                  <Label fx:id="typePass" style="-fx-background-color: white;" text="typePass">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <StackPane.margin>
+                        <Insets left="100.0" />
+                     </StackPane.margin>
+                  </Label>
+               </children></StackPane>
          </children>
       </VBox>
       <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />

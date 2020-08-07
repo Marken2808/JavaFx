@@ -1,12 +1,13 @@
 package resources.controllers.drawers;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import resources.controllers.functions.Users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +24,7 @@ public class MenuLeftController implements Initializable {
     private ImageView avatar;
 
     @FXML
-    private JFXButton user;
+    private Label typeUser;
 
     @FXML
     private JFXButton dashboard;
@@ -34,7 +35,7 @@ public class MenuLeftController implements Initializable {
 
     @FXML
     void isHomeClicked(MouseEvent event) {
-        System.out.println("Home click");
+        //System.out.println("Home click");
     }
 
     @FXML
@@ -45,18 +46,14 @@ public class MenuLeftController implements Initializable {
         letMake(signOut,"SignInScreen.fxml");
     }
 
-    @FXML
-    void isShown(ActionEvent event) {
-
-    }
-
-    @FXML
-    void setUser(ActionEvent event) {
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Users.setUsername(typeUser);
+        if(Users.getRole()){
+            dashboard.setVisible(true);
+        }else{
+            dashboard.setVisible(false);
+        }
 
 
     }
