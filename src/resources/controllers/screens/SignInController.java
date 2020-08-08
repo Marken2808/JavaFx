@@ -3,12 +3,14 @@ package resources.controllers.screens;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import resources.mySQLconnection;
 
@@ -50,6 +52,18 @@ public class SignInController implements Initializable {
 
     @FXML
     private JFXButton signUp;
+
+
+    @FXML
+    private JFXToggleButton toggleButton;
+
+    @FXML
+    void autoFill(MouseEvent event) {
+        fastTrack(user,userWarning,userWarningImg);
+        fastTrack(pass,passWarning,passWarningImg);
+        signIn.setDisable(false);
+    }
+
 
     private static SignInController instance;
     public SignInController(){

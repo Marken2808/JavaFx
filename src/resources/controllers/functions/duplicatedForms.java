@@ -106,4 +106,19 @@ public class duplicatedForms {
         }
         return false;
     }
+
+    public static void fastTrack(Object obj, Label objLabel, ImageView objImg){
+        objImg.setVisible(true);
+        objLabel.setDisable(false);
+
+        if(obj instanceof JFXTextField){
+            ((JFXTextField)obj).setText("admin");
+        } else if (obj instanceof JFXPasswordField){
+            ((JFXPasswordField)obj).setText("pass");
+        }
+
+        objLabel.getStyleClass().add("succeed");
+        objLabel.setText("Auto admin mode on");
+        objImg.setImage(new Image("./resources/images/icon/key_green.png"));
+    }
 }

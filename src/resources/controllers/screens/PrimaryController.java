@@ -52,7 +52,7 @@ public class PrimaryController implements Initializable {
 
     @FXML
     void isMenuClicked(MouseEvent event) throws IOException {
-        VBox menuLeft = FXMLLoader.load(getClass().getResource("../../filesFXML/MenuLeft.fxml"));
+        VBox menuLeft = FXMLLoader.load(getClass().getResource("/resources/filesFXML/MenuLeft.fxml"));
         drawerPane.setSidePane(menuLeft);
         showElements(menuLeft);
         drawerChecking(menu);
