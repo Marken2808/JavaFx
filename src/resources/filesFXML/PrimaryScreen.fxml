@@ -13,7 +13,7 @@
 
 <AnchorPane fx:id="anchorPane" prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@../stylesheets/HomeStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.PrimaryController">
    <children>
-      <VBox>
+      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox fx:id="headerPane" alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@../stylesheets/HomeStyles.css">
                <children>
@@ -30,6 +30,7 @@
                      </padding>
                   </StackPane>
                   <StackPane prefHeight="150.0" prefWidth="200.0" />
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <Label fx:id="title" text="TOLO">
@@ -39,6 +40,7 @@
                         </Label>
                      </children>
                   </StackPane>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" />
                   <StackPane prefHeight="150.0" prefWidth="200.0" />
                   <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -75,6 +77,6 @@
                </children></StackPane>
          </children>
       </VBox>
-      <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" />
+      <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
 </AnchorPane>

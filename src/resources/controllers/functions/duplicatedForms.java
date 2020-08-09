@@ -22,7 +22,6 @@ public class duplicatedForms {
         Stage Stage = new Stage();
         Scene Scene = new Scene(Root);
         Stage.setScene(Scene);
-        Stage.setResizable(false);
         Stage.show();
 
     }
