@@ -8,75 +8,65 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" prefHeight="550.0" prefWidth="1000.0" styleClass="body" stylesheets="@../stylesheets/HomeStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.PrimaryController">
    <children>
-      <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="headerPane" alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@../stylesheets/HomeStyles.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox fx:id="headerPane" alignment="CENTER" prefHeight="40.0" prefWidth="1000.0" styleClass="header" stylesheets="@../stylesheets/HomeStyles.css">
+            <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <StackPane alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="menu" fitHeight="150.0" fitWidth="30.0" onMouseClicked="#isMenuClicked" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                           <image>
-                              <Image url="@../images/icon/menu.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
-                  </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="title" text="TOLO">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </StackPane>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
-                  <StackPane prefHeight="150.0" prefWidth="200.0" />
-                  <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <ImageView pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/icon/search.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding>
-                  </StackPane>
+                  <ImageView fx:id="menu" fitHeight="150.0" fitWidth="30.0" onMouseClicked="#isMenuClicked" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                     <image>
+                        <Image url="@../images/icon/menu.png" />
+                     </image>
+                  </ImageView>
                </children>
-            </HBox>
-            <StackPane fx:id="bodyPane" onMouseClicked="#isBodyClicked" prefHeight="510.0" prefWidth="1000.0">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0" />
+            <StackPane prefHeight="150.0" prefWidth="200.0" />
+            <StackPane prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="typeUser" style="-fx-background-color: white;" text="typeUser">
+                  <Label fx:id="title" text="TOLO">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="18.0" />
                      </font>
-                     <StackPane.margin>
-                        <Insets right="100.0" />
-                     </StackPane.margin>
                   </Label>
-                  <Label fx:id="typePass" style="-fx-background-color: white;" text="typePass">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <StackPane.margin>
-                        <Insets left="100.0" />
-                     </StackPane.margin>
-                  </Label>
-               </children></StackPane>
+               </children>
+            </StackPane>
+            <StackPane prefHeight="150.0" prefWidth="200.0" />
+            <StackPane prefHeight="150.0" prefWidth="200.0" />
+            <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icon/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </StackPane>
          </children>
-      </VBox>
-      <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="41.0" prefHeight="510.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      </HBox>
+      <StackPane fx:id="bodyPane" prefHeight="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Label fx:id="typePass" style="-fx-background-color: white;" text="typePass">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="typeUser" style="-fx-background-color: white;" text="typeUser">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </StackPane>
+      <JFXDrawer fx:id="drawerPane" defaultDrawerSize="200.0" layoutY="40.0" onMouseExited="#drawerExit" prefHeight="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
 </AnchorPane>

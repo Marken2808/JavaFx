@@ -46,30 +46,38 @@ public class PrimaryController implements Initializable {
     public JFXDrawer drawerPane;
 
     @FXML
-    void isBodyClicked(MouseEvent event) {
-        drawerChecking(bodyPane);
-    }
-
-    @FXML
     void isMenuClicked(MouseEvent event) throws IOException {
+        // set Drawer always starts from left 0.0;
+        AnchorPane.setTopAnchor(drawerPane,40.0);
+        AnchorPane.setLeftAnchor(drawerPane, 0.0);
+        AnchorPane.setBottomAnchor(drawerPane,0.0);
+
         VBox menuLeft = FXMLLoader.load(getClass().getResource("/resources/filesFXML/MenuLeft.fxml"));
         drawerPane.setSidePane(menuLeft);
         showElements(menuLeft);
-        drawerChecking(menu);
+
+        if (drawerPane.isClosed() || drawerPane.isClosing()) {
+            drawerPane.open();
+            menu.setImage(new Image("./resources/images/icon/x.png"));
+        } else {
+            drawerPane.close();
+            menu.setImage(new Image("./resources/images/icon/menu.png"));
+        }
     }
 
-    public void drawerChecking(Object cls){
+    @FXML
+    void drawerExit(MouseEvent event) {
+
         if(drawerPane.isOpened() || drawerPane.isOpening()) {
             drawerPane.close();
             menu.setImage(new Image("./resources/images/icon/menu.png"));
         }
-        else if(cls instanceof ImageView){
-            if (drawerPane.isClosed() || drawerPane.isClosing()) {
-                drawerPane.open();
-                menu.setImage(new Image("./resources/images/icon/x.png"));
-            }
-        }
+        // set Drawer always hide away from main scene;
+        AnchorPane.clearConstraints(drawerPane);
+        AnchorPane.setLeftAnchor(drawerPane, -200.0);
     }
+
+
 
     public void showElements(VBox menuLeft) throws IOException {
         AnchorPane home = FXMLLoader.load(getClass().getResource("../../filesFXML/HomeScreen.fxml"));
@@ -98,10 +106,13 @@ public class PrimaryController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         Users.setUsername(typeUser);
         Users.setPassword(typePass);
+
 
     }
 

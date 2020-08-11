@@ -1,47 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDrawer?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane opacity="0.4" prefHeight="510.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.ActivityScreenController">
+<AnchorPane prefHeight="510.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.screens.ActivityScreenController">
    <children>
-      <BorderPane fx:id="borderPane" layoutX="10.0" layoutY="10.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <left>
-            <StackPane prefWidth="300.0" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXDrawer fx:id="leftCard" defaultDrawerSize="450.0" direction="BOTTOM">
-                     <StackPane.margin>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-                     </StackPane.margin>
-                  </JFXDrawer>
-               </children>
-            </StackPane>
-         </left>
-         <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-               <children>
-                  <PieChart />
-               </children>
-            </StackPane>
-         </center>
-         <right>
-            <StackPane prefHeight="150.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <JFXButton fx:id="viewcard" buttonType="RAISED" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: white;" text="View" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="20.0" top="10.0" />
-               </BorderPane.margin>
-            </JFXButton>
-         </bottom>
-      </BorderPane>
+      <TabPane style="-fx-background-color: green;" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Users">
+            <content>
+              <AnchorPane>
+                     <children>
+                        <StackPane fx:id="userPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Players">
+            <content>
+              <AnchorPane />
+            </content>
+          </Tab>
+            <Tab text="Clubs">
+               <content>
+                  <AnchorPane />
+               </content>
+            </Tab>
+            <Tab text="Leagues">
+               <content>
+                  <AnchorPane />
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>
