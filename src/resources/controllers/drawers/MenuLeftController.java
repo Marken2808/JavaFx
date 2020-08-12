@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static resources.controllers.functions.duplicatedForms.letMake;
+import static resources.controllers.functions.duplicatedForms.*;
 
 public class MenuLeftController implements Initializable {
 
@@ -43,18 +43,16 @@ public class MenuLeftController implements Initializable {
 
     @FXML
     void makeLogOut(MouseEvent event) throws IOException {
-        letMake(signOut,"SignInScreen.fxml");
+        letMake(signOut, "SignInScreen.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Users.setUsername(typeUser);
-        if(Users.getRole()){
+        Users.checkProfileName(typeUser);
+        if (Users.checkRole().equals("admin")) {
             dashboard.setVisible(true);
-        }else{
+        } else {
             dashboard.setVisible(false);
         }
-
-
     }
 }

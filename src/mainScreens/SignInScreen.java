@@ -15,7 +15,7 @@ public class SignInScreen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(SignInScreen.class.getResource("../resources/filesFXML/SignInScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../resources/filesFXML/SignInScreen.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

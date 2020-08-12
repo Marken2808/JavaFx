@@ -110,8 +110,8 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Users.setUsername(typeUser);
-        Users.setPassword(typePass);
+        Users.checkProfileName(typeUser);
+        Users.checkPassword(typePass);
 
 
     }

@@ -14,12 +14,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import resources.mySQLconnection;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static resources.controllers.functions.duplicatedForms.*;
@@ -64,60 +64,15 @@ public class SignInController implements Initializable {
         signIn.setDisable(false);
     }
 
-
-    private static SignInController instance;
-    public SignInController(){
-        instance = this;
-    }
-    public static SignInController getInstance(){
-        if(instance == null){
-            instance = new SignInController();
-        }
-        return instance;
-    }
-    public String username(){
-        return user.getText();
-    }
-    public String password(){
-        return pass.getText();
-    }
-
-    public boolean role(){
-        if(user.getText().equals("admin")){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    public void createConnection() throws IOException {
-
-        String userDB = user.getText() ;
-        String passDB = pass.getText() ;
-        Connection connection = mySQLconnection.ConnectDataBase();
-        String query = "Select * from users where username = ? and password = ?";
-        try{
-            PreparedStatement pst = connection.prepareStatement(query);
-            pst.setString(1,userDB);
-            pst.setString(2,passDB);
-            ResultSet rs = pst.executeQuery();
-            if(rs.next()){
-                JOptionPane.showMessageDialog(null,"Login Successfully");
-                letMake(signIn,"PrimaryScreen.fxml");
-
-            }else{
-                JOptionPane.showMessageDialog(null,"Incorrect user !");
-            }
-        }
-        catch ( Exception e){
-            //JOptionPane.showMessageDialog(null,e);
-        }
-    }
-
-
     @FXML
     void makeLogin(ActionEvent event) throws IOException {
-        createConnection();
+            //System.out.println(createConnectionWithRole());
+        if(createConnectionWithRole() != null){
+            letMake(signIn,"PrimaryScreen.fxml");
+        }else{
+            System.out.println("wrong input");
+        }
+
     }
 
     @FXML
@@ -133,6 +88,46 @@ public class SignInController implements Initializable {
         isAllDone(loadButton,signIn);
     }
 
+
+    private static SignInController instance;
+    public SignInController(){
+        instance = this;
+    }
+    public static SignInController getInstance(){
+        if(instance == null){
+            instance = new SignInController();
+        }
+        return instance;
+    }
+
+    public ArrayList<String> createConnectionWithRole(){
+        String userDB = user.getText() ;
+        String passDB = pass.getText() ;
+
+        Connection connection = mySQLconnection.ConnectDataBase();
+        String query = "Select * from users where username = ? and password = ?";
+        try{
+            PreparedStatement pst = connection.prepareStatement(query);
+            pst.setString(1,userDB);
+            pst.setString(2,passDB);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) {
+                ArrayList<String> objToken = new ArrayList<>();
+
+                objToken.add(rs.getString("role"));
+                objToken.add(rs.getString("username"));
+                objToken.add(rs.getString("password"));
+                objToken.add(rs.getString("profilename"));
+
+                return objToken;
+            }
+        }
+        catch ( Exception e){
+            //JOptionPane.showMessageDialog(null,e);
+        }
+        return null;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         signIn.setDisable(true);

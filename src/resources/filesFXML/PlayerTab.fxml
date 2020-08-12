@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" opacity="0.6" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.tabs.UserTabController">
+   <children>
+      <TableView AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+        <columns>
+          <TableColumn minWidth="-1.0" prefWidth="100.0" text="Username" />
+          <TableColumn minWidth="-1.0" prefWidth="100.0" text="Password" />
+        </columns>
+      </TableView>
+      <StackPane prefHeight="200.0" prefWidth="1000.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <effect>
+            <DropShadow />
+         </effect></StackPane>
+   </children>
+</AnchorPane>
