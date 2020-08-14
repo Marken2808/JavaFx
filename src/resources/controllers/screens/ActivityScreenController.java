@@ -19,12 +19,18 @@ public class ActivityScreenController implements Initializable {
     @FXML
     private StackPane userPane;
 
+    @FXML
+    private StackPane playerPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try {
             AnchorPane userTab = FXMLLoader.load(getClass().getResource("/resources/filesFXML/UserTab.fxml"));
+            AnchorPane playerTab = FXMLLoader.load(getClass().getResource("/resources/filesFXML/PlayerTab2.fxml"));
+
             userPane.getChildren().add(userTab);
+            playerPane.getChildren().setAll(playerTab);
         } catch (IOException e) {
             e.printStackTrace();
         }

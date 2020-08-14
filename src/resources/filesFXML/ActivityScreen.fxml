@@ -20,7 +20,10 @@
           </Tab>
           <Tab text="Players">
             <content>
-              <AnchorPane />
+              <AnchorPane>
+                     <children>
+                        <StackPane fx:id="playerPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
             <Tab text="Clubs">

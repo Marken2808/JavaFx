@@ -6,15 +6,20 @@ import java.util.ArrayList;
 
 public class Users {
 
+    private String role;
     private String username;
     private String password;
-    private String role;
+    private String profilename;
 
-    public Users(String role, String username, String password) {
+
+    public Users(String role, String username, String password, String profilename) {
         this.role = role;
         this.username = username;
         this.password = password;
+        this.profilename = profilename;
     }
+
+    public Users(){}
 
     public String getRole() {
         return role;
@@ -28,20 +33,25 @@ public class Users {
         return password;
     }
 
+    public String getProfilename() {
+        return profilename;
+    }
+
     public void setRole(String role) {
         this.role = role;
     }
 
-//    public void setUsername(String username) {
-//        this.username = username;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-
+    public void setProfilename(String profilename) {
+        this.profilename = profilename;
+    }
 
     public static void checkProfileName (Label typeUser){
         typeUser.setText("@"+checkCurrentUser().get(3));

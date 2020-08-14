@@ -49,7 +49,7 @@ public class MenuLeftController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Users.checkProfileName(typeUser);
-        if (Users.checkRole().equals("admin")) {
+        if (Users.checkRole().equals("Admin")) {
             dashboard.setVisible(true);
         } else {
             dashboard.setVisible(false);
