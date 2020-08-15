@@ -42,8 +42,10 @@ public class Players extends RecursiveTreeObject<Players> {
     private int strength;
     private int aggression;
 
-    public Players(){}
+    private String test;
 
+    public Players(){
+    }
 
 
     public Players(
