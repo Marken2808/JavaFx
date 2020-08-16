@@ -1200,7 +1200,7 @@
                </StackPane.margin>
             </HBox>
          </children></StackPane>
-      <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+      <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
         <columns>
           <TreeTableColumn fx:id="nameCol" minWidth="-1.0" prefWidth="100.0" text="Name" />
           <TreeTableColumn fx:id="clubCol" minWidth="-1.0" prefWidth="100.0" text="Club" />

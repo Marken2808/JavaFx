@@ -48,45 +48,10 @@ public class Players extends RecursiveTreeObject<Players> {
     }
 
 
-    public Players(
-            String pname, String pclub, String position, int acceleration,
-            int sprintspeed, int positioning, int finishing, int shotpower,
-            int longshot, int volleys, int penalties, int vision, int crossing,
-            int freekick, int shortpassing, int longpassing, int curve,
-            int agility, int balance, int reactions, int ballcontrol, int dribbling,
-            int interceptions, int heading, int marking, int standtackle,
-            int slidingtackle, int jumping, int strength, int aggression
-    ) {
+    public Players(String pname, String pclub, String position) {
         this.pname = pname;
         this.pclub = pclub;
         this.position = position;
-        this.acceleration = acceleration;
-        this.sprintspeed = sprintspeed;
-        this.positioning = positioning;
-        this.finishing = finishing;
-        this.shotpower = shotpower;
-        this.longshot = longshot;
-        this.volleys = volleys;
-        this.penalties = penalties;
-        this.vision = vision;
-        this.crossing = crossing;
-        this.freekick = freekick;
-        this.shortpassing = shortpassing;
-        this.longpassing = longpassing;
-        this.curve = curve;
-        this.agility = agility;
-        this.balance = balance;
-        this.reactions = reactions;
-        this.ballcontrol = ballcontrol;
-        this.dribbling = dribbling;
-        this.interceptions = interceptions;
-        this.heading = heading;
-        this.marking = marking;
-        this.standtackle = standtackle;
-        this.slidingtackle = slidingtackle;
-        this.jumping = jumping;
-        this.strength = strength;
-        this.aggression = aggression;
     }
 
     public String getPname() {
@@ -113,6 +78,7 @@ public class Players extends RecursiveTreeObject<Players> {
         this.position = position;
     }
 
+    ///////////////////////////////
     public int getStatPace() {
         return (acceleration+sprintspeed)/2;
     }
@@ -136,6 +102,116 @@ public class Players extends RecursiveTreeObject<Players> {
     public int getStatPhysical() {
         return (jumping+strength+aggression)/3;
     }
+    //////////////////////////////////
+
+    public void setAcceleration(int acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public void setSprintspeed(int sprintspeed) {
+        this.sprintspeed = sprintspeed;
+    }
+
+    public void setPositioning(int positioning) {
+        this.positioning = positioning;
+    }
+
+    public void setFinishing(int finishing) {
+        this.finishing = finishing;
+    }
+
+    public void setShotpower(int shotpower) {
+        this.shotpower = shotpower;
+    }
+
+    public void setLongshot(int longshot) {
+        this.longshot = longshot;
+    }
+
+    public void setVolleys(int volleys) {
+        this.volleys = volleys;
+    }
+
+    public void setPenalties(int penalties) {
+        this.penalties = penalties;
+    }
+
+    public void setVision(int vision) {
+        this.vision = vision;
+    }
+
+    public void setCrossing(int crossing) {
+        this.crossing = crossing;
+    }
+
+    public void setFreekick(int freekick) {
+        this.freekick = freekick;
+    }
+
+    public void setShortpassing(int shortpassing) {
+        this.shortpassing = shortpassing;
+    }
+
+    public void setLongpassing(int longpassing) {
+        this.longpassing = longpassing;
+    }
+
+    public void setCurve(int curve) {
+        this.curve = curve;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void setReactions(int reactions) {
+        this.reactions = reactions;
+    }
+
+    public void setBallcontrol(int ballcontrol) {
+        this.ballcontrol = ballcontrol;
+    }
+
+    public void setDribbling(int dribbling) {
+        this.dribbling = dribbling;
+    }
+
+    public void setInterceptions(int interceptions) {
+        this.interceptions = interceptions;
+    }
+
+    public void setHeading(int heading) {
+        this.heading = heading;
+    }
+
+    public void setMarking(int marking) {
+        this.marking = marking;
+    }
+
+    public void setStandtackle(int standtackle) {
+        this.standtackle = standtackle;
+    }
+
+    public void setSlidingtackle(int slidingtackle) {
+        this.slidingtackle = slidingtackle;
+    }
+
+    public void setJumping(int jumping) {
+        this.jumping = jumping;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public void setAggression(int aggression) {
+        this.aggression = aggression;
+    }
+
 
 //    public static void checkProfileName (Label typeUser){
 //        typeUser.setText("@"+checkCurrentUser().get(3));

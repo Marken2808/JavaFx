@@ -51,40 +51,44 @@ public class mySQLconnection {
             while (rs.next()){
 //                int test = rs.getInt("acceleration");
 //                System.out.println("acceleration: "+test);
-                playerLists.add(
-                    new Players(
-                        rs.getString("name"),
-                        rs.getString("club"),
-                        rs.getString("position"),
-                        rs.getInt("acceleration"),
-                        rs.getInt("sprintspeed"),
-                        rs.getInt("positioning"),
-                        rs.getInt("finishing"),
-                        rs.getInt("shotpower"),
-                        rs.getInt("longshot"),
-                        rs.getInt("volleys"),
-                        rs.getInt("penalties"),
-                        rs.getInt("vision"),
-                        rs.getInt("crossing"),
-                        rs.getInt("freekick"),
-                        rs.getInt("shortpassing"),
-                        rs.getInt("longpassing"),
-                        rs.getInt("curve"),
-                        rs.getInt("agility"),
-                        rs.getInt("balance"),
-                        rs.getInt("reactions"),
-                        rs.getInt("ballcontrol"),
-                        rs.getInt("dribbling"),
-                        rs.getInt("interceptions"),
-                        rs.getInt("heading"),
-                        rs.getInt("marking"),
-                        rs.getInt("standtackle"),
-                        rs.getInt("slidingtackle"),
-                        rs.getInt("jumping"),
-                        rs.getInt("strength"),
-                        rs.getInt("aggression")
-                    )
-                );
+                Players plStat = new Players();
+                    plStat.setPname(rs.getString("name"));
+                    plStat.setPclub(rs.getString("club"));
+                    plStat.setPosition(rs.getString("position"));
+                    plStat.setAcceleration(rs.getInt("acceleration"));
+                    plStat.setSprintspeed(rs.getInt("sprintspeed"));
+                    plStat.setPositioning(rs.getInt("positioning"));
+                    plStat.setFinishing(rs.getInt("finishing"));
+                    plStat.setShotpower(rs.getInt("shotpower"));
+                    plStat.setLongshot(rs.getInt("longshot"));
+                    plStat.setVolleys(rs.getInt("volleys"));
+                    plStat.setPenalties(rs.getInt("penalties"));
+                    plStat.setVision(rs.getInt("vision"));
+                    plStat.setCrossing(rs.getInt("crossing"));
+                    plStat.setFreekick(rs.getInt("freekick"));
+                    plStat.setShortpassing(rs.getInt("shortpassing"));
+                    plStat.setLongpassing(rs.getInt("longpassing"));
+                    plStat.setCurve(rs.getInt("curve"));
+                    plStat.setAgility(rs.getInt("agility"));
+                    plStat.setBalance(rs.getInt("balance"));
+                    plStat.setReactions(rs.getInt("reactions"));
+                    plStat.setBallcontrol(rs.getInt("ballcontrol"));
+                    plStat.setDribbling(rs.getInt("dribbling"));
+                    plStat.setInterceptions(rs.getInt("interceptions"));
+                    plStat.setHeading(rs.getInt("heading"));
+                    plStat.setMarking(rs.getInt("marking"));
+                    plStat.setStandtackle(rs.getInt("standtackle"));
+                    plStat.setSlidingtackle(rs.getInt("slidingtackle"));
+                    plStat.setJumping(rs.getInt("jumping"));
+                    plStat.setStrength(rs.getInt("strength"));
+                    plStat.setAggression(rs.getInt("aggression"));
+
+
+                //Players plInfo = new Players();
+
+
+                playerLists.addAll(plStat);
+
             }
         } catch (SQLException throwables) {
             //throwables.printStackTrace();

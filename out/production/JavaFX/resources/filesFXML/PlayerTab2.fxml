@@ -49,7 +49,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -69,7 +69,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -89,7 +89,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -121,7 +121,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -141,7 +141,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -161,7 +161,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -181,7 +181,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -201,7 +201,7 @@
                               </Label>
                               <JFXTextField alignment="CENTER" prefColumnCount="10">
                                  <font>
-                                    <Font size="12.0" />
+                                    <Font size="12.5" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="8.0" />
@@ -214,7 +214,7 @@
                         </HBox>
                      </children>
                      <HBox.margin>
-                        <Insets right="10.0" />
+                        <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </VBox>
                   <VBox alignment="TOP_CENTER" layoutX="-30.0" style="-fx-background-color: #d9d9d9;">
@@ -248,7 +248,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                        <HBox.margin>
                                           <Insets />
@@ -289,7 +289,7 @@
                                           <Insets />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -336,7 +336,7 @@
                                           <Insets />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -368,7 +368,7 @@
                                           <Insets />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -400,7 +400,7 @@
                                           <Insets />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -451,7 +451,7 @@
                                           <Insets />
                                        </HBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -480,7 +480,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -509,7 +509,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -538,7 +538,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -567,7 +567,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -596,7 +596,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -644,7 +644,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -673,7 +673,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -702,7 +702,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -731,7 +731,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -760,7 +760,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -789,7 +789,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -837,7 +837,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -866,7 +866,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -895,7 +895,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -924,7 +924,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -953,7 +953,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1001,7 +1001,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1030,7 +1030,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1059,7 +1059,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1088,7 +1088,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1117,7 +1117,7 @@
                                     </Label>
                                     <TextField alignment="CENTER" prefWidth="40.0">
                                        <font>
-                                          <Font name="System Bold" size="10.5" />
+                                          <Font name="Segoe UI" size="12.5" />
                                        </font>
                                     </TextField>
                                  </children>
@@ -1200,7 +1200,7 @@
                </StackPane.margin>
             </HBox>
          </children></StackPane>
-      <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+      <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
         <columns>
           <TreeTableColumn fx:id="nameCol" minWidth="-1.0" prefWidth="100.0" text="Name" />
           <TreeTableColumn fx:id="clubCol" minWidth="-1.0" prefWidth="100.0" text="Club" />
