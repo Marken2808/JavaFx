@@ -104,6 +104,116 @@ public class Players extends RecursiveTreeObject<Players> {
     }
     //////////////////////////////////
 
+
+    public int getAcceleration() {
+        return acceleration;
+    }
+
+    public int getSprintspeed() {
+        return sprintspeed;
+    }
+
+    public int getPositioning() {
+        return positioning;
+    }
+
+    public int getFinishing() {
+        return finishing;
+    }
+
+    public int getShotpower() {
+        return shotpower;
+    }
+
+    public int getLongshot() {
+        return longshot;
+    }
+
+    public int getVolleys() {
+        return volleys;
+    }
+
+    public int getPenalties() {
+        return penalties;
+    }
+
+    public int getVision() {
+        return vision;
+    }
+
+    public int getCrossing() {
+        return crossing;
+    }
+
+    public int getFreekick() {
+        return freekick;
+    }
+
+    public int getShortpassing() {
+        return shortpassing;
+    }
+
+    public int getLongpassing() {
+        return longpassing;
+    }
+
+    public int getCurve() {
+        return curve;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public int getReactions() {
+        return reactions;
+    }
+
+    public int getBallcontrol() {
+        return ballcontrol;
+    }
+
+    public int getDribbling() {
+        return dribbling;
+    }
+
+    public int getInterceptions() {
+        return interceptions;
+    }
+
+    public int getHeading() {
+        return heading;
+    }
+
+    public int getMarking() {
+        return marking;
+    }
+
+    public int getStandtackle() {
+        return standtackle;
+    }
+
+    public int getSlidingtackle() {
+        return slidingtackle;
+    }
+
+    public int getJumping() {
+        return jumping;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getAggression() {
+        return aggression;
+    }
+
+    /////////////////////////////////
     public void setAcceleration(int acceleration) {
         this.acceleration = acceleration;
     }
