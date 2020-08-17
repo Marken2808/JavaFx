@@ -115,6 +115,7 @@ public class UserTabController implements Initializable {
         addBtn.setDisable(false);
 
         Users selectedUser = tableUser.getSelectionModel().getSelectedItem();
+
         if(!tableUser.getSelectionModel().isEmpty()){
             if(event.getClickCount() == 2){
                 getDataOnRow(selectedUser);

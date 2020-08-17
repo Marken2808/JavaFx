@@ -8,10 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import resources.controllers.functions.Players;
@@ -199,15 +196,42 @@ public class PlayerTabController2 implements Initializable {
 
     @FXML
     void clickOnTree(MouseEvent event) {
+        
+        if(event.getClickCount() == 2){
+            Players selectedPlayer = treePlayer.getSelectionModel().getSelectedItem().getValue();
+            getDataOnRow(selectedPlayer);
+//            delBtn.setDisable(false);
+//            editBtn.setDisable(false);
+//            addBtn.setDisable(true);
+        }else{
+            treePlayer.getSelectionModel().clearSelection(treePlayer.getSelectionModel().getSelectedIndex());
+        }
 
-        Players selectedPlayer = treePlayer.getSelectionModel().getSelectedItem().getValue();
-        getDataOnRow(selectedPlayer);
 
     }
 
     void setDataShow(TextField statField, JFXSlider statSlider, int statNum){
-        statField.setText(String.valueOf(statNum));
         statSlider.setValue(statNum);
+        statField.setText(String.valueOf(statNum));
+
+        statSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+              statField.textProperty().setValue(
+                        String.valueOf(newValue.intValue()));
+            }
+        );
+
+
+        statField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")){
+                statField.setText(newValue.replaceAll("[^\\d]", ""));
+            } else if(newValue.isEmpty()){
+                statField.setStyle(  "-fx-text-box-border: #ff1a1a ; -fx-focus-color: #ff1a1a ;");
+            }
+            else {
+                statField.setStyle(null);
+                statSlider.valueProperty().setValue( Double.parseDouble(newValue));
+            }
+        });
     }
     
     void getDataOnRow(Players pl){
