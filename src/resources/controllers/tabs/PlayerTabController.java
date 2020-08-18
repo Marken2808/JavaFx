@@ -1,9 +1,6 @@
 package resources.controllers.tabs;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSlider;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +19,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static resources.mySQLconnection.*;
-import static resources.mySQLconnection.pst;
 
 public class PlayerTabController implements Initializable {
 
@@ -33,7 +29,7 @@ public class PlayerTabController implements Initializable {
     private JFXTextField clubField;
 
     @FXML
-    private JFXTextField posField;
+    private JFXComboBox<String> posBox;
 
     @FXML
     private TextField accelerationBox;
@@ -214,17 +210,33 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     void deleteDB(MouseEvent event) {
-
+        String query = "Delete from players where name = ?";
+        try {
+            pst = connection.prepareStatement(query);
+            pst.setString(1, nameField.getText());
+            pst.execute();
+            getUpdateTable();
+        } catch (Exception e) {
+        }
     }
-
+    
     @FXML
     void insertDB(MouseEvent event) {
-        String query = "Insert into players (name,club,position,acceleration, sprintspeed, positioning,finishing, shotpower, longshot, volleys,penalties, vision, crossing, freekick,shortpassing, longpassing, curve, agility,balance, reaction, ballcontrol, dribbling,interceptions, heading, marking, standtackle,slidingtackle, jumping, strength,aggression) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "Insert into players (" +
+                "name,club,position," +
+                "acceleration, sprintspeed, positioning," +
+                "finishing, shotpower, longshot, volleys," +
+                "penalties, vision, crossing, freekick," +
+                "shortpassing, longpassing, curve, agility," +
+                "balance, reactions, ballcontrol, dribbling," +
+                "interceptions, heading, marking, standtackle," +
+                "slidingtackle, jumping, strength,aggression" +
+                ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = connection.prepareStatement(query);
             pst.setString(1,nameField.getText());
             pst.setString(2,clubField.getText());
-            pst.setString(3,posField.getText());
+            pst.setString(3,posBox.getValue());
             pst.setDouble(4,accelerationSlider.getValue());
             pst.setDouble(5,sprintSpeedSlider.getValue());
             pst.setDouble(6,positioningSlider.getValue());
@@ -252,8 +264,6 @@ public class PlayerTabController implements Initializable {
             pst.setDouble(28,jumpingSlider.getValue());
             pst.setDouble(29,strengthSlider.getValue());
             pst.setDouble(30,aggressionSlider.getValue());
-
-
             pst.execute();
             getUpdateTable();
         } catch (SQLException throwables) {
@@ -263,7 +273,47 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     void updateDB(MouseEvent event) {
+        try {
+            String newName = nameField.getText();
+            String sql = "Update players Set " +
+                    "name = '"+newName+"', " +
+                    "club = '"+clubField.getText()+"', " +
+                    "position = '"+posBox.getValue()+"', " +
+                    "acceleration= '"+accelerationSlider.getValue()+"', " +
+                    "sprintspeed= '"+sprintSpeedSlider.getValue()+"', " +
+                    "positioning= '"+positioningSlider.getValue()+"'," +
+                    "finishing= '"+finishingSlider.getValue()+"'," +
+                    "shotpower= '"+shotPowerSlider.getValue()+"', " +
+                    "longshot= '"+longShotSlider.getValue()+"', " +
+                    "volleys= '"+volleysSlider.getValue()+"'," +
+                    "penalties= '"+penaltiesSlider.getValue()+"'," +
+                    "vision= '"+visionSlider.getValue()+"'," +
+                    "crossing= '"+crossingSlider.getValue()+"'," +
+                    "freekick= '"+freeKickSlider.getValue()+"'," +
+                    "shortpassing= '"+shortPassingSlider.getValue()+"'," +
+                    "longpassing= '"+longPassingSlider.getValue()+"'," +
+                    "curve= '"+curveSlider.getValue()+"'," +
+                    "agility= '"+agilitySlider.getValue()+"'," +
+                    "balance= '"+balanceSlider.getValue()+"'," +
+                    "reactions= '"+reactionsSlider.getValue()+"'," +
+                    "ballcontrol= '"+ballControlSlider.getValue()+"'," +
+                    "dribbling= '"+dribblingSlider.getValue()+"'," +
+                    "interceptions= '"+interceptionsSlider.getValue()+"'," +
+                    "heading= '"+headingSlider.getValue()+"'," +
+                    "marking= '"+markingSlider.getValue()+"'," +
+                    "standtackle= '"+standTackleSlider.getValue()+"'," +
+                    "slidingtackle= '"+slidingTackleSlider.getValue()+"'," +
+                    "jumping= '"+jumpingSlider.getValue()+"'," +
+                    "strength= '"+strengthSlider.getValue()+"'," +
+                    "aggression= '"+aggressionSlider.getValue()+"' " +
+                    "where name='"+newName+"' ";
 
+            pst= connection.prepareStatement(sql);
+            pst.execute();
+            getUpdateTable();
+
+        } catch (Exception e) {
+        }
     }
 
     @FXML
@@ -310,7 +360,7 @@ public class PlayerTabController implements Initializable {
     void getDataOnRow(Players pl){
         nameField.setText(pl.getPname());
         clubField.setText(pl.getPclub());
-        posField.setText(pl.getPosition());
+        posBox.setValue(pl.getPosition());
 
         setDataShow(accelerationBox,accelerationSlider,pl.getAcceleration());
         setDataShow(sprintSpeedBox,sprintSpeedSlider,pl.getSprintspeed());
@@ -344,6 +394,11 @@ public class PlayerTabController implements Initializable {
     }
 
     ObservableList<Players>  playerLists = FXCollections.observableArrayList();
+    ObservableList<String> positionLists = FXCollections.observableArrayList(
+            "LW","ST","RW","LF","CF","RF",
+            "LM","CM","CAM","CDM","RM",
+            "LWB","LB","CB","RB","RWB","GK"
+            );
     void getUpdateTable(){
         nameCol.setCellValueFactory(
                 new TreeItemPropertyValueFactory<Players,String>("pname")
@@ -373,6 +428,7 @@ public class PlayerTabController implements Initializable {
                 new TreeItemPropertyValueFactory<Players,Integer>("statPhysical")
         );
 
+        posBox.setItems(positionLists);
         playerLists = getPlayerDataOnTable();
         TreeItem<Players> root = new RecursiveTreeItem<>(playerLists, RecursiveTreeObject::getChildren);
         treePlayer.setRoot(root);
