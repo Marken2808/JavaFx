@@ -1,43 +1,1364 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.tabs.PlayerTabController">
    <children>
-      <TableView AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
-        <columns>
-          <TableColumn minWidth="-1.0" prefWidth="100.0" text="Name" />
-          <TableColumn minWidth="-1.0" prefWidth="100.0" text="Club" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Position" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Pace" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Shooting" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Passing" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Agility" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Defending" />
-            <TableColumn minWidth="-1.0" prefWidth="100.0" text="Physical" />
-        </columns>
-      </TableView>
-      <StackPane prefHeight="250.0" prefWidth="1000.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <StackPane prefHeight="330.0" prefWidth="1000.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <effect>
             <DropShadow />
          </effect>
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <HBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <VBox alignment="CENTER" layoutX="-30.0" prefWidth="180.0">
                      <children>
-                        <Label text="Postion" />
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Main Profile:">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Name:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="nameField" alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Club:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="clubField" alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Position:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="posField" alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="More Details:">
+                                 <font>
+                                    <Font name="System Bold Italic" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Full Name:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Nation:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Birthday:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Height:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Label text="Weight:">
+                                 <font>
+                                    <Font name="Segoe UI" size="11.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField alignment="CENTER" prefColumnCount="8">
+                                 <font>
+                                    <Font size="12.5" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" right="5.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="5.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
-                  </HBox>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" layoutX="-30.0" style="-fx-background-color: #d9d9d9;">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Pace">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Acceleration:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="accelerationBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="accelerationSlider" max="140.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Sprint Speed:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="sprintSpeedBox" alignment="CENTER" prefWidth="40.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="sprintSpeedSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Physical">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" top="15.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="30.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Jumping:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="jumpingBox" alignment="CENTER" prefWidth="40.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="jumpingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="30.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Strength:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="strengthBox" alignment="CENTER" prefWidth="40.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="strengthSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Aggression:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="aggressionBox" alignment="CENTER" prefWidth="40.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="aggressionSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" style="-fx-background-color: #d9d9d9;">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Shooting">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Positioning:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="positioningBox" alignment="CENTER" prefWidth="40.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="positioningSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="30.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Finishing:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="finishingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="finishingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Shot Power:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="shotPowerBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="shotPowerSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="22.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Long Shot:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="longShotBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="longShotSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="38.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Volleys:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="volleysBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="volleysSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="28.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Penalties:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="penaltiesBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="penaltiesSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" style="-fx-background-color: #d9d9d9;">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Passing">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="45.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Vision:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="visionBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="visionSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="30.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Crossing:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="crossingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="crossingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="28.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Free Kick:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="freeKickBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="freeKickSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="3.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Short Passing:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="shortPassingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="shortPassingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="4.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Long Passing:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="longPassingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="longPassingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="47.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Curve:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="curveBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="curveSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" style="-fx-background-color: #d9d9d9;">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Agility">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="44.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Agility:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="agilityBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="agilitySlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="36.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Balance:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="balanceBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="balanceSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="25.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Reactions:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="reactionsBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="reactionsSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="13.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Ball Control:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="ballControlBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="ballControlSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="27.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Dribbling:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="dribblingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="dribblingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" style="-fx-background-color: #d9d9d9;">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label text="Defending">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="6.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Interceptions:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="interceptionsBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="interceptionsSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="32.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Heading:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="headingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="headingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="33.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Marking:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="markingBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="markingSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #f2f2f2;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="8.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Stand Tackle:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="standTackleBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="standTackleSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox alignment="CENTER" style="-fx-background-color: #e6e6e6;">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" spacing="3.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Sliding Tackle:">
+                                       <font>
+                                          <Font name="Segoe UI" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="slidingTackleBox" alignment="CENTER" prefWidth="40.0">
+                                       <font>
+                                          <Font name="Segoe UI" size="12.5" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                              <JFXSlider fx:id="slidingTackleSlider" max="140.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" top="3.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </JFXSlider>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefWidth="100.0">
+                     <children>
+                        <Label text="Action">
+                           <VBox.margin>
+                              <Insets bottom="90.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Times New Roman Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="addBtn" alignment="CENTER_RIGHT" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="25.0" onMouseClicked="#insertDB" text="Add">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/plus-square.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="delBtn" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="3.0" onMouseClicked="#deleteDB" text="Remove">
+                           <graphic>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/x-square.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton fx:id="editBtn" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="8.0" onMouseClicked="#updateDB" text="Update">
+                           <graphic>
+                              <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
                </children>
-            </VBox>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </HBox>
          </children></StackPane>
+      <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="345.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+        <columns>
+          <TreeTableColumn fx:id="nameCol" minWidth="-1.0" prefWidth="100.0" text="Name" />
+          <TreeTableColumn fx:id="clubCol" minWidth="-1.0" prefWidth="100.0" text="Club" />
+            <TreeTableColumn fx:id="positionCol" minWidth="-1.0" prefWidth="100.0" text="Position" />
+            <TreeTableColumn fx:id="paceCol" minWidth="-1.0" prefWidth="100.0" text="Pace" />
+            <TreeTableColumn fx:id="shootingCol" minWidth="-1.0" prefWidth="100.0" text="Shooting" />
+            <TreeTableColumn fx:id="passingCol" minWidth="-1.0" prefWidth="100.0" text="Passing" />
+            <TreeTableColumn fx:id="agilityCol" minWidth="-1.0" prefWidth="100.0" text="Agility" />
+            <TreeTableColumn fx:id="defendingCol" minWidth="-1.0" prefWidth="100.0" text="Defending" />
+            <TreeTableColumn fx:id="physicalCol" minWidth="-1.0" prefWidth="100.0" text="Physical" />
+        </columns>
+      </TreeTableView>
    </children>
 </AnchorPane>

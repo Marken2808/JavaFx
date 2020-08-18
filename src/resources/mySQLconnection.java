@@ -49,8 +49,6 @@ public class mySQLconnection {
             pst = connection.prepareStatement("Select * from players");
             ResultSet rs = pst.executeQuery();
             while (rs.next()){
-//                int test = rs.getInt("acceleration");
-//                System.out.println("acceleration: "+test);
                 Players plStat = new Players();
                     plStat.setPname(rs.getString("name"));
                     plStat.setPclub(rs.getString("club"));
@@ -82,10 +80,6 @@ public class mySQLconnection {
                     plStat.setJumping(rs.getInt("jumping"));
                     plStat.setStrength(rs.getInt("strength"));
                     plStat.setAggression(rs.getInt("aggression"));
-
-
-                //Players plInfo = new Players();
-
 
                 playerLists.addAll(plStat);
 

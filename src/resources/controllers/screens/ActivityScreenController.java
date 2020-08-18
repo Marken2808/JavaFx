@@ -27,7 +27,7 @@ public class ActivityScreenController implements Initializable {
 
         try {
             AnchorPane userTab = FXMLLoader.load(getClass().getResource("/resources/filesFXML/UserTab.fxml"));
-            AnchorPane playerTab = FXMLLoader.load(getClass().getResource("/resources/filesFXML/PlayerTab2.fxml"));
+            AnchorPane playerTab = FXMLLoader.load(getClass().getResource("/resources/filesFXML/PlayerTab.fxml"));
 
             userPane.getChildren().add(userTab);
             playerPane.getChildren().setAll(playerTab);
