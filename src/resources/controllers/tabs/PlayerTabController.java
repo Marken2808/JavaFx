@@ -244,8 +244,21 @@ public class PlayerTabController implements Initializable {
     private JFXButton closeBtn;
 
     @FXML
+    private JFXButton floatingAddBtn;
+
+    @FXML
+    void showPaneWithAdd(MouseEvent event) {
+        floatingAddBtn.setVisible(false);
+        controlPlayerPane.setVisible(true);
+        addBtn.setDisable(false);
+        delBtn.setDisable(true);
+        editBtn.setDisable(true);
+    }
+
+    @FXML
     void hidePane(MouseEvent event) {
         controlPlayerPane.setVisible(false);
+        floatingAddBtn.setVisible(true);
     }
 
 
@@ -363,10 +376,11 @@ public class PlayerTabController implements Initializable {
         if(event.getClickCount() == 2){
             Players selectedPlayer = treePlayer.getSelectionModel().getSelectedItem().getValue();
             getDataOnRow(selectedPlayer);
+            floatingAddBtn.setVisible(false);
             controlPlayerPane.setVisible(true);
-//            delBtn.setDisable(false);
-//            editBtn.setDisable(false);
-//            addBtn.setDisable(true);
+            delBtn.setDisable(false);
+            editBtn.setDisable(false);
+            addBtn.setDisable(true);
         }else{
             treePlayer.getSelectionModel().clearSelection(treePlayer.getSelectionModel().getSelectedIndex());
         }
@@ -531,6 +545,7 @@ public class PlayerTabController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         controlPlayerPane.setVisible(false);
         getUpdateTable();
 
