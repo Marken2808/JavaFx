@@ -13,8 +13,9 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import resources.controllers.functions.Players;
 
 import java.net.URL;
@@ -197,10 +198,19 @@ public class PlayerTabController implements Initializable {
     private JFXSlider slidingTackleSlider;
 
     @FXML
-    private StackPane controlPlayerPane;
+    private AnchorPane controlPlayerPane;
 
     @FXML
     private HBox selectedRow;
+
+    @FXML
+    private HBox playerPane;
+
+    @FXML
+    private VBox profilePane;
+
+    @FXML
+    private HBox actionPane;
 
     @FXML
     private TreeTableView<Players> treePlayer;
@@ -250,11 +260,19 @@ public class PlayerTabController implements Initializable {
     @FXML
     private JFXButton floatingAddBtn;
 
+    void controlPane(boolean isShow, boolean isSelectedShow){
+        controlPlayerPane.setVisible(isShow);
+        selectedRow.setVisible(isSelectedShow);
+        profilePane.setVisible(isShow);
+        playerPane.setVisible(isShow);
+        actionPane.setVisible(isShow);
+    }
     @FXML
     void showPaneWithAdd(MouseEvent event) {
         floatingAddBtn.setVisible(false);
-        controlPlayerPane.setVisible(true);
-        selectedRow.setVisible(false);
+
+        controlPane(true, false);
+
         addBtn.setDisable(false);
         delBtn.setDisable(true);
         editBtn.setDisable(true);
@@ -262,7 +280,7 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     void hidePane(MouseEvent event) {
-        controlPlayerPane.setVisible(false);
+        controlPane(false, false);
         floatingAddBtn.setVisible(true);
     }
 
@@ -382,8 +400,7 @@ public class PlayerTabController implements Initializable {
             Players selectedPlayer = treePlayer.getSelectionModel().getSelectedItem().getValue();
             getDataOnRow(selectedPlayer);
             floatingAddBtn.setVisible(false);
-            controlPlayerPane.setVisible(true);
-            selectedRow.setVisible(true);
+            controlPane(true, true);
             delBtn.setDisable(false);
             editBtn.setDisable(false);
             addBtn.setDisable(true);
@@ -553,7 +570,7 @@ public class PlayerTabController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        controlPlayerPane.setVisible(false);
+        controlPane(false,false);
         getUpdateTable();
 
 
