@@ -1,3 +1,7 @@
 .text{
     -fx-alignment: center;
 }
+.statBox{
+    -fx-text-box-border: #ff1a1a ;
+    -fx-focus-color: #ff1a1a ;
+}

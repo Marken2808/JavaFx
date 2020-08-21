@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.tabs.PlayerTabController">
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" stylesheets="@../stylesheets/PlayerTabStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.tabs.PlayerTabController">
    <children>
       <TreeTableView fx:id="treePlayer" onMouseClicked="#clickOnTree" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
         <columns>
@@ -31,17 +31,17 @@
             <TreeTableColumn fx:id="passingCol" maxWidth="165.0" minWidth="135.0" prefWidth="-1.0" text="Passing" />
             <TreeTableColumn fx:id="agilityCol" maxWidth="165.0" minWidth="135.0" prefWidth="-1.0" text="Agility" />
             <TreeTableColumn fx:id="defendingCol" maxWidth="165.0" minWidth="135.0" prefWidth="-1.0" text="Defending" />
-            <TreeTableColumn fx:id="physicalCol" maxWidth="120.0" minWidth="135.0" prefWidth="-1.0" text="Physical" />
+            <TreeTableColumn fx:id="physicalCol" maxWidth="100.0" minWidth="135.0" prefWidth="-1.0" text="Physical" />
         </columns>
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TreeTableView>
-      <StackPane fx:id="controlPlayerPane" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+      <StackPane fx:id="controlPlayerPane" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="35.0">
          <children>
             <VBox alignment="TOP_CENTER">
                <children>
-                  <HBox alignment="CENTER_LEFT" focusTraversable="true" style="-fx-background-color: #72c5ff;">
+                  <HBox fx:id="selectedRow" alignment="CENTER_LEFT" focusTraversable="true" style="-fx-background-color: #72c5ff;" visible="false">
                      <children>
                         <JFXTextField fx:id="selectedName" alignment="CENTER" editable="false" minWidth="50.0" prefWidth="100.0" promptText="Name">
                            <font>
@@ -65,7 +65,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXTextField>
-                        <JFXTextField fx:id="selectedPos" alignment="CENTER" editable="false" minWidth="30.0" prefWidth="50.0" promptText="Pos">
+                        <JFXTextField fx:id="selectedPos" alignment="CENTER" editable="false" minWidth="30.0" prefWidth="60.0" promptText="Pos">
                            <font>
                               <Font size="12.0" />
                            </font>
@@ -232,12 +232,12 @@
                                  <children>
                                     <Label text="More Details:">
                                        <font>
-                                          <Font name="System Bold Italic" size="14.0" />
+                                          <Font name="System Italic" size="12.0" />
                                        </font>
                                     </Label>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </HBox>
                               <HBox alignment="CENTER_LEFT">
@@ -1500,7 +1500,7 @@
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/icon/plus-circle.png" />
+                  <Image url="@../images/icon/plus-circle_darkgreen.png" />
                </image>
             </ImageView>
          </graphic>

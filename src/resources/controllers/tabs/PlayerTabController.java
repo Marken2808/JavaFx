@@ -13,6 +13,7 @@ import javafx.scene.control.TreeTableView;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import resources.controllers.functions.Players;
 
@@ -199,6 +200,9 @@ public class PlayerTabController implements Initializable {
     private StackPane controlPlayerPane;
 
     @FXML
+    private HBox selectedRow;
+
+    @FXML
     private TreeTableView<Players> treePlayer;
 
     @FXML
@@ -250,6 +254,7 @@ public class PlayerTabController implements Initializable {
     void showPaneWithAdd(MouseEvent event) {
         floatingAddBtn.setVisible(false);
         controlPlayerPane.setVisible(true);
+        selectedRow.setVisible(false);
         addBtn.setDisable(false);
         delBtn.setDisable(true);
         editBtn.setDisable(true);
@@ -378,6 +383,7 @@ public class PlayerTabController implements Initializable {
             getDataOnRow(selectedPlayer);
             floatingAddBtn.setVisible(false);
             controlPlayerPane.setVisible(true);
+            selectedRow.setVisible(true);
             delBtn.setDisable(false);
             editBtn.setDisable(false);
             addBtn.setDisable(true);
@@ -403,18 +409,19 @@ public class PlayerTabController implements Initializable {
             if (!newValue.matches("\\d*")){
                 statField.setText(newValue.replaceAll("[^\\d]", ""));
             } else if(newValue.isEmpty()){
-                statField.setStyle(  "-fx-text-box-border: #ff1a1a ; -fx-focus-color: #ff1a1a ;");
+                //statField.setStyle(  "-fx-text-box-border: #ff1a1a ; -fx-focus-color: #ff1a1a ;");
+                statField.getStyleClass().add("statBox");
                 statSlider.valueProperty().setValue(0);
             }
             else {
-                statField.setStyle(null);
+                statField.getStyleClass().remove("statBox");
                 statSlider.valueProperty().setValue( Double.parseDouble(newValue));
             }
         });
     }
     void setSelectedByRow(){
         getUpdateTable();
-        //selectedName.setText(nameField.getText());
+        selectedName.setText(nameField.getText());
         selectedClub.setText(clubField.getText());
         selectedPos.setText(posBox.getValue());
         selectedPace.setText(String.valueOf(
