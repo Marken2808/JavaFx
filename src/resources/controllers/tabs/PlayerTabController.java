@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -207,6 +208,9 @@ public class PlayerTabController implements Initializable {
     private HBox playerPane;
 
     @FXML
+    private HBox gkPane;
+
+    @FXML
     private VBox profilePane;
 
     @FXML
@@ -241,6 +245,24 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     private TreeTableColumn<Players, Integer> physicalCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkDivingCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkPositioningCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkHandlingCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkReflexesCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkKickingCol;
+
+    @FXML
+    private TreeTableColumn<Players, Integer> gkPhysicalCol;
 
     @FXML
     private JFXButton addBtn;
@@ -565,6 +587,37 @@ public class PlayerTabController implements Initializable {
         TreeItem<Players> root = new RecursiveTreeItem<>(playerLists, RecursiveTreeObject::getChildren);
         treePlayer.setRoot(root);
         treePlayer.setShowRoot(false);
+    }
+
+    void showStatGKCol(boolean isGK){
+        paceCol.setVisible(!isGK);
+        shootingCol.setVisible(!isGK);
+        passingCol.setVisible(!isGK);
+        agilityCol.setVisible(!isGK);
+        defendingCol.setVisible(!isGK);
+        physicalCol.setVisible(!isGK);
+
+        gkDivingCol.setVisible(isGK);
+        gkPositioningCol.setVisible(isGK);
+        gkHandlingCol.setVisible(isGK);
+        gkReflexesCol.setVisible(isGK);
+        gkKickingCol.setVisible(isGK);
+        gkPhysicalCol.setVisible(isGK);
+    }
+
+    @FXML
+    void checkPos(ActionEvent event) {
+        System.out.println(posBox.getValue());
+        if (posBox.getValue().equals("GK")){
+            playerPane.setVisible(false);
+            gkPane.setVisible(true);
+            showStatGKCol(true);
+        }
+        else {
+            playerPane.setVisible(true);
+            gkPane.setVisible(false);
+            showStatGKCol(false);
+        }
     }
 
     @Override
