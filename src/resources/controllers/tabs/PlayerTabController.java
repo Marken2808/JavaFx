@@ -4,7 +4,6 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -283,10 +282,12 @@ public class PlayerTabController implements Initializable {
     private JFXButton floatingAddBtn;
 
     boolean isGK (){
+        System.out.println(posBox.getValue());
+
         if (posBox.getValue().equals("GK")){
             return true;
         }
-        else { return false; }
+        return false;
     }
 
     void controlPane(boolean isShow, boolean isSelectedShow){
@@ -294,6 +295,7 @@ public class PlayerTabController implements Initializable {
         selectedRow.setVisible(isSelectedShow);
         profilePane.setVisible(isShow);
         actionPane.setVisible(isShow);
+
     }
     @FXML
     void showPaneWithAdd(MouseEvent event) {
@@ -309,6 +311,7 @@ public class PlayerTabController implements Initializable {
     @FXML
     void hidePane(MouseEvent event) {
         controlPane(false, false);
+        showStatCol(false);
         floatingAddBtn.setVisible(true);
     }
 
@@ -423,15 +426,20 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     void clickOnTree(MouseEvent event) {
-        
+
         if(event.getClickCount() == 2){
             Players selectedPlayer = treePlayer.getSelectionModel().getSelectedItem().getValue();
             getDataOnRow(selectedPlayer);
+
             floatingAddBtn.setVisible(false);
             controlPane(true, true);
             delBtn.setDisable(false);
             editBtn.setDisable(false);
             addBtn.setDisable(true);
+
+            checkPos(event);
+            
+            System.out.println("----------------");
         }else{
             treePlayer.getSelectionModel().clearSelection(treePlayer.getSelectionModel().getSelectedIndex());
         }
@@ -596,7 +604,7 @@ public class PlayerTabController implements Initializable {
         treePlayer.setShowRoot(false);
     }
 
-    void showStatGKCol(boolean isGK){
+    void showStatCol(boolean isGK){
         paceCol.setVisible(!isGK);
         shootingCol.setVisible(!isGK);
         passingCol.setVisible(!isGK);
@@ -613,12 +621,16 @@ public class PlayerTabController implements Initializable {
     }
 
     @FXML
-    void checkPos(ActionEvent event) {
-        boolean isGK = isGK();
-        System.out.println(isGK);
-        playerPane.setVisible(!isGK);
-        gkPane.setVisible(isGK);
-        showStatGKCol(isGK);
+    void checkPos(MouseEvent event) {
+
+        boolean zxc = isGK();
+        System.out.println(zxc);
+        playerPane.setVisible(!zxc);
+        gkPane.setVisible(zxc);
+        showStatCol(zxc);
+
+
+
     }
 
     @Override
