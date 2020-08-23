@@ -282,11 +282,17 @@ public class PlayerTabController implements Initializable {
     @FXML
     private JFXButton floatingAddBtn;
 
+    boolean isGK (){
+        if (posBox.getValue().equals("GK")){
+            return true;
+        }
+        else { return false; }
+    }
+
     void controlPane(boolean isShow, boolean isSelectedShow){
         controlPlayerPane.setVisible(isShow);
         selectedRow.setVisible(isSelectedShow);
         profilePane.setVisible(isShow);
-        playerPane.setVisible(isShow);
         actionPane.setVisible(isShow);
     }
     @FXML
@@ -432,6 +438,7 @@ public class PlayerTabController implements Initializable {
 
 
     }
+
 
     void setDataShow(TextField statField, JFXSlider statSlider, int statNum){
         statSlider.setValue(statNum);
@@ -607,17 +614,11 @@ public class PlayerTabController implements Initializable {
 
     @FXML
     void checkPos(ActionEvent event) {
-        System.out.println(posBox.getValue());
-        if (posBox.getValue().equals("GK")){
-            playerPane.setVisible(false);
-            gkPane.setVisible(true);
-            showStatGKCol(true);
-        }
-        else {
-            playerPane.setVisible(true);
-            gkPane.setVisible(false);
-            showStatGKCol(false);
-        }
+        boolean isGK = isGK();
+        System.out.println(isGK);
+        playerPane.setVisible(!isGK);
+        gkPane.setVisible(isGK);
+        showStatGKCol(isGK);
     }
 
     @Override

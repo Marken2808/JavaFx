@@ -345,7 +345,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="playerPane" alignment="TOP_CENTER" focusTraversable="true" style="-fx-background-color: #e6e6e6;" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+            <HBox fx:id="playerPane" alignment="TOP_CENTER" focusTraversable="true" style="-fx-background-color: #e6e6e6;" visible="false" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="-30.0" minWidth="135.0" prefWidth="165.0" style="-fx-background-color: #d9d9d9;">
                      <children>
