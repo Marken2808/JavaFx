@@ -218,7 +218,7 @@
                               <Font name="Segoe UI" size="11.0" />
                            </font>
                         </Label>
-                        <JFXComboBox fx:id="posBox" labelFloat="true" onMouseEntered="#checkPos" prefWidth="105.0" styleClass="text" stylesheets="@../stylesheets/PlayerTabStyles.css" visibleRowCount="5">
+                        <JFXComboBox fx:id="posBox" labelFloat="true" onAction="#checkPos" prefWidth="105.0" styleClass="text" stylesheets="@../stylesheets/PlayerTabStyles.css" visibleRowCount="5">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
