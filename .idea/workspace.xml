@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e6b6ac8e-e671-46d2-a770-644c00e1767f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ChattingRoom/src/com/school/resources/Chatroom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/ChattingRoom/src/com/school/resources/Chatroom.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1k9vkSXtbV0pBAm3Jz4WbGDiN2n" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ChattingRoom" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager">
+    <configuration name="ChatApp" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.school.main.ChatApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="mainScreens.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ChatApp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6b6ac8e-e671-46d2-a770-644c00e1767f" name="Default Changelist" comment="" />
+      <created>1605125764572</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605125764572</updated>
+      <workItem from="1605125769669" duration="176000" />
+      <workItem from="1605126069283" duration="274000" />
+      <workItem from="1605179268255" duration="1133000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="123" y="122" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605180575496">
+      <screen x="0" y="40" width="1333" height="849" />
+    </state>
+    <state x="123" y="122" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.40.1333.849@0.40.1333.849" timestamp="1605180575496" />
+    <state x="227" y="207" key="FileChooserDialogImpl" timestamp="1605180593892">
+      <screen x="0" y="40" width="1333" height="849" />
+    </state>
+    <state x="227" y="207" key="FileChooserDialogImpl/0.40.1333.849@0.40.1333.849" timestamp="1605180593892" />
+    <state x="0" y="40" key="SettingsEditor" timestamp="1605125947652">
+      <screen x="0" y="40" width="1333" height="849" />
+    </state>
+    <state x="0" y="40" key="SettingsEditor/0.40.1333.849@0.40.1333.849" timestamp="1605125947652" />
+  </component>
+</project>
