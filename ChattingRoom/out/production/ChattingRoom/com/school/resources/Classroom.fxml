@@ -3,7 +3,7 @@
 <?import com.jfoenix.controls.JFXDrawersStack?>
 <?import javafx.scene.control.SplitPane?>
 
-<SplitPane dividerPositions="0.5" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.main.controllers.ClassroomController">
+<SplitPane fx:id="splitPane" dividerPositions="0.5" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.main.controllers.ClassroomController">
    <items>
       <JFXDrawersStack fx:id="viewStack" />
       <JFXDrawersStack fx:id="chatStack" />
