@@ -18,7 +18,7 @@ public class ChatApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/test.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/Classroom.fxml"));
         Parent root = loader.load();
         //root.setStyle("-fx-background-color: whitesmoke;");
         Scene scene = new Scene(root);

@@ -30,6 +30,11 @@
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0">
+               <graphic>
+                  <ImageView fx:id="currentFrame1" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </JFXButton>
             <Button mnemonicParsing="false" text="Button" />
          </children>
       </JFXMasonryPane>

@@ -1,61 +1,102 @@
 package com.school.main.controllers;
 
-import com.jfoenix.controls.JFXDrawersStack;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXMasonryPane;
-import com.jfoenix.controls.JFXScrollPane;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import javafx.animation.TranslateTransition;
-import javafx.css.Size;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClassroomController implements Initializable {
+import com.jfoenix.controls.JFXDrawersStack;
+import com.jfoenix.controls.JFXMasonryPane;
+import com.school.main.utils.SplitPaneDividerSlider;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+
+
+public class ClassroomController implements Initializable
+{
+    @FXML
+    private SplitPane centerSplitPane;
 
     @FXML
-    private SplitPane splitPane;
+    private ToggleButton leftToggleButton;
 
     @FXML
-    private JFXDrawersStack viewStack;
+    private AnchorPane viewStack;
 
     @FXML
-    private JFXDrawersStack chatStack;
+    private JFXDrawersStack viewDraw;
+
+    @FXML
+    private JFXDrawersStack chatDraw;
+
+    @FXML
+    private AnchorPane chatStack;
+
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        final SplitPaneDividerSlider leftSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 0, SplitPaneDividerSlider.Direction.LEFT);
+//        final SplitPaneDividerSlider rightSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 1, SplitPaneDividerSlider.Direction.RIGHT);
+
+        leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
+            {
+                leftSplitPaneDividerSlider.setAimContentVisible(t1);
+            }
+        });
+
+//        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
+//        {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
+//            {
+//                rightSplitPaneDividerSlider.setAimContentVisible(t1);
+//            }
+//        });
+
+        leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
+            {
+
+            }
+        });
+
+//        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
+//        {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
+//            {
+//
+//            }
+//        });
 
         try {
             AnchorPane chatRoom = FXMLLoader.load(getClass().getResource("../../resources/Chatroom.fxml"));
-            chatStack.setContent(chatRoom);
+            chatDraw.setContent(chatRoom);
             ScrollPane videoRoom = FXMLLoader.load(getClass().getResource("../../resources/Videoroom.fxml"));
-            viewStack.setContent(videoRoom);
+            viewDraw.setContent(videoRoom);
+
 
 //            SplitPaneDividerSlider
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 }

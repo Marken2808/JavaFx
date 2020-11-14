@@ -32,6 +32,9 @@ public class VideoroomController implements Initializable {
     private ImageView currentFrame;
 
     @FXML
+    private ImageView currentFrame1;
+
+    @FXML
     private Button button;
 
 
@@ -74,6 +77,8 @@ public class VideoroomController implements Initializable {
                         // convert and show the frame
                         Image imageToShow = Utils.mat2Image(frame);
                         updateImageView(currentFrame, imageToShow);
+                        updateImageView(currentFrame1, imageToShow);
+
                     }
                 };
 
