@@ -12,6 +12,8 @@ public abstract class NetworkConnection {
     protected abstract boolean isServer();
     protected abstract String getIP();
     protected abstract int getPort();
+    public static ServerSocket videoServerSock;
+    public static ServerSocket audioServerSock;
 
     public NetworkConnection( Consumer<Serializable> onReceiveCallBack){
         this.onReceiveCallBack = onReceiveCallBack;
@@ -46,7 +48,8 @@ public abstract class NetworkConnection {
                 this.socket = socket;
                 this.out = out;
                 socket.setTcpNoDelay(true);
-
+//                videoServerSock = new ServerSocket(3000);
+//                audioServerSock = new ServerSocket(2000);
                 while (true){
                     Serializable data = (Serializable) in.readObject();
                     onReceiveCallBack.accept(data);
