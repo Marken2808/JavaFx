@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.opencv.core.Core;
 
@@ -19,7 +20,7 @@ public class ChatApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../resources/Classroom.fxml"));
-        Parent root = loader.load();
+        AnchorPane root = loader.load();
         //root.setStyle("-fx-background-color: whitesmoke;");
         Scene scene = new Scene(root);
         //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
