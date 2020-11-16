@@ -44,16 +44,25 @@ public class ClassroomController implements Initializable
     private ToggleButton leftToggleButton;
 
     @FXML
+    private ToggleButton rightToggleButton;
+
+    @FXML
     private AnchorPane viewStack;
 
     @FXML
     private JFXDrawersStack viewDraw;
 
     @FXML
+    private AnchorPane chatStack;
+
+    @FXML
     private JFXDrawersStack chatDraw;
 
     @FXML
-    private AnchorPane chatStack;
+    private AnchorPane docuStack;
+
+    @FXML
+    private JFXDrawersStack docuDraw;
 
     @FXML
     public Button startBtn;
@@ -83,8 +92,8 @@ public class ClassroomController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        final SplitPaneDividerSlider leftSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 0, SplitPaneDividerSlider.Direction.LEFT);
-//        final SplitPaneDividerSlider rightSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 1, SplitPaneDividerSlider.Direction.RIGHT);
+        final SplitPaneDividerSlider leftSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 1, SplitPaneDividerSlider.Direction.LEFT);
+        final SplitPaneDividerSlider rightSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 0, SplitPaneDividerSlider.Direction.RIGHT);
 
         leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -93,27 +102,23 @@ public class ClassroomController implements Initializable
             }
         });
 
-//        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
-//        {
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
-//            {
-//                rightSplitPaneDividerSlider.setAimContentVisible(t1);
-//            }
-//        });
-
-        leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-
+                rightSplitPaneDividerSlider.setAimContentVisible(t1);
             }
         });
 
-//        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>()
-//        {
+//        leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
 //            @Override
-//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1)
-//            {
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+//
+//            }
+//        });
+//
+//        rightToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
 //
 //            }
 //        });

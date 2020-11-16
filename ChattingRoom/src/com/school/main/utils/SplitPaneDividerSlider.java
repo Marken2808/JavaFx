@@ -177,10 +177,10 @@ public class SplitPaneDividerSlider {
                         }
                     } // intent to slide out content:
                     else {
-                        if (getCurrentDividerPosition() < 1.0) {
+                        if (getCurrentDividerPosition() < 0.0) {
                             setCurrentDividerPosition(getCurrentDividerPosition() + d);
                         } else {//DONE
-                            setCurrentDividerPosition(1.0);
+                            setCurrentDividerPosition(0.2);
                             stop();
                         }
                     }
