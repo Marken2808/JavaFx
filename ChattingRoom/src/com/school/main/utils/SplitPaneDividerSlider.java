@@ -32,7 +32,7 @@ public class SplitPaneDividerSlider {
     private SplitPane.Divider dividerToMove;
 
     public SplitPaneDividerSlider(SplitPane splitPane, int dividerIndex, Direction direction) {
-        this(splitPane, dividerIndex, direction, Duration.millis(1000));
+        this(splitPane, dividerIndex, direction, Duration.millis(7000));
     }
 
     public SplitPaneDividerSlider(SplitPane splitPane,
@@ -157,10 +157,10 @@ public class SplitPaneDividerSlider {
                         }
                     } // intent to slide out content:
                     else {
-                        if (getCurrentDividerPosition() > 1.0) {
+                        if (getCurrentDividerPosition() > 0.0) {
                             setCurrentDividerPosition(getCurrentDividerPosition() - d);
                         } else { //DONE
-                            setCurrentDividerPosition(0.7);
+                            setCurrentDividerPosition(0.0);
                             stop();
                         }
                     }
@@ -177,10 +177,10 @@ public class SplitPaneDividerSlider {
                         }
                     } // intent to slide out content:
                     else {
-                        if (getCurrentDividerPosition() < 0.0) {
+                        if (getCurrentDividerPosition() < 1.0) {
                             setCurrentDividerPosition(getCurrentDividerPosition() + d);
                         } else {//DONE
-                            setCurrentDividerPosition(0.2);
+                            setCurrentDividerPosition(1.0);
                             stop();
                         }
                     }

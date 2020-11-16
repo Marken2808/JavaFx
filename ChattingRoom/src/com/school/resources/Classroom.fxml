@@ -20,8 +20,8 @@
                     <AnchorPane fx:id="viewStack">
                         <children>
                   <JFXDrawersStack fx:id="viewDraw" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <ToggleButton fx:id="rightToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-                            <ToggleButton fx:id="leftToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <ToggleButton fx:id="leftToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                            <ToggleButton fx:id="rightToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         </children>
                     </AnchorPane>
             <AnchorPane fx:id="docuStack" minHeight="0.0" minWidth="0.0" styleClass="content-pane">

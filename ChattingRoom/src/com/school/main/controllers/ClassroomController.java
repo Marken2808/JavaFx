@@ -92,8 +92,8 @@ public class ClassroomController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        final SplitPaneDividerSlider leftSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 1, SplitPaneDividerSlider.Direction.LEFT);
-        final SplitPaneDividerSlider rightSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 0, SplitPaneDividerSlider.Direction.RIGHT);
+        final SplitPaneDividerSlider leftSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 0, SplitPaneDividerSlider.Direction.LEFT);
+        final SplitPaneDividerSlider rightSplitPaneDividerSlider = new SplitPaneDividerSlider(centerSplitPane, 1, SplitPaneDividerSlider.Direction.RIGHT);
 
         leftToggleButton.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override

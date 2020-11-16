@@ -10,7 +10,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.school.main.controllers.ClassroomController">
    <children>
-            <SplitPane fx:id="centerSplitPane" dividerPositions="0.0, 1.0" focusTraversable="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane fx:id="centerSplitPane" dividerPositions="0.2, 0.8" focusTraversable="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <items>
                     <AnchorPane fx:id="chatStack" minHeight="0.0" minWidth="0.0" styleClass="content-pane">
                <children>
@@ -20,8 +20,8 @@
                     <AnchorPane fx:id="viewStack">
                         <children>
                   <JFXDrawersStack fx:id="viewDraw" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <ToggleButton fx:id="rightToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-                            <ToggleButton fx:id="leftToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <ToggleButton fx:id="leftToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                            <ToggleButton fx:id="rightToggleButton" mnemonicParsing="false" selected="true" styleClass="navigation-button" text="" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         </children>
                     </AnchorPane>
             <AnchorPane fx:id="docuStack" minHeight="0.0" minWidth="0.0" styleClass="content-pane">
