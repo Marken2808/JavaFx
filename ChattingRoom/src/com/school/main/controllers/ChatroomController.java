@@ -2,9 +2,9 @@ package com.school.main.controllers;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.school.main.Client;
-import com.school.main.NetworkConnection;
-import com.school.main.Server;
+import com.school.main.modal.Client;
+import com.school.main.modal.NetworkConnection;
+import com.school.main.modal.Server;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
