@@ -22,10 +22,9 @@ public class ChatroomController implements Initializable {
     @FXML
     private JFXTextField msgField;
 
-    private boolean isServer=false;///////////////////////////////
+    private boolean isServer=true;///////////////////////////////
 
     private NetworkConnection connection = isServer ? createServer() : createClient();
-
 
     private Server createServer(){
         return new Server(2808, data -> {
