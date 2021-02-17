@@ -27,7 +27,7 @@ public class ChatroomController implements Initializable {
     @FXML
     private JFXTextField msgField;
 
-    private boolean isServer=true;///////////////////////////////
+    private boolean isServer=false;///////////////////////////////
 
     private NetworkConnection connection = isServer ? createServer() : createClient();
 
