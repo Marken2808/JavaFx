@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane nodeOrientation="LEFT_TO_RIGHT" prefWidth="1000.0" style="-fx-background-color: #f0f8ff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="resources.controllers.tabs.UserTabController">
+   <children>
+      <TableView fx:id="tableUser" onMouseClicked="#clickOnTable" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="5.0">
+        <columns>
+            <TableColumn fx:id="roleCol" minWidth="-1.0" prefWidth="100.0" text="Role" />
+          <TableColumn fx:id="userCol" minWidth="-1.0" prefWidth="100.0" text="Username" />
+          <TableColumn fx:id="passCol" minWidth="-1.0" prefWidth="100.0" text="Password" />
+            <TableColumn fx:id="nameCol" minWidth="-1.0" prefWidth="100.0" text="Name" />
+        </columns>
+      </TableView>
+      <StackPane prefWidth="300.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+         <effect>
+            <DropShadow />
+         </effect>
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Control Users">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Username:" />
+                        <JFXTextField fx:id="userField" prefColumnCount="15">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" disable="true">
+                     <children>
+                        <Label text="Username:" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Password:" />
+                        <JFXTextField fx:id="passField" prefColumnCount="15">
+                           <HBox.margin>
+                              <Insets left="33.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" disable="true">
+                     <children>
+                        <Label text="Password" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Profile Name:" />
+                        <JFXTextField fx:id="nameField" prefColumnCount="15">
+                           <HBox.margin>
+                              <Insets left="13.0" />
+                           </HBox.margin>
+                        </JFXTextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="TOP_RIGHT" disable="true">
+                     <children>
+                        <Label text="nothing" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label text="Role:" />
+                        <ComboBox fx:id="roleBox" editable="true" prefWidth="150.0" promptText="Choose role">
+                           <HBox.margin>
+                              <Insets left="60.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="addBtn" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="5.0" onMouseClicked="#insertDB" text="Add">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/user-plus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="delBtn" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="5.0" onMouseClicked="#deleteDB" text="Delete">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/user-minus.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="editBtn" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="5.0" onMouseClicked="#updateDB" text="Update">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/icon/user-check.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children></StackPane>
+   </children>
+</AnchorPane>

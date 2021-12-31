@@ -1,0 +1,10 @@
+TRANSPORTAPI-timetable:
+https://transportapi.com/v3/uk/bus/stop/0170SGZ01508/live.json?app_id=9281db1a&app_key=86dda2ae6c899b579364035ec136f7b0&group=route&nextbuses=yes
+https://transportapi.com/v3/uk/bus/stop/0170SGZ01508/live.json?app_id=5b6e691f&app_key=0a9f8db966fcde24e95681c97c55a75d&group=no&nextbuses=no
+
+ATCOCODE-place:
+https://transportapi.com/v3/uk/places.json?app_id=9281db1a&app_key=86dda2ae6c899b579364035ec136f7b0&lat=51.501556&lon=-2.569795&type=bus_stop
+https://transportapi.com/v3/uk/places.json?app_id=5b6e691f&app_key=0a9f8db966fcde24e95681c97c55a75d&lat=51.50156&lon=-2.56979&query=bulldog&type=bus_stop
+
+MAPS-get latlong:
+https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Bull%20dog%20bus%20stop&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyA7bY7dE3iuxLeA8AO6pAL6x8svpXdcKeg
