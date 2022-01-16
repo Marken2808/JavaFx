@@ -9,26 +9,29 @@ class Solution {
 //    Memory Usage: 53.3 MB
     public static void duplicateZeros(int[] arr) {
 
-        int insert = 0;
-        int count = 0;
+        System.out.println(Arrays.toString(arr));
+
         String str = "";
 
-        for(int i=0; i<arr.length-count; i++) {
-
-            if(arr[i]==0){
-                count++;
-            }
-
-             String.valueOf(arr[i]).replaceAll("0","00");
-
-            System.out.print(str);
-
-//            for(int j=0; i<str.length()-1; j++){
-//                arr[j] = Integer.valueOf(str.charAt(i));
-//            }
-
-//            System.out.print(Arrays.toString(arr));
+        for(int i=0; i<arr.length; i++) {
+            str += String.valueOf(arr[i]);
         }
+
+        System.out.println(str);
+        System.out.println(str.length());
+
+        String newstr = str.replace("0","00");
+        System.out.println(newstr.length());
+
+        String[] strarr = newstr.split("");
+        System.out.println(Arrays.asList(strarr));
+
+        String[] temp = Arrays.copyOfRange(strarr, 0, strarr.length - (newstr.length() - str.length()));
+        for (int i = 0; i < temp.length ; i++) {
+            arr[i] = Integer.valueOf(temp[i]);
+        }
+        System.out.println(Arrays.toString(arr));
+
     }
 
     public static void main (String[] args) {
