@@ -5,12 +5,9 @@ import java.util.List;
 class Solution {
 
 
-//    Runtime: 4 ms
-//    Memory Usage: 53.3 MB
+//    Runtime: 24 ms
+//    Memory Usage: 40.6 MB
     public static void duplicateZeros(int[] arr) {
-
-        System.out.println(Arrays.toString(arr));
-
         String str = "";
 
         for(int i=0; i<arr.length; i++) {
