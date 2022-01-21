@@ -1,7 +1,7 @@
 class Solution {
 
-//    Runtime: 3 ms
-//    Memory Usage: 41.4 MB
+//    Runtime: 1 ms
+//    Memory Usage: 38.6 MB
     public static int findNumbers(int[] nums) {
 
         int count = 0;

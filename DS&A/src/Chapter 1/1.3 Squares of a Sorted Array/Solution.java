@@ -16,6 +16,12 @@ class Solution {
 
     }
 
+//    Runtime: 14 ms
+//    Memory Usage: 54.2 MB
+//    public static int[] sortedSquares(int[] nums) {
+//        return Arrays.stream(nums).map(a -> a*a).sorted().toArray();
+//    }
+
     public static void main (String[] args) {
         sortedSquares(new int[] {-7,-3,2,3,11});
     }
