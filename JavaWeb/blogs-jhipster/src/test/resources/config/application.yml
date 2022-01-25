@@ -14,9 +14,6 @@
 # ===================================================================
 
 spring:
-  profiles:
-    # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
-    #active: testcontainers
   application:
     name: blogs
   datasource:
@@ -101,7 +98,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: ZTgwMDJlMGYyNjI0NjE5MzM2MzdiNTM3OWE0NTBhNzJkZGRlMDg2OWNkZGM2ZGQ5Yjg0ZDllZjRjYmM1MjVkN2Y1NWJjNjI2MjY3ZTY4NTliYmI1YzQzZWFkMDM2MTVmNDYwODg5MjEwOWU4MDljMmMxZTUwYWRmODZkMmJmZWU=
+        base64-secret: ZGZmZGVjYjNhMTMwYjc1MzQyNDc3MTRkOGZhMzAwMzMyOTljNjE5OTkyZTUzZThkYTJiZDIxZjYxYmMyNWY1ZGU3YmFmOWEyMTVlMzcwMjBhN2M3ZDI3NmNkYmFhMWM0YzI5NGU4YzEwMDhmMzZmMzA1MmQ3MjcyYWVjZDk3YmU=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
 # ===================================================================

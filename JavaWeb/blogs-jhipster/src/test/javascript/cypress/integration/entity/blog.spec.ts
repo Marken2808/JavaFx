@@ -124,9 +124,7 @@ describe('Blog e2e test', () => {
       });
 
       it('last delete button click should delete instance of Blog', () => {
-        cy.intercept('GET', '/api/blogs/*').as('dialogDeleteRequest');
         cy.get(entityDeleteButtonSelector).last().click();
-        cy.wait('@dialogDeleteRequest');
         cy.getEntityDeleteDialogHeading('blog').should('exist');
         cy.get(entityConfirmDeleteButtonSelector).click();
         cy.wait('@deleteEntityRequest').then(({ response }) => {

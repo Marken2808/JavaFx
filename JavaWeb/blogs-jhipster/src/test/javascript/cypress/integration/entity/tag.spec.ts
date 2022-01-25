@@ -127,9 +127,7 @@ describe('Tag e2e test', () => {
       });
 
       it('last delete button click should delete instance of Tag', () => {
-        cy.intercept('GET', '/api/tags/*').as('dialogDeleteRequest');
         cy.get(entityDeleteButtonSelector).last().click();
-        cy.wait('@dialogDeleteRequest');
         cy.getEntityDeleteDialogHeading('tag').should('exist');
         cy.get(entityConfirmDeleteButtonSelector).click();
         cy.wait('@deleteEntityRequest').then(({ response }) => {
