@@ -16,7 +16,7 @@ describe('Post e2e test', () => {
   const postPageUrlPattern = new RegExp('/post(\\?.*)?$');
   const username = Cypress.env('E2E_USERNAME') ?? 'user';
   const password = Cypress.env('E2E_PASSWORD') ?? 'user';
-  const postSample = { title: 'B2C', content: 'Li4vZmFrZS1kYXRhL2Jsb2IvaGlwc3Rlci50eHQ=', date: '2022-01-24T19:19:33.555Z' };
+  const postSample = { title: 'B2C', content: 'Li4vZmFrZS1kYXRhL2Jsb2IvaGlwc3Rlci50eHQ=', date: '2022-01-24T21:52:11.555Z' };
 
   let post: any;
 
@@ -127,7 +127,9 @@ describe('Post e2e test', () => {
       });
 
       it('last delete button click should delete instance of Post', () => {
+        cy.intercept('GET', '/api/posts/*').as('dialogDeleteRequest');
         cy.get(entityDeleteButtonSelector).last().click();
+        cy.wait('@dialogDeleteRequest');
         cy.getEntityDeleteDialogHeading('post').should('exist');
         cy.get(entityConfirmDeleteButtonSelector).click();
         cy.wait('@deleteEntityRequest').then(({ response }) => {
@@ -158,7 +160,7 @@ describe('Post e2e test', () => {
         .invoke('val')
         .should('match', new RegExp('../fake-data/blob/hipster.txt'));
 
-      cy.get(`[data-cy="date"]`).type('2022-01-24T20:44').should('have.value', '2022-01-24T20:44');
+      cy.get(`[data-cy="date"]`).type('2022-01-24T23:16').should('have.value', '2022-01-24T23:16');
 
       cy.get(entityCreateSaveButtonSelector).click();
 

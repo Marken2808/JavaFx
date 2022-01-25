@@ -28,30 +28,39 @@ describe('/account/register', () => {
   });
 
   it('requires username', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(usernameRegisterSelector).should('have.class', classInvalid).type('test').blur().should('have.class', classValid);
   });
 
   it('should not accept invalid email', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(emailRegisterSelector).should('have.class', classInvalid).type('testtest.fr').blur().should('have.class', classInvalid);
   });
 
   it('requires email in correct format', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(emailRegisterSelector).should('have.class', classInvalid).type('test@test.fr').blur().should('have.class', classValid);
   });
 
   it('requires first password', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(firstPasswordRegisterSelector).should('have.class', classInvalid).type('test@test.fr').blur().should('have.class', classValid);
   });
 
   it('requires password and confirm password to be same', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(firstPasswordRegisterSelector).should('have.class', classInvalid).type('test').blur().should('have.class', classValid);
     cy.get(secondPasswordRegisterSelector).should('have.class', classInvalid).type('test').blur().should('have.class', classValid);
   });
 
   it('requires password and confirm password have not the same value', () => {
+    cy.get(submitRegisterSelector).click();
     cy.get(firstPasswordRegisterSelector).should('have.class', classInvalid).type('test').blur().should('have.class', classValid);
-    cy.get(secondPasswordRegisterSelector).should('have.class', classInvalid).type('otherPassword');
-    cy.get(submitRegisterSelector).should('be.disabled');
+    cy.get(secondPasswordRegisterSelector)
+      .should('have.class', classInvalid)
+      .type('otherPassword')
+      .blur()
+      .should('have.class', classInvalid);
   });
 
   it('register a valid user', () => {

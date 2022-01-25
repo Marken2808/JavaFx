@@ -19,7 +19,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-  Post{tag(name)} to Tag{blog}
+  Post{tag(name)} to Tag{post}
 }
 
 paginate Post, Tag with infinite-scroll

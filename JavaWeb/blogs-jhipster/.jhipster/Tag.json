@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220125191254",
+  "changelogDate": "20220125214532",
   "dto": "no",
   "embedded": false,
   "entityTableName": "tag",
@@ -22,7 +22,7 @@
       "otherEntityName": "post",
       "otherEntityRelationshipName": "tag",
       "ownerSide": false,
-      "relationshipName": "blog",
+      "relationshipName": "post",
       "relationshipType": "many-to-many"
     }
   ],

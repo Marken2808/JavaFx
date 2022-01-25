@@ -1,7 +1,7 @@
 {
   "generator-jhipster:7.6.0": {
     "promptValues": {
-      "packageName": "com.cthtc.blogs",
+      "packageName": "com.cthtc",
       "nativeLanguage": "en"
     }
   }
