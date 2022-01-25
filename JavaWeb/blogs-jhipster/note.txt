@@ -1,0 +1,4 @@
+
+>_ ./mvnw
+
+>_ docker-compose -f src/main/docker/postgresql.yml up
