@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface BlogRepository extends JpaRepository<Blog, Long> {
-    @Query("select blog from Blog blog where blog.user.login = ?#{principal.username}")
-    List<Blog> findByUserIsCurrentUser();
+    @Query("select blog from Blog blog where blog.user.login = ?1")
+    List<Blog> findByUserIsCurrentUser(String username);
 }
