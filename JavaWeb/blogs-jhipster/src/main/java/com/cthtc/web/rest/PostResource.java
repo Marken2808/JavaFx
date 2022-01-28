@@ -2,6 +2,7 @@ package com.cthtc.web.rest;
 
 import com.cthtc.domain.Post;
 import com.cthtc.repository.PostRepository;
+import com.cthtc.security.SecurityUtils;
 import com.cthtc.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -162,12 +163,9 @@ public class PostResource {
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
         log.debug("REST request to get a page of Posts");
-        Page<Post> page;
-        if (eagerload) {
-            page = postRepository.findAllWithEagerRelationships(pageable);
-        } else {
-            page = postRepository.findAll(pageable);
-        }
+        Page<Post> page = postRepository.findByBlogUserLoginOrderByDateDesc(SecurityUtils
+            .getCurrentUserLogin().orElse(null), pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
