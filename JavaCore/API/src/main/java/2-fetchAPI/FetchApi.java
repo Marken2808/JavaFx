@@ -42,21 +42,19 @@ public class FetchApi {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(inline);
 
-        JSONObject obj = (JSONObject) jsonObject.get("Global");
-
-        Global global = new Global().fromJson(obj);
-        System.out.println(global.toString());
+//        JSONObject obj_global = (JSONObject) jsonObject.get("Global");
+//        Global global = new Global().fromJson(obj_global);
+//        System.out.println(global.toString());
 
         JSONArray jsonArray = (JSONArray) jsonObject.get("Countries");
 
         for (int i = 0; i < jsonArray.size(); i++) {
 
-            JSONObject new_obj = (JSONObject) jsonArray.get(i);
+            JSONObject obj_country = (JSONObject) jsonArray.get(i);
+            Country country = new Country().fromJson(obj_country);
+            System.out.println(country.toString());
 
-            if (new_obj.get("Slug").equals("albania")) {
-                System.out.println("NewConfirmed: " + new_obj.get("NewConfirmed"));
-                break;
-            }
+
         }
 
 
