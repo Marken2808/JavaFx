@@ -52,10 +52,7 @@ public class FetchApi {
 //        jsonArray.forEach(country -> parseObject((JSONObject) country));
 
         List<Country> countries = new ArrayList<>();
-        jsonArray.forEach(country -> {
-            countries.add(parseObject((JSONObject) country));
-        });
-
+        jsonArray.forEach(country -> countries.add(parseObject((JSONObject) country)));
         System.out.println(countries);
     }
 
