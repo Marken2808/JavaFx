@@ -6,6 +6,8 @@ import org.json.simple.parser.ParseException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FetchApi {
@@ -47,17 +49,18 @@ public class FetchApi {
 //        System.out.println(global.toString());
 
         JSONArray jsonArray = (JSONArray) jsonObject.get("Countries");
+//        jsonArray.forEach(country -> parseObject((JSONObject) country));
 
-        for (int i = 0; i < jsonArray.size(); i++) {
+        List<Country> countries = new ArrayList<>();
+        jsonArray.forEach(country -> {
+            countries.add(parseObject((JSONObject) country));
+        });
 
-            JSONObject obj_country = (JSONObject) jsonArray.get(i);
-            Country country = new Country().fromJson(obj_country);
-            System.out.println(country.toString());
+        System.out.println(countries);
+    }
 
-
-        }
-
-
-
+    private Country parseObject(JSONObject obj)
+    {
+        return new Country().fromJson(obj);
     }
 }

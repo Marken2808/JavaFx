@@ -74,7 +74,7 @@ public class Global {
 
     @Override
     public String toString() {
-        return "Global{" +
+        return "Data{" +
                 "newConfirmed=" + newConfirmed +
                 ", totalConfirmed=" + totalConfirmed +
                 ", newDeaths=" + newDeaths +
