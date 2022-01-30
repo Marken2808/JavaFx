@@ -1,17 +1,29 @@
 package models;
 
+import org.json.simple.JSONObject;
+
 public class Feed {
 
 //    private String feedItemUid;
 
     private String categoryUid;
     private String direction;
-    private int minorUnits;
+    private long minorUnits;
 
-    public Feed(String categoryUid, String direction, int minorUnits) {
+    public Feed() {}
+
+    public Feed(String categoryUid, String direction, long minorUnits) {
         this.categoryUid = categoryUid;
         this.direction = direction;
         this.minorUnits = minorUnits;
+    }
+
+    public Feed fromJson(JSONObject obj) {
+        this.categoryUid = (String) obj.get("categoryUid");
+        this.direction = (String) obj.get("direction");
+        this.minorUnits = (long) (((JSONObject)obj.get("amount")).get("minorUnits"));
+
+        return new Feed(categoryUid, direction, minorUnits);
     }
 
     @Override
@@ -22,4 +34,6 @@ public class Feed {
                 ", minorUnits=" + minorUnits +
                 '}';
     }
+
+
 }
