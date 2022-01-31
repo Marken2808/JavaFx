@@ -54,7 +54,7 @@ public class AccountRepo {
         Account chosen = null;
         List<Account> accounts = new ArrayList<>();
         jsonArray.forEach(account -> accounts.add(parseObject((JSONObject) account)));
-        System.out.println(accounts);
+//        System.out.println(accounts);
 
         for (Account account : accounts) {
             if (account.getAccountType().equals("PRIMARY")){

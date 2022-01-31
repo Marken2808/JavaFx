@@ -35,5 +35,15 @@ public class Feed {
                 '}';
     }
 
+    public String getCategoryUid() {
+        return categoryUid;
+    }
 
+    public String getDirection() {
+        return direction;
+    }
+
+    public long getMinorUnits() {
+        return minorUnits;
+    }
 }
