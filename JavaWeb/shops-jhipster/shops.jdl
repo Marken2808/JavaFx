@@ -20,7 +20,7 @@ entity Product {
 }
 
 entity Customer {
-    firstName String,
+	firstName String,
     lastName String,
     email String,
     telephone String
@@ -34,17 +34,25 @@ entity Address {
     country String required maxlength(2)
 }
 
+entity WishList {
+	title String required,
+    restricted Boolean
+}
+
 relationship OneToMany {
+    Customer{wishList(title)} to WishList{customer},
+    WishList{product(title)} to Product{wishList},
     Customer{address} to Address{customer}
 }
 
 relationship ManyToOne {
-    Category{parent} to Category
+	Category{parent} to Category
 }
 
 relationship ManyToMany {
-    Category{product(title)} to Product{category}
+	Category{product(title)} to Product{category}
 }
 
-paginate Address, Customer, Product, Category with pagination
+paginate Customer, Product, Category with pagination
+paginate Address with pagination
 paginate Product with infinite-scroll

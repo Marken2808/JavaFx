@@ -29,6 +29,13 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityField": "title",
+      "otherEntityName": "wishList",
+      "otherEntityRelationshipName": "customer",
+      "relationshipName": "wishList",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "address",
       "otherEntityRelationshipName": "customer",
       "relationshipName": "address",

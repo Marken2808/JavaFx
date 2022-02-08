@@ -51,7 +51,7 @@ public class Category implements Serializable {
         joinColumns = @JoinColumn(name = "category_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    @JsonIgnoreProperties(value = { "categories" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "wishList", "categories" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

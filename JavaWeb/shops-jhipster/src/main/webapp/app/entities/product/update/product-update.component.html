@@ -82,6 +82,19 @@
             </span>
           </div>
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_wishList">Wish List</label>
+          <select class="form-control" id="field_wishList" data-cy="wishList" name="wishList" formControlName="wishList">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="wishListOption.id === editForm.get('wishList')!.value?.id ? editForm.get('wishList')!.value : wishListOption"
+              *ngFor="let wishListOption of wishListsSharedCollection; trackBy: trackWishListById"
+            >
+              {{ wishListOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

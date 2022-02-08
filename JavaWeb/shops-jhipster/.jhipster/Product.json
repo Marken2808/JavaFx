@@ -38,6 +38,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "wishList",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "wishList",
+      "relationshipType": "many-to-one"
+    },
+    {
       "otherEntityName": "category",
       "otherEntityRelationshipName": "product",
       "ownerSide": false,

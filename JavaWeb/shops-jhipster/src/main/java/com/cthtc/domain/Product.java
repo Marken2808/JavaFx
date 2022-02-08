@@ -42,6 +42,10 @@ public class Product implements Serializable {
     @Column(name = "date_modified")
     private LocalDate dateModified;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "products", "customer" }, allowSetters = true)
+    private WishList wishList;
+
     @ManyToMany(mappedBy = "products")
     @JsonIgnoreProperties(value = { "parent", "products" }, allowSetters = true)
     private Set<Category> categories = new HashSet<>();
@@ -137,6 +141,19 @@ public class Product implements Serializable {
 
     public void setDateModified(LocalDate dateModified) {
         this.dateModified = dateModified;
+    }
+
+    public WishList getWishList() {
+        return this.wishList;
+    }
+
+    public void setWishList(WishList wishList) {
+        this.wishList = wishList;
+    }
+
+    public Product wishList(WishList wishList) {
+        this.setWishList(wishList);
+        return this;
     }
 
     public Set<Category> getCategories() {

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs/esm';
+import { IWishList } from 'app/entities/wish-list/wish-list.model';
 import { ICategory } from 'app/entities/category/category.model';
 
 export interface IProduct {
@@ -9,6 +10,7 @@ export interface IProduct {
   rating?: number | null;
   dateAdded?: dayjs.Dayjs | null;
   dateModified?: dayjs.Dayjs | null;
+  wishList?: IWishList | null;
   categories?: ICategory[] | null;
 }
 
@@ -21,6 +23,7 @@ export class Product implements IProduct {
     public rating?: number | null,
     public dateAdded?: dayjs.Dayjs | null,
     public dateModified?: dayjs.Dayjs | null,
+    public wishList?: IWishList | null,
     public categories?: ICategory[] | null
   ) {}
 }

@@ -8,6 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { ProductService } from '../service/product.service';
 import { IProduct, Product } from '../product.model';
+import { IWishList } from 'app/entities/wish-list/wish-list.model';
+import { WishListService } from 'app/entities/wish-list/service/wish-list.service';
 
 import { ProductUpdateComponent } from './product-update.component';
 
@@ -16,6 +18,7 @@ describe('Product Management Update Component', () => {
   let fixture: ComponentFixture<ProductUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let productService: ProductService;
+  let wishListService: WishListService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,18 +40,41 @@ describe('Product Management Update Component', () => {
     fixture = TestBed.createComponent(ProductUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     productService = TestBed.inject(ProductService);
+    wishListService = TestBed.inject(WishListService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call WishList query and add missing value', () => {
+      const product: IProduct = { id: 456 };
+      const wishList: IWishList = { id: 15690 };
+      product.wishList = wishList;
+
+      const wishListCollection: IWishList[] = [{ id: 14226 }];
+      jest.spyOn(wishListService, 'query').mockReturnValue(of(new HttpResponse({ body: wishListCollection })));
+      const additionalWishLists = [wishList];
+      const expectedCollection: IWishList[] = [...additionalWishLists, ...wishListCollection];
+      jest.spyOn(wishListService, 'addWishListToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ product });
+      comp.ngOnInit();
+
+      expect(wishListService.query).toHaveBeenCalled();
+      expect(wishListService.addWishListToCollectionIfMissing).toHaveBeenCalledWith(wishListCollection, ...additionalWishLists);
+      expect(comp.wishListsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const product: IProduct = { id: 456 };
+      const wishList: IWishList = { id: 77490 };
+      product.wishList = wishList;
 
       activatedRoute.data = of({ product });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(product));
+      expect(comp.wishListsSharedCollection).toContain(wishList);
     });
   });
 
@@ -113,6 +139,16 @@ describe('Product Management Update Component', () => {
       expect(productService.update).toHaveBeenCalledWith(product);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackWishListById', () => {
+      it('Should return tracked WishList primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackWishListById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
     });
   });
 });

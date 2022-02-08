@@ -34,6 +34,10 @@ public class Customer implements Serializable {
     private String telephone;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties(value = { "products", "customer" }, allowSetters = true)
+    private Set<WishList> wishLists = new HashSet<>();
+
+    @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties(value = { "customer" }, allowSetters = true)
     private Set<Address> addresses = new HashSet<>();
 
@@ -102,6 +106,37 @@ public class Customer implements Serializable {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Set<WishList> getWishLists() {
+        return this.wishLists;
+    }
+
+    public void setWishLists(Set<WishList> wishLists) {
+        if (this.wishLists != null) {
+            this.wishLists.forEach(i -> i.setCustomer(null));
+        }
+        if (wishLists != null) {
+            wishLists.forEach(i -> i.setCustomer(this));
+        }
+        this.wishLists = wishLists;
+    }
+
+    public Customer wishLists(Set<WishList> wishLists) {
+        this.setWishLists(wishLists);
+        return this;
+    }
+
+    public Customer addWishList(WishList wishList) {
+        this.wishLists.add(wishList);
+        wishList.setCustomer(this);
+        return this;
+    }
+
+    public Customer removeWishList(WishList wishList) {
+        this.wishLists.remove(wishList);
+        wishList.setCustomer(null);
+        return this;
     }
 
     public Set<Address> getAddresses() {

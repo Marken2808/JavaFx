@@ -39,6 +39,7 @@
           <th scope="col" jhiSortBy="rating"><span>Rating</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="dateAdded"><span>Date Added</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="dateModified"><span>Date Modified</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="wishList.id"><span>Wish List</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,6 +54,11 @@
           <td>{{ product.rating }}</td>
           <td>{{ product.dateAdded | formatMediumDate }}</td>
           <td>{{ product.dateModified | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="product.wishList">
+              <a [routerLink]="['/wish-list', product.wishList?.id, 'view']">{{ product.wishList?.id }}</a>
+            </div>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

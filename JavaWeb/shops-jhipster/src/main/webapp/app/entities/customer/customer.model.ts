@@ -1,3 +1,4 @@
+import { IWishList } from 'app/entities/wish-list/wish-list.model';
 import { IAddress } from 'app/entities/address/address.model';
 
 export interface ICustomer {
@@ -6,6 +7,7 @@ export interface ICustomer {
   lastName?: string | null;
   email?: string | null;
   telephone?: string | null;
+  wishLists?: IWishList[] | null;
   addresses?: IAddress[] | null;
 }
 
@@ -16,6 +18,7 @@ export class Customer implements ICustomer {
     public lastName?: string | null,
     public email?: string | null,
     public telephone?: string | null,
+    public wishLists?: IWishList[] | null,
     public addresses?: IAddress[] | null
   ) {}
 }

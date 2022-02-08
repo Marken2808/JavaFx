@@ -40,7 +40,7 @@ public class Address implements Serializable {
     private String country;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "addresses" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "wishLists", "addresses" }, allowSetters = true)
     private Customer customer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
