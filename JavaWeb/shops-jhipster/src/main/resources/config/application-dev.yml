@@ -18,7 +18,7 @@ logging:
     ROOT: DEBUG
     tech.jhipster: DEBUG
     org.hibernate.SQL: DEBUG
-    com.cthtc: DEBUG
+    com.mycompany.myapp: DEBUG
 
 spring:
   devtools:
@@ -32,8 +32,8 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/shops
-    username: shops
+    url: jdbc:postgresql://localhost:5432/jhipster
+    username: jhipster
     password:
     hikari:
       poolName: Hikari
@@ -89,7 +89,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: NzFiYjgxZTJkNGJjM2I1MGVkOWM5MDJiZTg1YzMyYjQ3MjczMDI3ZmI2OTU0NzJiMzVkMTg1NjY0OWUzZjhkNDM4NjRhMDYxMDc1OGRjY2QyN2ViN2YyNjYzZGM0OWJhMTZiZTllNTBkYWFjMzU5ZWRjYzQ0MmY3NjA1NmZiODM=
+        base64-secret: NWI5Y2E0YTI0ODA2M2U2NzVlZjk1YjQ5OGNkMDA0MGU1YWFiZWU1OTEyYTZjZTgyOGU1MzE0ZDhhODM4NDcyOTlhZjMwMDEyZDc2MDc3Yjk4NDVjOGUzZDhlZGU5ZWNjYTFiZjdkNzNjYWZiZjYzYzNiOGRiZjFjNjA2MWUzZGU=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

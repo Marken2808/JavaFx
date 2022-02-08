@@ -1,0 +1,100 @@
+enum CategoryStatus {
+    AVAILABLE, RESTRICTED, DISABLED
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+enum Size {
+    S, M, L, XL, XXL
+}
+
+enum OrderStatus {
+    COMPLETED, PAID, PENDING, CANCELLED, REFUNDED
+}
+
+enum PaymentMethod {
+    CREDIT_CARD(card), IDEAL(ideal)
+}
+
+entity Category {
+	title String required
+    description String required,
+    sortOrder Integer,
+    dateAdded LocalDate,
+    dateModified LocalDate,
+    status CategoryStatus
+}
+
+entity Product {
+    title String required,
+    keywords String,
+    description String,
+    price BigDecimal required min(0)
+    productSize Size required
+    image ImageBlob
+    rating Integer,
+    dateAdded LocalDate,
+    dateModified LocalDate
+}
+
+entity ProductOrder {
+    quantity Integer required min(0)
+    totalPrice BigDecimal required min(0)
+}
+
+entity Customer {
+	firstName String,
+    lastName String,
+    email String,
+    telephone String,
+    gender Gender required
+}
+
+entity Address {
+    address1 String,
+    address2 String,
+    city String,
+    postcode String required maxlength(10),
+    country String required maxlength(2)
+}
+
+entity WishList {
+	title String required,
+    restricted Boolean
+}
+
+entity ShoppingCart {
+    placedDate Instant required
+    status OrderStatus required
+    totalPrice BigDecimal required min(0)
+    paymentMethod PaymentMethod required
+    paymentReference String
+}
+
+
+relationship OneToOne {
+    Customer{user(login) required} to User
+}
+
+relationship OneToMany {
+	Customer{cart} to ShoppingCart{customer required},
+    ShoppingCart{order} to ProductOrder{cart required},
+    Customer{wishList(title)} to WishList{customer required},
+    WishList{product(title)} to Product{wishList(title) required},
+    Customer{address} to Address{customer required}
+}
+
+relationship ManyToOne {
+	Category{parent} to Category,
+    ProductOrder{product(title) required} to Product
+}
+
+relationship ManyToMany {
+	Category{product(title)} to Product{category}
+}
+
+paginate Customer, Product, Category with pagination
+paginate Address with pagination
+paginate Product with infinite-scroll

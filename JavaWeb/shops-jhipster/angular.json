@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "shops": {
+    "jhipster": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -84,15 +84,15 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "shops:build:development",
+            "browserTarget": "jhipster:build:development",
             "port": 4200
           },
           "configurations": {
             "production": {
-              "browserTarget": "shops:build:production"
+              "browserTarget": "jhipster:build:production"
             },
             "development": {
-              "browserTarget": "shops:build:development"
+              "browserTarget": "jhipster:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -106,7 +106,7 @@
       }
     }
   },
-  "defaultProject": "shops",
+  "defaultProject": "jhipster",
   "cli": {
     "cache": {
       "enabled": true,
