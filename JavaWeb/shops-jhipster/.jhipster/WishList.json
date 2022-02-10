@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20220210160452",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "wish_list",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "restricted",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "WishList",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "wishList",
+      "relationshipName": "product",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "customer",
+      "otherEntityRelationshipName": "wishList",
+      "relationshipName": "customer",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}

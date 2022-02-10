@@ -1,0 +1,32 @@
+{
+  "jhipsterApp": {
+    "customer": {
+      "home": {
+        "title": "Customers",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Customer",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Customer",
+        "notFound": "No Customers found"
+      },
+      "created": "Một Customer mới được tạo với định danh {{ param }}",
+      "updated": "Một Customer cập nhật với định danh {{ param }}",
+      "deleted": "Một Customer đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer"
+      },
+      "id": "ID",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "telephone": "Telephone",
+      "gender": "Gender",
+      "user": "User",
+      "cart": "Cart",
+      "wishList": "Wish List",
+      "address": "Address"
+    }
+  }
+}

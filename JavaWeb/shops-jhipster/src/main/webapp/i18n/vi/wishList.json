@@ -1,0 +1,27 @@
+{
+  "jhipsterApp": {
+    "wishList": {
+      "home": {
+        "title": "Wish Lists",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Wish List",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Wish List",
+        "notFound": "No Wish Lists found"
+      },
+      "created": "Một Wish List mới được tạo với định danh {{ param }}",
+      "updated": "Một Wish List cập nhật với định danh {{ param }}",
+      "deleted": "Một Wish List đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Wish List {{ id }}?"
+      },
+      "detail": {
+        "title": "Wish List"
+      },
+      "id": "ID",
+      "title": "Title",
+      "restricted": "Restricted",
+      "product": "Product",
+      "customer": "Customer"
+    }
+  }
+}
