@@ -26,7 +26,7 @@
       "fieldName": "paymentMethod",
       "fieldType": "PaymentMethod",
       "fieldValidateRules": ["required"],
-      "fieldValues": "CREDIT_CARD (card),IDEAL (ideal)"
+      "fieldValues": "CREDIT_CARD (card),IDEAL (ideal),CASH_ON_DELIVERY,PAYPAL"
     },
     {
       "fieldName": "paymentReference",

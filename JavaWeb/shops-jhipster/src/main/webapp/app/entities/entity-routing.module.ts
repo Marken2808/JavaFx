@@ -39,6 +39,21 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'jhipsterApp.cart.home.title' },
         loadChildren: () => import('./cart/cart.module').then(m => m.CartModule),
       },
+      {
+        path: 'invoice',
+        data: { pageTitle: 'jhipsterApp.invoice.home.title' },
+        loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule),
+      },
+      {
+        path: 'shipment',
+        data: { pageTitle: 'jhipsterApp.shipment.home.title' },
+        loadChildren: () => import('./shipment/shipment.module').then(m => m.ShipmentModule),
+      },
+      {
+        path: 'notification',
+        data: { pageTitle: 'jhipsterApp.notification.home.title' },
+        loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

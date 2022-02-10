@@ -15,7 +15,15 @@ enum OrderStatus {
 }
 
 enum PaymentMethod {
-    CREDIT_CARD(card), IDEAL(ideal)
+    CREDIT_CARD(card), IDEAL(ideal), CASH_ON_DELIVERY, PAYPAL
+}
+
+enum NotificationType {
+    EMAIL, SMS, PARCEL
+}
+
+enum InvoiceStatus {
+    PAID, ISSUED, CANCELLED
 }
 
 entity Category {
@@ -73,17 +81,44 @@ entity Cart {
     paymentReference String
 }
 
+entity Invoice {
+    code String required
+    date Instant required
+    details String
+    status InvoiceStatus required
+    paymentMethod PaymentMethod required
+    paymentDate Instant required
+    paymentAmount BigDecimal required
+}
+
+entity Shipment {
+    trackingCode String
+    date Instant required
+    details String
+}
+
+entity Notification {
+    date Instant required
+    details String
+    sentDate Instant required
+    format NotificationType required
+    userId Long required
+    productId Long required
+}
+
+/* ---relationship--- */
 
 relationship OneToOne {
     Customer{user(login) required} to User
 }
 
 relationship OneToMany {
-	Customer{cart} to Cart{customer required}, 
-    Cart{order required} to Order{cart required}, 
+	Customer{cart} to Cart{customer required},
+    Cart{order required} to Order{cart required},
     Customer{wishList(title) required} to WishList{customer required},
     WishList{product(title) required} to Product{wishList required},
-    Customer{address} to Address{customer required}
+    Customer{address} to Address{customer required},
+    Invoice{shipment} to Shipment{invoice(code) required}
 }
 
 relationship ManyToOne {
@@ -95,5 +130,5 @@ relationship ManyToMany {
 	Category{product(title)} to Product{category}
 }
 
-paginate Customer, Product, Category, Address with pagination
+paginate Customer, Product, Category, Address, Invoice, Shipment with pagination
 paginate Product with infinite-scroll

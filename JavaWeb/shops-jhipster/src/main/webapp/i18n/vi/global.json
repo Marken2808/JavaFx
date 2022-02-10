@@ -14,6 +14,9 @@
         "address": "Address",
         "wishList": "Wish List",
         "cart": "Cart",
+        "invoice": "Invoice",
+        "shipment": "Shipment",
+        "notification": "Notification",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
