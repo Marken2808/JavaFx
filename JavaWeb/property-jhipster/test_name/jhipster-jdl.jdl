@@ -1,0 +1,26 @@
+enum Title {
+    Mr, Mrs, Miss
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+entity Name {
+	title Title required,
+    firstName String required,
+    middleName String,
+    lastName String required,
+    displayName String required
+}
+
+entity Customer {
+    email String required,
+    telephone String required,
+    gender Gender required
+}
+
+relationship OneToOne {
+    Customer{user(login) required} to User,
+    Customer{name(displayName) required} to Name{customer required}
+}
