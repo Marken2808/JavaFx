@@ -1,0 +1,11 @@
+{
+  "testPropertyApp": {
+    "Status": {
+      "null": "",
+      "Sold": "Sold",
+      "Selling": "Selling",
+      "Let": "Let",
+      "Letting": "Letting"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "testPropertyApp": {
+    "name": {
+      "home": {
+        "title": "Names",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Name",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Name",
+        "notFound": "No Names found"
+      },
+      "created": "Một Name mới được tạo với định danh {{ param }}",
+      "updated": "Một Name cập nhật với định danh {{ param }}",
+      "deleted": "Một Name đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Name {{ id }}?"
+      },
+      "detail": {
+        "title": "Name"
+      },
+      "id": "ID",
+      "title": "Title",
+      "firstName": "First Name",
+      "middleName": "Middle Name",
+      "lastName": "Last Name",
+      "displayName": "Display Name"
+    }
+  }
+}

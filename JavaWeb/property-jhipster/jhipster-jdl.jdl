@@ -1,0 +1,75 @@
+
+
+enum Title {
+    Mr, Mrs, Miss
+}
+
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+entity Name {
+	title Title required,
+    firstName String required,
+    middleName String,
+    lastName String required,
+    displayName String required
+}
+
+entity Address {
+	numberic String,
+    street String required,
+    county String,
+    city String,
+    postcode String,
+    country String
+}
+
+
+entity Customer {
+    email String required,
+    phone String required,
+    birth String required,
+    gender Gender
+}
+
+/* Property */
+
+enum Type {
+	House,
+    Flat,
+    Apartment,
+    Project,
+    Land
+}
+
+enum Status {
+	Sold,
+    Selling,
+    Let,
+    Letting    
+}
+
+entity Property {
+	title String required,
+    image ImageBlob required,
+    status Status required,
+	type Type required,
+    acreage Double required 
+    
+    
+}
+
+
+
+
+
+relationship ManyToOne {
+	Customer{address(street) required} to Address
+    Customer{name(displayName) required} to Name,
+}
+
+relationship OneToOne {
+    Customer{user(login) required} to User,
+    Property{address(street) required} to Address,
+}

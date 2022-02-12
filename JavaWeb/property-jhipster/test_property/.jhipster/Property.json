@@ -1,0 +1,54 @@
+{
+  "applications": "*",
+  "changelogDate": "20220212193418",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "property",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Sold,Selling,Let,Letting"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "Type",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "House,Flat,Apartment,Project,Land"
+    },
+    {
+      "fieldName": "acreage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Property",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "street",
+      "otherEntityName": "address",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "address",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}
