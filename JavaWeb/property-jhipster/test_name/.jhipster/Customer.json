@@ -6,6 +6,11 @@
   "entityTableName": "customer",
   "fields": [
     {
+      "fieldName": "uuid",
+      "fieldType": "UUID",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
       "fieldName": "email",
       "fieldType": "String",
       "fieldValidateRules": ["required"]

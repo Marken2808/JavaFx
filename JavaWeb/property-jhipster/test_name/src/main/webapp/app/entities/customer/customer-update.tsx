@@ -90,6 +90,16 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="customer-id" label="ID" validate={{ required: true }} /> : null}
               <ValidatedField
+                label="Uuid"
+                id="customer-uuid"
+                name="uuid"
+                data-cy="uuid"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
+              <ValidatedField
                 label="Email"
                 id="customer-email"
                 name="email"

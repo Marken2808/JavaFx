@@ -4,6 +4,7 @@ import { Gender } from 'app/shared/model/enumerations/gender.model';
 
 export interface ICustomer {
   id?: number;
+  uuid?: string;
   email?: string;
   telephone?: string;
   gender?: Gender;

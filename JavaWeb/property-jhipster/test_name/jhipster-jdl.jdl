@@ -15,6 +15,7 @@ entity Name {
 }
 
 entity Customer {
+	uuid UUID required unique,
     email String required,
     telephone String required,
     gender Gender required
@@ -22,5 +23,5 @@ entity Customer {
 
 relationship OneToOne {
     Customer{user(login) required} to User,
-    Customer{name(displayName) required} to Name{customer required}
+    Customer{name(displayName) required} to Name{customer(uuid) required}
 }

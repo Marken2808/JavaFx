@@ -45,6 +45,7 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Uuid</th>
                 <th>Email</th>
                 <th>Telephone</th>
                 <th>Gender</th>
@@ -61,6 +62,7 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
                       {customer.id}
                     </Button>
                   </td>
+                  <td>{customer.uuid}</td>
                   <td>{customer.email}</td>
                   <td>{customer.telephone}</td>
                   <td>{customer.gender}</td>

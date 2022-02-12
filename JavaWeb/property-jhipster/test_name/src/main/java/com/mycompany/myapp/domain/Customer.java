@@ -3,6 +3,7 @@ package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Gender;
 import java.io.Serializable;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -20,6 +21,10 @@ public class Customer implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Column(name = "uuid", nullable = false, unique = true)
+    private UUID uuid;
 
     @NotNull
     @Column(name = "email", nullable = false)
@@ -58,6 +63,19 @@ public class Customer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UUID getUuid() {
+        return this.uuid;
+    }
+
+    public Customer uuid(UUID uuid) {
+        this.setUuid(uuid);
+        return this;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public String getEmail() {
@@ -149,6 +167,7 @@ public class Customer implements Serializable {
     public String toString() {
         return "Customer{" +
             "id=" + getId() +
+            ", uuid='" + getUuid() + "'" +
             ", email='" + getEmail() + "'" +
             ", telephone='" + getTelephone() + "'" +
             ", gender='" + getGender() + "'" +
