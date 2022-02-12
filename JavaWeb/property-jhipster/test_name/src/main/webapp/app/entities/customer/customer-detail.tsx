@@ -26,23 +26,25 @@ export const CustomerDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{customerEntity.id}</dd>
           <dt>
-            <span id="uuid">Uuid</span>
-          </dt>
-          <dd>{customerEntity.uuid}</dd>
-          <dt>
             <span id="email">Email</span>
           </dt>
           <dd>{customerEntity.email}</dd>
           <dt>
-            <span id="telephone">Telephone</span>
+            <span id="phone">Phone</span>
           </dt>
-          <dd>{customerEntity.telephone}</dd>
+          <dd>{customerEntity.phone}</dd>
+          <dt>
+            <span id="birth">Birth</span>
+          </dt>
+          <dd>{customerEntity.birth}</dd>
           <dt>
             <span id="gender">Gender</span>
           </dt>
           <dd>{customerEntity.gender}</dd>
           <dt>User</dt>
           <dd>{customerEntity.user ? customerEntity.user.login : ''}</dd>
+          <dt>Address</dt>
+          <dd>{customerEntity.address ? customerEntity.address.street : ''}</dd>
           <dt>Name</dt>
           <dd>{customerEntity.name ? customerEntity.name.displayName : ''}</dd>
         </dl>

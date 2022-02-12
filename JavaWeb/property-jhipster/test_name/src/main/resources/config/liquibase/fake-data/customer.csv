@@ -1,3 +1,3 @@
-id;uuid;email;telephone;gender;user_id;name_id
-1;2fd91947-cb33-4a97-bf12-3e45c649c026;Vidal_Dietrich@hotmail.com;653.760.8584 x5122;MALE;1;1
-2;6cacf3e1-c7f3-4df6-93ad-541bc1191a7c;Waino.Green25@yahoo.com;1-858-707-7242;MALE;2;2
+id;email;phone;birth;gender;user_id;address_id;name_id
+1;Wilson.Smith@gmail.com;448.721.6642 x911;SQL;OTHER;1;1;1
+2;Einar.Moore12@yahoo.com;991-697-5537 x608;indexing Ball;MALE;2;2;2

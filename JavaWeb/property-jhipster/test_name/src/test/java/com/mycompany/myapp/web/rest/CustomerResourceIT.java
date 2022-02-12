@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.Address;
 import com.mycompany.myapp.domain.Customer;
 import com.mycompany.myapp.domain.Name;
 import com.mycompany.myapp.domain.User;
@@ -13,7 +14,6 @@ import com.mycompany.myapp.domain.enumeration.Gender;
 import com.mycompany.myapp.repository.CustomerRepository;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,14 +33,14 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class CustomerResourceIT {
 
-    private static final UUID DEFAULT_UUID = UUID.randomUUID();
-    private static final UUID UPDATED_UUID = UUID.randomUUID();
-
     private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
     private static final String UPDATED_EMAIL = "BBBBBBBBBB";
 
-    private static final String DEFAULT_TELEPHONE = "AAAAAAAAAA";
-    private static final String UPDATED_TELEPHONE = "BBBBBBBBBB";
+    private static final String DEFAULT_PHONE = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_BIRTH = "AAAAAAAAAA";
+    private static final String UPDATED_BIRTH = "BBBBBBBBBB";
 
     private static final Gender DEFAULT_GENDER = Gender.MALE;
     private static final Gender UPDATED_GENDER = Gender.FEMALE;
@@ -69,12 +69,22 @@ class CustomerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Customer createEntity(EntityManager em) {
-        Customer customer = new Customer().uuid(DEFAULT_UUID).email(DEFAULT_EMAIL).telephone(DEFAULT_TELEPHONE).gender(DEFAULT_GENDER);
+        Customer customer = new Customer().email(DEFAULT_EMAIL).phone(DEFAULT_PHONE).birth(DEFAULT_BIRTH).gender(DEFAULT_GENDER);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
         em.flush();
         customer.setUser(user);
+        // Add required entity
+        Address address;
+        if (TestUtil.findAll(em, Address.class).isEmpty()) {
+            address = AddressResourceIT.createEntity(em);
+            em.persist(address);
+            em.flush();
+        } else {
+            address = TestUtil.findAll(em, Address.class).get(0);
+        }
+        customer.setAddress(address);
         // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
@@ -95,12 +105,22 @@ class CustomerResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Customer createUpdatedEntity(EntityManager em) {
-        Customer customer = new Customer().uuid(UPDATED_UUID).email(UPDATED_EMAIL).telephone(UPDATED_TELEPHONE).gender(UPDATED_GENDER);
+        Customer customer = new Customer().email(UPDATED_EMAIL).phone(UPDATED_PHONE).birth(UPDATED_BIRTH).gender(UPDATED_GENDER);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
         em.flush();
         customer.setUser(user);
+        // Add required entity
+        Address address;
+        if (TestUtil.findAll(em, Address.class).isEmpty()) {
+            address = AddressResourceIT.createUpdatedEntity(em);
+            em.persist(address);
+            em.flush();
+        } else {
+            address = TestUtil.findAll(em, Address.class).get(0);
+        }
+        customer.setAddress(address);
         // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
@@ -132,9 +152,9 @@ class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeCreate + 1);
         Customer testCustomer = customerList.get(customerList.size() - 1);
-        assertThat(testCustomer.getUuid()).isEqualTo(DEFAULT_UUID);
         assertThat(testCustomer.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testCustomer.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
+        assertThat(testCustomer.getPhone()).isEqualTo(DEFAULT_PHONE);
+        assertThat(testCustomer.getBirth()).isEqualTo(DEFAULT_BIRTH);
         assertThat(testCustomer.getGender()).isEqualTo(DEFAULT_GENDER);
     }
 
@@ -158,23 +178,6 @@ class CustomerResourceIT {
 
     @Test
     @Transactional
-    void checkUuidIsRequired() throws Exception {
-        int databaseSizeBeforeTest = customerRepository.findAll().size();
-        // set the field null
-        customer.setUuid(null);
-
-        // Create the Customer, which fails.
-
-        restCustomerMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(customer)))
-            .andExpect(status().isBadRequest());
-
-        List<Customer> customerList = customerRepository.findAll();
-        assertThat(customerList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void checkEmailIsRequired() throws Exception {
         int databaseSizeBeforeTest = customerRepository.findAll().size();
         // set the field null
@@ -192,10 +195,27 @@ class CustomerResourceIT {
 
     @Test
     @Transactional
-    void checkTelephoneIsRequired() throws Exception {
+    void checkPhoneIsRequired() throws Exception {
         int databaseSizeBeforeTest = customerRepository.findAll().size();
         // set the field null
-        customer.setTelephone(null);
+        customer.setPhone(null);
+
+        // Create the Customer, which fails.
+
+        restCustomerMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(customer)))
+            .andExpect(status().isBadRequest());
+
+        List<Customer> customerList = customerRepository.findAll();
+        assertThat(customerList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    void checkBirthIsRequired() throws Exception {
+        int databaseSizeBeforeTest = customerRepository.findAll().size();
+        // set the field null
+        customer.setBirth(null);
 
         // Create the Customer, which fails.
 
@@ -236,9 +256,9 @@ class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].uuid").value(hasItem(DEFAULT_UUID.toString())))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE)))
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
+            .andExpect(jsonPath("$.[*].birth").value(hasItem(DEFAULT_BIRTH)))
             .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())));
     }
 
@@ -254,9 +274,9 @@ class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
-            .andExpect(jsonPath("$.uuid").value(DEFAULT_UUID.toString()))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.telephone").value(DEFAULT_TELEPHONE))
+            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE))
+            .andExpect(jsonPath("$.birth").value(DEFAULT_BIRTH))
             .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER.toString()));
     }
 
@@ -279,7 +299,7 @@ class CustomerResourceIT {
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
         // Disconnect from session so that the updates on updatedCustomer are not directly saved in db
         em.detach(updatedCustomer);
-        updatedCustomer.uuid(UPDATED_UUID).email(UPDATED_EMAIL).telephone(UPDATED_TELEPHONE).gender(UPDATED_GENDER);
+        updatedCustomer.email(UPDATED_EMAIL).phone(UPDATED_PHONE).birth(UPDATED_BIRTH).gender(UPDATED_GENDER);
 
         restCustomerMockMvc
             .perform(
@@ -293,9 +313,9 @@ class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
-        assertThat(testCustomer.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testCustomer.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testCustomer.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
+        assertThat(testCustomer.getPhone()).isEqualTo(UPDATED_PHONE);
+        assertThat(testCustomer.getBirth()).isEqualTo(UPDATED_BIRTH);
         assertThat(testCustomer.getGender()).isEqualTo(UPDATED_GENDER);
     }
 
@@ -367,7 +387,7 @@ class CustomerResourceIT {
         Customer partialUpdatedCustomer = new Customer();
         partialUpdatedCustomer.setId(customer.getId());
 
-        partialUpdatedCustomer.uuid(UPDATED_UUID);
+        partialUpdatedCustomer.email(UPDATED_EMAIL);
 
         restCustomerMockMvc
             .perform(
@@ -381,9 +401,9 @@ class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
-        assertThat(testCustomer.getUuid()).isEqualTo(UPDATED_UUID);
-        assertThat(testCustomer.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testCustomer.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
+        assertThat(testCustomer.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testCustomer.getPhone()).isEqualTo(DEFAULT_PHONE);
+        assertThat(testCustomer.getBirth()).isEqualTo(DEFAULT_BIRTH);
         assertThat(testCustomer.getGender()).isEqualTo(DEFAULT_GENDER);
     }
 
@@ -399,7 +419,7 @@ class CustomerResourceIT {
         Customer partialUpdatedCustomer = new Customer();
         partialUpdatedCustomer.setId(customer.getId());
 
-        partialUpdatedCustomer.uuid(UPDATED_UUID).email(UPDATED_EMAIL).telephone(UPDATED_TELEPHONE).gender(UPDATED_GENDER);
+        partialUpdatedCustomer.email(UPDATED_EMAIL).phone(UPDATED_PHONE).birth(UPDATED_BIRTH).gender(UPDATED_GENDER);
 
         restCustomerMockMvc
             .perform(
@@ -413,9 +433,9 @@ class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
-        assertThat(testCustomer.getUuid()).isEqualTo(UPDATED_UUID);
         assertThat(testCustomer.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testCustomer.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
+        assertThat(testCustomer.getPhone()).isEqualTo(UPDATED_PHONE);
+        assertThat(testCustomer.getBirth()).isEqualTo(UPDATED_BIRTH);
         assertThat(testCustomer.getGender()).isEqualTo(UPDATED_GENDER);
     }
 

@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IUser } from 'app/shared/model/user.model';
 import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
+import { IAddress } from 'app/shared/model/address.model';
+import { getEntities as getAddresses } from 'app/entities/address/address.reducer';
 import { IName } from 'app/shared/model/name.model';
 import { getEntities as getNames } from 'app/entities/name/name.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './customer.reducer';
@@ -21,6 +23,7 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const users = useAppSelector(state => state.userManagement.users);
+  const addresses = useAppSelector(state => state.address.entities);
   const names = useAppSelector(state => state.name.entities);
   const customerEntity = useAppSelector(state => state.customer.entity);
   const loading = useAppSelector(state => state.customer.loading);
@@ -39,6 +42,7 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getUsers({}));
+    dispatch(getAddresses({}));
     dispatch(getNames({}));
   }, []);
 
@@ -53,6 +57,7 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...customerEntity,
       ...values,
       user: users.find(it => it.id.toString() === values.user.toString()),
+      address: addresses.find(it => it.id.toString() === values.address.toString()),
       name: names.find(it => it.id.toString() === values.name.toString()),
     };
 
@@ -70,6 +75,7 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
           gender: 'MALE',
           ...customerEntity,
           user: customerEntity?.user?.id,
+          address: customerEntity?.address?.id,
           name: customerEntity?.name?.id,
         };
 
@@ -90,16 +96,6 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
               {!isNew ? <ValidatedField name="id" required readOnly id="customer-id" label="ID" validate={{ required: true }} /> : null}
               <ValidatedField
-                label="Uuid"
-                id="customer-uuid"
-                name="uuid"
-                data-cy="uuid"
-                type="text"
-                validate={{
-                  required: { value: true, message: 'This field is required.' },
-                }}
-              />
-              <ValidatedField
                 label="Email"
                 id="customer-email"
                 name="email"
@@ -110,10 +106,20 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 }}
               />
               <ValidatedField
-                label="Telephone"
-                id="customer-telephone"
-                name="telephone"
-                data-cy="telephone"
+                label="Phone"
+                id="customer-phone"
+                name="phone"
+                data-cy="phone"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
+              <ValidatedField
+                label="Birth"
+                id="customer-birth"
+                name="birth"
+                data-cy="birth"
                 type="text"
                 validate={{
                   required: { value: true, message: 'This field is required.' },
@@ -132,6 +138,17 @@ export const CustomerUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? users.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.login}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
+              <ValidatedField id="customer-address" name="address" data-cy="address" label="Address" type="select" required>
+                <option value="" key="0" />
+                {addresses
+                  ? addresses.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.street}
                       </option>
                     ))
                   : null}

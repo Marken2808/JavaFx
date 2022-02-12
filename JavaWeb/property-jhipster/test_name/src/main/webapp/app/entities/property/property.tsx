@@ -4,16 +4,16 @@ import { Button, Table } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getEntities } from './customer.reducer';
-import { ICustomer } from 'app/shared/model/customer.model';
+import { getEntities } from './property.reducer';
+import { IProperty } from 'app/shared/model/property.model';
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-export const Customer = (props: RouteComponentProps<{ url: string }>) => {
+export const Property = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
-  const customerList = useAppSelector(state => state.customer.entities);
-  const loading = useAppSelector(state => state.customer.loading);
+  const propertyList = useAppSelector(state => state.property.entities);
+  const loading = useAppSelector(state => state.property.loading);
 
   useEffect(() => {
     dispatch(getEntities({}));
@@ -27,58 +27,44 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
 
   return (
     <div>
-      <h2 id="customer-heading" data-cy="CustomerHeading">
-        Customers
+      <h2 id="property-heading" data-cy="PropertyHeading">
+        Properties
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
           <Link to={`${match.url}/new`} className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create new Customer
+            &nbsp; Create new Property
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
-        {customerList && customerList.length > 0 ? (
+        {propertyList && propertyList.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Birth</th>
-                <th>Gender</th>
-                <th>User</th>
-                <th>Address</th>
-                <th>Name</th>
                 <th />
               </tr>
             </thead>
             <tbody>
-              {customerList.map((customer, i) => (
+              {propertyList.map((property, i) => (
                 <tr key={`entity-${i}`} data-cy="entityTable">
                   <td>
-                    <Button tag={Link} to={`${match.url}/${customer.id}`} color="link" size="sm">
-                      {customer.id}
+                    <Button tag={Link} to={`${match.url}/${property.id}`} color="link" size="sm">
+                      {property.id}
                     </Button>
                   </td>
-                  <td>{customer.email}</td>
-                  <td>{customer.phone}</td>
-                  <td>{customer.birth}</td>
-                  <td>{customer.gender}</td>
-                  <td>{customer.user ? customer.user.login : ''}</td>
-                  <td>{customer.address ? <Link to={`address/${customer.address.id}`}>{customer.address.street}</Link> : ''}</td>
-                  <td>{customer.name ? <Link to={`name/${customer.name.id}`}>{customer.name.displayName}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${customer.id}`} color="info" size="sm" data-cy="entityDetailsButton">
+                      <Button tag={Link} to={`${match.url}/${property.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${customer.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
+                      <Button tag={Link} to={`${match.url}/${property.id}/edit`} color="primary" size="sm" data-cy="entityEditButton">
                         <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
                       </Button>
-                      <Button tag={Link} to={`${match.url}/${customer.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
+                      <Button tag={Link} to={`${match.url}/${property.id}/delete`} color="danger" size="sm" data-cy="entityDeleteButton">
                         <FontAwesomeIcon icon="trash" /> <span className="d-none d-md-inline">Delete</span>
                       </Button>
                     </div>
@@ -88,11 +74,11 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">No Customers found</div>
+          !loading && <div className="alert alert-warning">No Properties found</div>
         )}
       </div>
     </div>
   );
 };
 
-export default Customer;
+export default Property;

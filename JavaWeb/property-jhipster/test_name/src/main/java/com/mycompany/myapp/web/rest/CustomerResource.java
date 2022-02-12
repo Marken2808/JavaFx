@@ -125,14 +125,14 @@ public class CustomerResource {
         Optional<Customer> result = customerRepository
             .findById(customer.getId())
             .map(existingCustomer -> {
-                if (customer.getUuid() != null) {
-                    existingCustomer.setUuid(customer.getUuid());
-                }
                 if (customer.getEmail() != null) {
                     existingCustomer.setEmail(customer.getEmail());
                 }
-                if (customer.getTelephone() != null) {
-                    existingCustomer.setTelephone(customer.getTelephone());
+                if (customer.getPhone() != null) {
+                    existingCustomer.setPhone(customer.getPhone());
+                }
+                if (customer.getBirth() != null) {
+                    existingCustomer.setBirth(customer.getBirth());
                 }
                 if (customer.getGender() != null) {
                     existingCustomer.setGender(customer.getGender());

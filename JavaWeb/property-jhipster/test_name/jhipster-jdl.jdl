@@ -14,14 +14,28 @@ entity Name {
     displayName String required
 }
 
+entity Address {
+	numberic String,
+    street String required,
+    county String,
+    city String,
+    postcode String,
+    country String
+}
+
 entity Customer {
-	uuid UUID required unique,
     email String required,
-    telephone String required,
+    phone String required,
+    birth String required,
     gender Gender required
+}
+
+
+relationship ManyToOne {
+	Customer{address(street) required} to Address
+    Customer{name(displayName) required} to Name,
 }
 
 relationship OneToOne {
     Customer{user(login) required} to User,
-    Customer{name(displayName) required} to Name{customer(uuid) required}
 }

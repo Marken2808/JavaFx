@@ -1,9 +1,7 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Gender;
 import java.io.Serializable;
-import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -23,16 +21,16 @@ public class Customer implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "uuid", nullable = false, unique = true)
-    private UUID uuid;
-
-    @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 
     @NotNull
-    @Column(name = "telephone", nullable = false)
-    private String telephone;
+    @Column(name = "phone", nullable = false)
+    private String phone;
+
+    @NotNull
+    @Column(name = "birth", nullable = false)
+    private String birth;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -44,10 +42,12 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
-    @JsonIgnoreProperties(value = { "customer" }, allowSetters = true)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     @NotNull
-    @JoinColumn(unique = true)
+    private Address address;
+
+    @ManyToOne(optional = false)
+    @NotNull
     private Name name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -65,19 +65,6 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public UUID getUuid() {
-        return this.uuid;
-    }
-
-    public Customer uuid(UUID uuid) {
-        this.setUuid(uuid);
-        return this;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
     public String getEmail() {
         return this.email;
     }
@@ -91,17 +78,30 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    public String getTelephone() {
-        return this.telephone;
+    public String getPhone() {
+        return this.phone;
     }
 
-    public Customer telephone(String telephone) {
-        this.setTelephone(telephone);
+    public Customer phone(String phone) {
+        this.setPhone(phone);
         return this;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getBirth() {
+        return this.birth;
+    }
+
+    public Customer birth(String birth) {
+        this.setBirth(birth);
+        return this;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
     }
 
     public Gender getGender() {
@@ -127,6 +127,19 @@ public class Customer implements Serializable {
 
     public Customer user(User user) {
         this.setUser(user);
+        return this;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Customer address(Address address) {
+        this.setAddress(address);
         return this;
     }
 
@@ -167,9 +180,9 @@ public class Customer implements Serializable {
     public String toString() {
         return "Customer{" +
             "id=" + getId() +
-            ", uuid='" + getUuid() + "'" +
             ", email='" + getEmail() + "'" +
-            ", telephone='" + getTelephone() + "'" +
+            ", phone='" + getPhone() + "'" +
+            ", birth='" + getBirth() + "'" +
             ", gender='" + getGender() + "'" +
             "}";
     }

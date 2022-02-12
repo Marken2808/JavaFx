@@ -4,8 +4,6 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { ICustomer } from 'app/shared/model/customer.model';
-import { getEntities as getCustomers } from 'app/entities/customer/customer.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './name.reducer';
 import { IName } from 'app/shared/model/name.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
@@ -18,7 +16,6 @@ export const NameUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const customers = useAppSelector(state => state.customer.entities);
   const nameEntity = useAppSelector(state => state.name.entity);
   const loading = useAppSelector(state => state.name.loading);
   const updating = useAppSelector(state => state.name.updating);
@@ -34,8 +31,6 @@ export const NameUpdate = (props: RouteComponentProps<{ id: string }>) => {
     } else {
       dispatch(getEntity(props.match.params.id));
     }
-
-    dispatch(getCustomers({}));
   }, []);
 
   useEffect(() => {

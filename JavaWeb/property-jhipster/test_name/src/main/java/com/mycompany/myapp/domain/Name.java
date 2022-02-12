@@ -1,6 +1,5 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Title;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -40,10 +39,6 @@ public class Name implements Serializable {
     @NotNull
     @Column(name = "display_name", nullable = false)
     private String displayName;
-
-    @JsonIgnoreProperties(value = { "user", "name" }, allowSetters = true)
-    @OneToOne(mappedBy = "name")
-    private Customer customer;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -123,25 +118,6 @@ public class Name implements Serializable {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public Customer getCustomer() {
-        return this.customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        if (this.customer != null) {
-            this.customer.setName(null);
-        }
-        if (customer != null) {
-            customer.setName(this);
-        }
-        this.customer = customer;
-    }
-
-    public Name customer(Customer customer) {
-        this.setCustomer(customer);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

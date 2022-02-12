@@ -6,17 +6,17 @@
   "entityTableName": "customer",
   "fields": [
     {
-      "fieldName": "uuid",
-      "fieldType": "UUID",
-      "fieldValidateRules": ["required", "unique"]
-    },
-    {
       "fieldName": "email",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "telephone",
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "birth",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
@@ -43,12 +43,19 @@
       "relationshipValidateRules": "required"
     },
     {
+      "otherEntityField": "street",
+      "otherEntityName": "address",
+      "otherEntityRelationshipName": "customer",
+      "relationshipName": "address",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
       "otherEntityField": "displayName",
       "otherEntityName": "name",
       "otherEntityRelationshipName": "customer",
-      "ownerSide": true,
       "relationshipName": "name",
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],

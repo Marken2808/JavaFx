@@ -1,0 +1,2 @@
+- update entity
+>_ jhipster jdl jhipster-jdl.jdl --json-only

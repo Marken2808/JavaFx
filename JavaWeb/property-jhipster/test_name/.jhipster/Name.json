@@ -36,16 +36,6 @@
   "name": "Name",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityField": "uuid",
-      "otherEntityName": "customer",
-      "otherEntityRelationshipName": "name",
-      "ownerSide": false,
-      "relationshipName": "customer",
-      "relationshipType": "one-to-one",
-      "relationshipValidateRules": "required"
-    }
-  ],
+  "relationships": [],
   "service": "no"
 }

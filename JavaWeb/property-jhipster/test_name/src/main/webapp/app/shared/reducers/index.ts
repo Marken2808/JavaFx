@@ -14,6 +14,10 @@ import passwordReset from 'app/modules/account/password-reset/password-reset.red
 import name from 'app/entities/name/name.reducer';
 // prettier-ignore
 import customer from 'app/entities/customer/customer.reducer';
+// prettier-ignore
+import address from 'app/entities/address/address.reducer';
+// prettier-ignore
+import property from 'app/entities/property/property.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -28,6 +32,8 @@ const rootReducer = {
   settings,
   name,
   customer,
+  address,
+  property,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };
