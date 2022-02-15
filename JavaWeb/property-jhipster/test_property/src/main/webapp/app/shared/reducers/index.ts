@@ -19,6 +19,12 @@ import address from 'app/entities/address/address.reducer';
 import customer from 'app/entities/customer/customer.reducer';
 // prettier-ignore
 import property from 'app/entities/property/property.reducer';
+// prettier-ignore
+import room from 'app/entities/room/room.reducer';
+// prettier-ignore
+import furniture from 'app/entities/furniture/furniture.reducer';
+// prettier-ignore
+import accommodation from 'app/entities/accommodation/accommodation.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const rootReducer = {
@@ -36,6 +42,9 @@ const rootReducer = {
   address,
   customer,
   property,
+  room,
+  furniture,
+  accommodation,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar,
 };

@@ -73,9 +73,19 @@ export const PropertyDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{propertyEntity.acreage}</dd>
           <dt>
+            <span id="price">
+              <Translate contentKey="testPropertyApp.property.price">Price</Translate>
+            </span>
+          </dt>
+          <dd>{propertyEntity.price}</dd>
+          <dt>
             <Translate contentKey="testPropertyApp.property.address">Address</Translate>
           </dt>
           <dd>{propertyEntity.address ? propertyEntity.address.street : ''}</dd>
+          <dt>
+            <Translate contentKey="testPropertyApp.property.accommodation">Accommodation</Translate>
+          </dt>
+          <dd>{propertyEntity.accommodation ? propertyEntity.accommodation.title : ''}</dd>
         </dl>
         <Button tag={Link} to="/property" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

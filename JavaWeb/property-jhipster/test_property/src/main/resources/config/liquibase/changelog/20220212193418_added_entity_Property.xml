@@ -32,8 +32,14 @@
             <column name="acreage" type="double">
                 <constraints nullable="false" />
             </column>
+            <column name="price" type="double">
+                <constraints nullable="false" />
+            </column>
             <column name="address_id" type="bigint">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_property__address_id" />
+            </column>
+            <column name="accommodation_id" type="bigint">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_property__accommodation_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -62,7 +68,9 @@
             <column name="status" type="string"/>
             <column name="type" type="string"/>
             <column name="acreage" type="numeric"/>
+            <column name="price" type="numeric"/>
             <column name="address_id" type="numeric"/>
+            <column name="accommodation_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

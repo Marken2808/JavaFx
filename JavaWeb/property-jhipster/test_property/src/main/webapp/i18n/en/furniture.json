@@ -1,0 +1,24 @@
+{
+  "testPropertyApp": {
+    "furniture": {
+      "home": {
+        "title": "Furnitures",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Furniture",
+        "createOrEditLabel": "Create or edit a Furniture",
+        "notFound": "No Furnitures found"
+      },
+      "created": "A new Furniture is created with identifier {{ param }}",
+      "updated": "A Furniture is updated with identifier {{ param }}",
+      "deleted": "A Furniture is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Furniture {{ id }}?"
+      },
+      "detail": {
+        "title": "Furniture"
+      },
+      "id": "ID",
+      "title": "Title"
+    }
+  }
+}

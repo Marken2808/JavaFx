@@ -65,10 +65,10 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="testPropertyApp.customer.user">User</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="testPropertyApp.customer.address">Address</Translate>
+                  <Translate contentKey="testPropertyApp.customer.name">Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="testPropertyApp.customer.name">Name</Translate>
+                  <Translate contentKey="testPropertyApp.customer.address">Address</Translate>
                 </th>
                 <th />
               </tr>
@@ -88,8 +88,8 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
                     <Translate contentKey={`testPropertyApp.Gender.${customer.gender}`} />
                   </td>
                   <td>{customer.user ? customer.user.login : ''}</td>
-                  <td>{customer.address ? <Link to={`address/${customer.address.id}`}>{customer.address.street}</Link> : ''}</td>
                   <td>{customer.name ? <Link to={`name/${customer.name.id}`}>{customer.name.displayName}</Link> : ''}</td>
+                  <td>{customer.address ? <Link to={`address/${customer.address.id}`}>{customer.address.street}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${customer.id}`} color="info" size="sm" data-cy="entityDetailsButton">

@@ -1,0 +1,10 @@
+{
+  "testPropertyApp": {
+    "RoomStatus": {
+      "null": "",
+      "Furnished": "Furnished",
+      "Unfurnished": "Unfurnished",
+      "Partfurnished": "Partfurnished"
+    }
+  }
+}

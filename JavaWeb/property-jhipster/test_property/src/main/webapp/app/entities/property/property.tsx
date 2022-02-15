@@ -65,7 +65,13 @@ export const Property = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="testPropertyApp.property.acreage">Acreage</Translate>
                 </th>
                 <th>
+                  <Translate contentKey="testPropertyApp.property.price">Price</Translate>
+                </th>
+                <th>
                   <Translate contentKey="testPropertyApp.property.address">Address</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="testPropertyApp.property.accommodation">Accommodation</Translate>
                 </th>
                 <th />
               </tr>
@@ -95,13 +101,21 @@ export const Property = (props: RouteComponentProps<{ url: string }>) => {
                     ) : null}
                   </td>
                   <td>
-                    <Translate contentKey={`testPropertyApp.Status.${property.status}`} />
+                    <Translate contentKey={`testPropertyApp.PropertyStatus.${property.status}`} />
                   </td>
                   <td>
-                    <Translate contentKey={`testPropertyApp.Type.${property.type}`} />
+                    <Translate contentKey={`testPropertyApp.PropertyType.${property.type}`} />
                   </td>
                   <td>{property.acreage}</td>
+                  <td>{property.price}</td>
                   <td>{property.address ? <Link to={`address/${property.address.id}`}>{property.address.street}</Link> : ''}</td>
+                  <td>
+                    {property.accommodation ? (
+                      <Link to={`accommodation/${property.accommodation.id}`}>{property.accommodation.title}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`${match.url}/${property.id}`} color="info" size="sm" data-cy="entityDetailsButton">

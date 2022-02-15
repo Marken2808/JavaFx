@@ -58,13 +58,13 @@ export const CustomerDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{customerEntity.user ? customerEntity.user.login : ''}</dd>
           <dt>
-            <Translate contentKey="testPropertyApp.customer.address">Address</Translate>
-          </dt>
-          <dd>{customerEntity.address ? customerEntity.address.street : ''}</dd>
-          <dt>
             <Translate contentKey="testPropertyApp.customer.name">Name</Translate>
           </dt>
           <dd>{customerEntity.name ? customerEntity.name.displayName : ''}</dd>
+          <dt>
+            <Translate contentKey="testPropertyApp.customer.address">Address</Translate>
+          </dt>
+          <dd>{customerEntity.address ? customerEntity.address.street : ''}</dd>
         </dl>
         <Button tag={Link} to="/customer" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -1,0 +1,10 @@
+{
+  "testPropertyApp": {
+    "PropertyType": {
+      "null": "",
+      "Accommodation": "Accommodation",
+      "Project": "Project",
+      "Land": "Land"
+    }
+  }
+}

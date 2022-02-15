@@ -76,16 +76,6 @@ class CustomerResourceIT {
         em.flush();
         customer.setUser(user);
         // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        customer.setAddress(address);
-        // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
             name = NameResourceIT.createEntity(em);
@@ -95,6 +85,16 @@ class CustomerResourceIT {
             name = TestUtil.findAll(em, Name.class).get(0);
         }
         customer.setName(name);
+        // Add required entity
+        Address address;
+        if (TestUtil.findAll(em, Address.class).isEmpty()) {
+            address = AddressResourceIT.createEntity(em);
+            em.persist(address);
+            em.flush();
+        } else {
+            address = TestUtil.findAll(em, Address.class).get(0);
+        }
+        customer.setAddress(address);
         return customer;
     }
 
@@ -112,16 +112,6 @@ class CustomerResourceIT {
         em.flush();
         customer.setUser(user);
         // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createUpdatedEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        customer.setAddress(address);
-        // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
             name = NameResourceIT.createUpdatedEntity(em);
@@ -131,6 +121,16 @@ class CustomerResourceIT {
             name = TestUtil.findAll(em, Name.class).get(0);
         }
         customer.setName(name);
+        // Add required entity
+        Address address;
+        if (TestUtil.findAll(em, Address.class).isEmpty()) {
+            address = AddressResourceIT.createUpdatedEntity(em);
+            em.persist(address);
+            em.flush();
+        } else {
+            address = TestUtil.findAll(em, Address.class).get(0);
+        }
+        customer.setAddress(address);
         return customer;
     }
 

@@ -1,19 +1,9 @@
-
-
-enum Title {
-    Mr, Mrs, Miss
-}
-
 enum Gender {
     MALE, FEMALE, OTHER
 }
 
-entity Name {
-	title Title required,
-    firstName String required,
-    middleName String,
-    lastName String required,
-    displayName String required
+enum Title {
+    Mr, Mrs, Miss
 }
 
 entity Address {
@@ -25,6 +15,15 @@ entity Address {
     country String
 }
 
+entity Name {
+	title Title required,
+    firstName String required,
+    middleName String,
+    lastName String required,
+    displayName String required
+}
+
+
 
 entity Customer {
     email String required,
@@ -34,42 +33,87 @@ entity Customer {
 }
 
 /* Property */
+enum PropertyStatus {
+	Sold,
+    Selling,
+    ToSell,
+    Let,
+    Letting,
+    ToLet
+}
 
-enum Type {
-	House,
-    Flat,
-    Apartment,
+enum PropertyType {
+	Accommodation,
     Project,
     Land
 }
 
-enum Status {
-	Sold,
-    Selling,
-    Let,
-    Letting    
-}
+
 
 entity Property {
 	title String required,
     image ImageBlob required,
-    status Status required,
-	type Type required,
-    acreage Double required 
-    
-    
+    status PropertyStatus required,
+	type PropertyType required,
+    acreage Double required,
+    price Double required,
+}
+
+enum RoomType {
+	Attic,
+	Lounge,
+    Garage,
+    Basement,
+    Lavatory,
+    Bedroom,
+    Diningroom,
+    Kitchen,
+    Balcony,
+    Landing,
+    Hall
+}
+
+entity Room {
+	title String required,
+    acreage Double,
+    image ImageBlob,
+    type RoomType,
+    price Double,
+}
+
+enum AccommodationType {
+	Flat,
+	House,
+    Studio,
+    Ensuite,
+    Apartment
+}
+
+enum AccommodationStatus {
+	Furnished,
+    Unfurnished,
+    Partfurnished
+}
+
+entity Accommodation {
+	title String required,
+    type AccommodationType required,
+    status AccommodationStatus required
 }
 
 
 
-
+relationship OneToMany {
+	Accommodation{room(title) required} to Room{accommodation required},
+    Address to Customer{address(street) required},
+}
 
 relationship ManyToOne {
-	Customer{address(street) required} to Address
     Customer{name(displayName) required} to Name,
 }
 
 relationship OneToOne {
     Customer{user(login) required} to User,
     Property{address(street) required} to Address,
+    Property{accommodation(title) required} to Accommodation
 }

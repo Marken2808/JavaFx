@@ -1,0 +1,11 @@
+id;title;acreage;image;image_content_type;type;price;accommodation_id
+1;Car;84007;../fake-data/blob/hipster.png;image/png;Hall;53348;1
+2;Dynamic Manager;80679;../fake-data/blob/hipster.png;image/png;Attic;64600;2
+3;Technician CFP supply-chains;83958;../fake-data/blob/hipster.png;image/png;Balcony;51588;3
+4;Guinea Steel;41358;../fake-data/blob/hipster.png;image/png;Diningroom;7918;4
+5;copy;86229;../fake-data/blob/hipster.png;image/png;Basement;93364;5
+6;Taiwan;8116;../fake-data/blob/hipster.png;image/png;Landing;92400;6
+7;array;92819;../fake-data/blob/hipster.png;image/png;Hall;26315;7
+8;Turnpike Account turquoise;159;../fake-data/blob/hipster.png;image/png;Lavatory;58391;8
+9;Buckinghamshire Small;66635;../fake-data/blob/hipster.png;image/png;Attic;66738;9
+10;Handcrafted;67778;../fake-data/blob/hipster.png;image/png;Basement;27942;10

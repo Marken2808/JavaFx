@@ -143,6 +143,9 @@ public class PropertyResource {
                 if (property.getAcreage() != null) {
                     existingProperty.setAcreage(property.getAcreage());
                 }
+                if (property.getPrice() != null) {
+                    existingProperty.setPrice(property.getPrice());
+                }
 
                 return existingProperty;
             })

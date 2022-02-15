@@ -1,7 +1,8 @@
 package com.mycompany.myapp.domain;
 
-import com.mycompany.myapp.domain.enumeration.Status;
-import com.mycompany.myapp.domain.enumeration.Type;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mycompany.myapp.domain.enumeration.PropertyStatus;
+import com.mycompany.myapp.domain.enumeration.PropertyType;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -36,21 +37,32 @@ public class Property implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private PropertyStatus status;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private Type type;
+    private PropertyType type;
 
     @NotNull
     @Column(name = "acreage", nullable = false)
     private Double acreage;
 
+    @NotNull
+    @Column(name = "price", nullable = false)
+    private Double price;
+
+    @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
     private Address address;
+
+    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private Accommodation accommodation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -106,29 +118,29 @@ public class Property implements Serializable {
         this.imageContentType = imageContentType;
     }
 
-    public Status getStatus() {
+    public PropertyStatus getStatus() {
         return this.status;
     }
 
-    public Property status(Status status) {
+    public Property status(PropertyStatus status) {
         this.setStatus(status);
         return this;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(PropertyStatus status) {
         this.status = status;
     }
 
-    public Type getType() {
+    public PropertyType getType() {
         return this.type;
     }
 
-    public Property type(Type type) {
+    public Property type(PropertyType type) {
         this.setType(type);
         return this;
     }
 
-    public void setType(Type type) {
+    public void setType(PropertyType type) {
         this.type = type;
     }
 
@@ -145,6 +157,19 @@ public class Property implements Serializable {
         this.acreage = acreage;
     }
 
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public Property price(Double price) {
+        this.setPrice(price);
+        return this;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public Address getAddress() {
         return this.address;
     }
@@ -155,6 +180,19 @@ public class Property implements Serializable {
 
     public Property address(Address address) {
         this.setAddress(address);
+        return this;
+    }
+
+    public Accommodation getAccommodation() {
+        return this.accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
+    }
+
+    public Property accommodation(Accommodation accommodation) {
+        this.setAccommodation(accommodation);
         return this;
     }
 
@@ -188,6 +226,7 @@ public class Property implements Serializable {
             ", status='" + getStatus() + "'" +
             ", type='" + getType() + "'" +
             ", acreage=" + getAcreage() +
+            ", price=" + getPrice() +
             "}";
     }
 }

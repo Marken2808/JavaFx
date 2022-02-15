@@ -42,18 +42,18 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "street",
-      "otherEntityName": "address",
-      "otherEntityRelationshipName": "customer",
-      "relationshipName": "address",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
       "otherEntityField": "displayName",
       "otherEntityName": "name",
       "otherEntityRelationshipName": "customer",
       "relationshipName": "name",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "street",
+      "otherEntityName": "address",
+      "otherEntityRelationshipName": "customer",
+      "relationshipName": "address",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }

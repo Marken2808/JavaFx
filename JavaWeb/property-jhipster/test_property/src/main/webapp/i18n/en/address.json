@@ -23,7 +23,8 @@
       "county": "County",
       "city": "City",
       "postcode": "Postcode",
-      "country": "Country"
+      "country": "Country",
+      "customer": "Customer"
     }
   }
 }

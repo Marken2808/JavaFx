@@ -1,0 +1,24 @@
+{
+  "testPropertyApp": {
+    "furniture": {
+      "home": {
+        "title": "Furnitures",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Furniture",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Furniture",
+        "notFound": "No Furnitures found"
+      },
+      "created": "Một Furniture mới được tạo với định danh {{ param }}",
+      "updated": "Một Furniture cập nhật với định danh {{ param }}",
+      "deleted": "Một Furniture đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Furniture {{ id }}?"
+      },
+      "detail": {
+        "title": "Furniture"
+      },
+      "id": "ID",
+      "title": "Title"
+    }
+  }
+}

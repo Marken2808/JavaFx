@@ -6,13 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IAddress } from 'app/shared/model/address.model';
 import { getEntities as getAddresses } from 'app/entities/address/address.reducer';
+import { IAccommodation } from 'app/shared/model/accommodation.model';
+import { getEntities as getAccommodations } from 'app/entities/accommodation/accommodation.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './property.reducer';
 import { IProperty } from 'app/shared/model/property.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { Status } from 'app/shared/model/enumerations/status.model';
-import { Type } from 'app/shared/model/enumerations/type.model';
+import { PropertyStatus } from 'app/shared/model/enumerations/property-status.model';
+import { PropertyType } from 'app/shared/model/enumerations/property-type.model';
 
 export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -20,12 +22,13 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const addresses = useAppSelector(state => state.address.entities);
+  const accommodations = useAppSelector(state => state.accommodation.entities);
   const propertyEntity = useAppSelector(state => state.property.entity);
   const loading = useAppSelector(state => state.property.loading);
   const updating = useAppSelector(state => state.property.updating);
   const updateSuccess = useAppSelector(state => state.property.updateSuccess);
-  const statusValues = Object.keys(Status);
-  const typeValues = Object.keys(Type);
+  const propertyStatusValues = Object.keys(PropertyStatus);
+  const propertyTypeValues = Object.keys(PropertyType);
   const handleClose = () => {
     props.history.push('/property');
   };
@@ -38,6 +41,7 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getAddresses({}));
+    dispatch(getAccommodations({}));
   }, []);
 
   useEffect(() => {
@@ -51,6 +55,7 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ...propertyEntity,
       ...values,
       address: addresses.find(it => it.id.toString() === values.address.toString()),
+      accommodation: accommodations.find(it => it.id.toString() === values.accommodation.toString()),
     };
 
     if (isNew) {
@@ -65,9 +70,10 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
       ? {}
       : {
           status: 'Sold',
-          type: 'House',
+          type: 'Accommodation',
           ...propertyEntity,
           address: propertyEntity?.address?.id,
+          accommodation: propertyEntity?.accommodation?.id,
         };
 
   return (
@@ -123,9 +129,9 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 data-cy="status"
                 type="select"
               >
-                {statusValues.map(status => (
-                  <option value={status} key={status}>
-                    {translate('testPropertyApp.Status.' + status)}
+                {propertyStatusValues.map(propertyStatus => (
+                  <option value={propertyStatus} key={propertyStatus}>
+                    {translate('testPropertyApp.PropertyStatus.' + propertyStatus)}
                   </option>
                 ))}
               </ValidatedField>
@@ -136,9 +142,9 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 data-cy="type"
                 type="select"
               >
-                {typeValues.map(type => (
-                  <option value={type} key={type}>
-                    {translate('testPropertyApp.Type.' + type)}
+                {propertyTypeValues.map(propertyType => (
+                  <option value={propertyType} key={propertyType}>
+                    {translate('testPropertyApp.PropertyType.' + propertyType)}
                   </option>
                 ))}
               </ValidatedField>
@@ -147,6 +153,17 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 id="property-acreage"
                 name="acreage"
                 data-cy="acreage"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
+              />
+              <ValidatedField
+                label={translate('testPropertyApp.property.price')}
+                id="property-price"
+                name="price"
+                data-cy="price"
                 type="text"
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
@@ -166,6 +183,26 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? addresses.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.street}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>
+                <Translate contentKey="entity.validation.required">This field is required.</Translate>
+              </FormText>
+              <ValidatedField
+                id="property-accommodation"
+                name="accommodation"
+                data-cy="accommodation"
+                label={translate('testPropertyApp.property.accommodation')}
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {accommodations
+                  ? accommodations.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.title}
                       </option>
                     ))
                   : null}

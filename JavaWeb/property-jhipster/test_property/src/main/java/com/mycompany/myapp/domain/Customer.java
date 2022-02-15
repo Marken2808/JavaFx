@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Gender;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -43,11 +44,12 @@ public class Customer implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    private Address address;
+    private Name name;
 
     @ManyToOne(optional = false)
     @NotNull
-    private Name name;
+    @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
+    private Address address;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -129,19 +131,6 @@ public class Customer implements Serializable {
         return this;
     }
 
-    public Address getAddress() {
-        return this.address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Customer address(Address address) {
-        this.setAddress(address);
-        return this;
-    }
-
     public Name getName() {
         return this.name;
     }
@@ -152,6 +141,19 @@ public class Customer implements Serializable {
 
     public Customer name(Name name) {
         this.setName(name);
+        return this;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Customer address(Address address) {
+        this.setAddress(address);
         return this;
     }
 

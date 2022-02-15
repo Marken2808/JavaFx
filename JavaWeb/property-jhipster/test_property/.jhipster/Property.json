@@ -18,18 +18,23 @@
     },
     {
       "fieldName": "status",
-      "fieldType": "Status",
+      "fieldType": "PropertyStatus",
       "fieldValidateRules": ["required"],
-      "fieldValues": "Sold,Selling,Let,Letting"
+      "fieldValues": "Sold,Selling,ToSell,Let,Letting,ToLet"
     },
     {
       "fieldName": "type",
-      "fieldType": "Type",
+      "fieldType": "PropertyType",
       "fieldValidateRules": ["required"],
-      "fieldValues": "House,Flat,Apartment,Project,Land"
+      "fieldValues": "Accommodation,Project,Land"
     },
     {
       "fieldName": "acreage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "price",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     }
@@ -46,6 +51,15 @@
       "otherEntityRelationshipName": "property",
       "ownerSide": true,
       "relationshipName": "address",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "accommodation",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "accommodation",
       "relationshipType": "one-to-one",
       "relationshipValidateRules": "required"
     }

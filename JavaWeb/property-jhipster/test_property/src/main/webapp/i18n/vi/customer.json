@@ -23,8 +23,8 @@
       "birth": "Birth",
       "gender": "Gender",
       "user": "User",
-      "address": "Address",
-      "name": "Name"
+      "name": "Name",
+      "address": "Address"
     }
   }
 }

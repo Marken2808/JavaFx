@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20220214221405",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "room",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "acreage",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "RoomType",
+      "fieldValues": "Attic,Lounge,Garage,Basement,Lavatory,Bedroom,Diningroom,Kitchen,Balcony,Landing,Hall"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Room",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "accommodation",
+      "otherEntityRelationshipName": "room",
+      "relationshipName": "accommodation",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}

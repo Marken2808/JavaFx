@@ -6,10 +6,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.Accommodation;
 import com.mycompany.myapp.domain.Address;
 import com.mycompany.myapp.domain.Property;
-import com.mycompany.myapp.domain.enumeration.Status;
-import com.mycompany.myapp.domain.enumeration.Type;
+import com.mycompany.myapp.domain.enumeration.PropertyStatus;
+import com.mycompany.myapp.domain.enumeration.PropertyType;
 import com.mycompany.myapp.repository.PropertyRepository;
 import java.util.List;
 import java.util.Random;
@@ -41,14 +42,17 @@ class PropertyResourceIT {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
-    private static final Status DEFAULT_STATUS = Status.Sold;
-    private static final Status UPDATED_STATUS = Status.Selling;
+    private static final PropertyStatus DEFAULT_STATUS = PropertyStatus.Sold;
+    private static final PropertyStatus UPDATED_STATUS = PropertyStatus.Selling;
 
-    private static final Type DEFAULT_TYPE = Type.House;
-    private static final Type UPDATED_TYPE = Type.Flat;
+    private static final PropertyType DEFAULT_TYPE = PropertyType.Accommodation;
+    private static final PropertyType UPDATED_TYPE = PropertyType.Project;
 
     private static final Double DEFAULT_ACREAGE = 1D;
     private static final Double UPDATED_ACREAGE = 2D;
+
+    private static final Double DEFAULT_PRICE = 1D;
+    private static final Double UPDATED_PRICE = 2D;
 
     private static final String ENTITY_API_URL = "/api/properties";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -80,7 +84,8 @@ class PropertyResourceIT {
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .status(DEFAULT_STATUS)
             .type(DEFAULT_TYPE)
-            .acreage(DEFAULT_ACREAGE);
+            .acreage(DEFAULT_ACREAGE)
+            .price(DEFAULT_PRICE);
         // Add required entity
         Address address;
         if (TestUtil.findAll(em, Address.class).isEmpty()) {
@@ -91,6 +96,16 @@ class PropertyResourceIT {
             address = TestUtil.findAll(em, Address.class).get(0);
         }
         property.setAddress(address);
+        // Add required entity
+        Accommodation accommodation;
+        if (TestUtil.findAll(em, Accommodation.class).isEmpty()) {
+            accommodation = AccommodationResourceIT.createEntity(em);
+            em.persist(accommodation);
+            em.flush();
+        } else {
+            accommodation = TestUtil.findAll(em, Accommodation.class).get(0);
+        }
+        property.setAccommodation(accommodation);
         return property;
     }
 
@@ -107,7 +122,8 @@ class PropertyResourceIT {
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .status(UPDATED_STATUS)
             .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE);
+            .acreage(UPDATED_ACREAGE)
+            .price(UPDATED_PRICE);
         // Add required entity
         Address address;
         if (TestUtil.findAll(em, Address.class).isEmpty()) {
@@ -118,6 +134,16 @@ class PropertyResourceIT {
             address = TestUtil.findAll(em, Address.class).get(0);
         }
         property.setAddress(address);
+        // Add required entity
+        Accommodation accommodation;
+        if (TestUtil.findAll(em, Accommodation.class).isEmpty()) {
+            accommodation = AccommodationResourceIT.createUpdatedEntity(em);
+            em.persist(accommodation);
+            em.flush();
+        } else {
+            accommodation = TestUtil.findAll(em, Accommodation.class).get(0);
+        }
+        property.setAccommodation(accommodation);
         return property;
     }
 
@@ -145,6 +171,7 @@ class PropertyResourceIT {
         assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProperty.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testProperty.getAcreage()).isEqualTo(DEFAULT_ACREAGE);
+        assertThat(testProperty.getPrice()).isEqualTo(DEFAULT_PRICE);
     }
 
     @Test
@@ -235,6 +262,23 @@ class PropertyResourceIT {
 
     @Test
     @Transactional
+    void checkPriceIsRequired() throws Exception {
+        int databaseSizeBeforeTest = propertyRepository.findAll().size();
+        // set the field null
+        property.setPrice(null);
+
+        // Create the Property, which fails.
+
+        restPropertyMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(property)))
+            .andExpect(status().isBadRequest());
+
+        List<Property> propertyList = propertyRepository.findAll();
+        assertThat(propertyList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllProperties() throws Exception {
         // Initialize the database
         propertyRepository.saveAndFlush(property);
@@ -250,7 +294,8 @@ class PropertyResourceIT {
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())));
+            .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
     }
 
     @Test
@@ -270,7 +315,8 @@ class PropertyResourceIT {
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()));
+            .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()))
+            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
     }
 
     @Test
@@ -298,7 +344,8 @@ class PropertyResourceIT {
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .status(UPDATED_STATUS)
             .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE);
+            .acreage(UPDATED_ACREAGE)
+            .price(UPDATED_PRICE);
 
         restPropertyMockMvc
             .perform(
@@ -318,6 +365,7 @@ class PropertyResourceIT {
         assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
+        assertThat(testProperty.getPrice()).isEqualTo(UPDATED_PRICE);
     }
 
     @Test
@@ -408,6 +456,7 @@ class PropertyResourceIT {
         assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
+        assertThat(testProperty.getPrice()).isEqualTo(DEFAULT_PRICE);
     }
 
     @Test
@@ -428,7 +477,8 @@ class PropertyResourceIT {
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .status(UPDATED_STATUS)
             .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE);
+            .acreage(UPDATED_ACREAGE)
+            .price(UPDATED_PRICE);
 
         restPropertyMockMvc
             .perform(
@@ -448,6 +498,7 @@ class PropertyResourceIT {
         assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
+        assertThat(testProperty.getPrice()).isEqualTo(UPDATED_PRICE);
     }
 
     @Test

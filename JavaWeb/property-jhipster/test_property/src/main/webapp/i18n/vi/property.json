@@ -23,7 +23,9 @@
       "status": "Status",
       "type": "Type",
       "acreage": "Acreage",
-      "address": "Address"
+      "price": "Price",
+      "address": "Address",
+      "accommodation": "Accommodation"
     }
   }
 }

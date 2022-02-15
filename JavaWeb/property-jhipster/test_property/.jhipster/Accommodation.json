@@ -1,0 +1,42 @@
+{
+  "applications": "*",
+  "changelogDate": "20220215003338",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "accommodation",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "AccommodationType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Flat,House,Studio,Ensuite,Apartment"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "AccommodationStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Furnished,Unfurnished,Partfurnished"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Accommodation",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "room",
+      "otherEntityRelationshipName": "accommodation",
+      "relationshipName": "room",
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}

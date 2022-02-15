@@ -1,0 +1,29 @@
+{
+  "testPropertyApp": {
+    "room": {
+      "home": {
+        "title": "Rooms",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Thêm mới một Room",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Room",
+        "notFound": "No Rooms found"
+      },
+      "created": "Một Room mới được tạo với định danh {{ param }}",
+      "updated": "Một Room cập nhật với định danh {{ param }}",
+      "deleted": "Một Room đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Room {{ id }}?"
+      },
+      "detail": {
+        "title": "Room"
+      },
+      "id": "ID",
+      "title": "Title",
+      "acreage": "Acreage",
+      "image": "Image",
+      "type": "Type",
+      "price": "Price",
+      "accommodation": "Accommodation"
+    }
+  }
+}

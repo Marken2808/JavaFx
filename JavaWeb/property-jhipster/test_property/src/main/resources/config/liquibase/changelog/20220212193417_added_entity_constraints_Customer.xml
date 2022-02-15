@@ -14,16 +14,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
-        <addForeignKeyConstraint baseColumnNames="address_id"
-                                 baseTableName="customer"
-                                 constraintName="fk_customer__address_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="address"/>
-
         <addForeignKeyConstraint baseColumnNames="name_id"
                                  baseTableName="customer"
                                  constraintName="fk_customer__name_id"
                                  referencedColumnNames="id"
                                  referencedTableName="name"/>
+
+        <addForeignKeyConstraint baseColumnNames="address_id"
+                                 baseTableName="customer"
+                                 constraintName="fk_customer__address_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
     </changeSet>
 </databaseChangeLog>
