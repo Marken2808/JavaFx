@@ -24,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link PropertyResource} REST controller.
@@ -37,22 +36,14 @@ class PropertyResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
+    private static final PropertyType DEFAULT_TYPE = PropertyType.Accommodation;
+    private static final PropertyType UPDATED_TYPE = PropertyType.Project;
 
     private static final PropertyStatus DEFAULT_STATUS = PropertyStatus.Sold;
     private static final PropertyStatus UPDATED_STATUS = PropertyStatus.Selling;
 
-    private static final PropertyType DEFAULT_TYPE = PropertyType.Accommodation;
-    private static final PropertyType UPDATED_TYPE = PropertyType.Project;
-
-    private static final Double DEFAULT_ACREAGE = 1D;
-    private static final Double UPDATED_ACREAGE = 2D;
-
-    private static final Double DEFAULT_PRICE = 1D;
-    private static final Double UPDATED_PRICE = 2D;
+    private static final Boolean DEFAULT_IS_URGENT = false;
+    private static final Boolean UPDATED_IS_URGENT = true;
 
     private static final String ENTITY_API_URL = "/api/properties";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -78,14 +69,7 @@ class PropertyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Property createEntity(EntityManager em) {
-        Property property = new Property()
-            .title(DEFAULT_TITLE)
-            .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .status(DEFAULT_STATUS)
-            .type(DEFAULT_TYPE)
-            .acreage(DEFAULT_ACREAGE)
-            .price(DEFAULT_PRICE);
+        Property property = new Property().title(DEFAULT_TITLE).type(DEFAULT_TYPE).status(DEFAULT_STATUS).isUrgent(DEFAULT_IS_URGENT);
         // Add required entity
         Address address;
         if (TestUtil.findAll(em, Address.class).isEmpty()) {
@@ -116,14 +100,7 @@ class PropertyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Property createUpdatedEntity(EntityManager em) {
-        Property property = new Property()
-            .title(UPDATED_TITLE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .status(UPDATED_STATUS)
-            .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE)
-            .price(UPDATED_PRICE);
+        Property property = new Property().title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
         // Add required entity
         Address address;
         if (TestUtil.findAll(em, Address.class).isEmpty()) {
@@ -166,12 +143,9 @@ class PropertyResourceIT {
         assertThat(propertyList).hasSize(databaseSizeBeforeCreate + 1);
         Property testProperty = propertyList.get(propertyList.size() - 1);
         assertThat(testProperty.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testProperty.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testProperty.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
-        assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testProperty.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testProperty.getAcreage()).isEqualTo(DEFAULT_ACREAGE);
-        assertThat(testProperty.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testProperty.getIsUrgent()).isEqualTo(DEFAULT_IS_URGENT);
     }
 
     @Test
@@ -211,23 +185,6 @@ class PropertyResourceIT {
 
     @Test
     @Transactional
-    void checkStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = propertyRepository.findAll().size();
-        // set the field null
-        property.setStatus(null);
-
-        // Create the Property, which fails.
-
-        restPropertyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(property)))
-            .andExpect(status().isBadRequest());
-
-        List<Property> propertyList = propertyRepository.findAll();
-        assertThat(propertyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void checkTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = propertyRepository.findAll().size();
         // set the field null
@@ -245,27 +202,10 @@ class PropertyResourceIT {
 
     @Test
     @Transactional
-    void checkAcreageIsRequired() throws Exception {
+    void checkStatusIsRequired() throws Exception {
         int databaseSizeBeforeTest = propertyRepository.findAll().size();
         // set the field null
-        property.setAcreage(null);
-
-        // Create the Property, which fails.
-
-        restPropertyMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(property)))
-            .andExpect(status().isBadRequest());
-
-        List<Property> propertyList = propertyRepository.findAll();
-        assertThat(propertyList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkPriceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = propertyRepository.findAll().size();
-        // set the field null
-        property.setPrice(null);
+        property.setStatus(null);
 
         // Create the Property, which fails.
 
@@ -290,12 +230,9 @@ class PropertyResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(property.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].isUrgent").value(hasItem(DEFAULT_IS_URGENT.booleanValue())));
     }
 
     @Test
@@ -311,12 +248,9 @@ class PropertyResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(property.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.isUrgent").value(DEFAULT_IS_URGENT.booleanValue()));
     }
 
     @Test
@@ -338,14 +272,7 @@ class PropertyResourceIT {
         Property updatedProperty = propertyRepository.findById(property.getId()).get();
         // Disconnect from session so that the updates on updatedProperty are not directly saved in db
         em.detach(updatedProperty);
-        updatedProperty
-            .title(UPDATED_TITLE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .status(UPDATED_STATUS)
-            .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE)
-            .price(UPDATED_PRICE);
+        updatedProperty.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -360,12 +287,9 @@ class PropertyResourceIT {
         assertThat(propertyList).hasSize(databaseSizeBeforeUpdate);
         Property testProperty = propertyList.get(propertyList.size() - 1);
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testProperty.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testProperty.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testProperty.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 
     @Test
@@ -436,7 +360,7 @@ class PropertyResourceIT {
         Property partialUpdatedProperty = new Property();
         partialUpdatedProperty.setId(property.getId());
 
-        partialUpdatedProperty.title(UPDATED_TITLE).type(UPDATED_TYPE).acreage(UPDATED_ACREAGE);
+        partialUpdatedProperty.title(UPDATED_TITLE).isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -451,12 +375,9 @@ class PropertyResourceIT {
         assertThat(propertyList).hasSize(databaseSizeBeforeUpdate);
         Property testProperty = propertyList.get(propertyList.size() - 1);
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testProperty.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testProperty.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
+        assertThat(testProperty.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testProperty.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 
     @Test
@@ -471,14 +392,7 @@ class PropertyResourceIT {
         Property partialUpdatedProperty = new Property();
         partialUpdatedProperty.setId(property.getId());
 
-        partialUpdatedProperty
-            .title(UPDATED_TITLE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .status(UPDATED_STATUS)
-            .type(UPDATED_TYPE)
-            .acreage(UPDATED_ACREAGE)
-            .price(UPDATED_PRICE);
+        partialUpdatedProperty.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -493,12 +407,9 @@ class PropertyResourceIT {
         assertThat(propertyList).hasSize(databaseSizeBeforeUpdate);
         Property testProperty = propertyList.get(propertyList.size() - 1);
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testProperty.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testProperty.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testProperty.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testProperty.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 
     @Test

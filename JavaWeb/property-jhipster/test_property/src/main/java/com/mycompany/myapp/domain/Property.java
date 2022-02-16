@@ -26,31 +26,18 @@ public class Property implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Lob
-    @Column(name = "image", nullable = false)
-    private byte[] image;
-
-    @NotNull
-    @Column(name = "image_content_type", nullable = false)
-    private String imageContentType;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private PropertyStatus status;
-
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private PropertyType type;
 
     @NotNull
-    @Column(name = "acreage", nullable = false)
-    private Double acreage;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private PropertyStatus status;
 
-    @NotNull
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @Column(name = "is_urgent")
+    private Boolean isUrgent;
 
     @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
     @OneToOne(optional = false)
@@ -92,30 +79,17 @@ public class Property implements Serializable {
         this.title = title;
     }
 
-    public byte[] getImage() {
-        return this.image;
+    public PropertyType getType() {
+        return this.type;
     }
 
-    public Property image(byte[] image) {
-        this.setImage(image);
+    public Property type(PropertyType type) {
+        this.setType(type);
         return this;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return this.imageContentType;
-    }
-
-    public Property imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
+    public void setType(PropertyType type) {
+        this.type = type;
     }
 
     public PropertyStatus getStatus() {
@@ -131,43 +105,17 @@ public class Property implements Serializable {
         this.status = status;
     }
 
-    public PropertyType getType() {
-        return this.type;
+    public Boolean getIsUrgent() {
+        return this.isUrgent;
     }
 
-    public Property type(PropertyType type) {
-        this.setType(type);
+    public Property isUrgent(Boolean isUrgent) {
+        this.setIsUrgent(isUrgent);
         return this;
     }
 
-    public void setType(PropertyType type) {
-        this.type = type;
-    }
-
-    public Double getAcreage() {
-        return this.acreage;
-    }
-
-    public Property acreage(Double acreage) {
-        this.setAcreage(acreage);
-        return this;
-    }
-
-    public void setAcreage(Double acreage) {
-        this.acreage = acreage;
-    }
-
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public Property price(Double price) {
-        this.setPrice(price);
-        return this;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setIsUrgent(Boolean isUrgent) {
+        this.isUrgent = isUrgent;
     }
 
     public Address getAddress() {
@@ -221,12 +169,9 @@ public class Property implements Serializable {
         return "Property{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
-            ", image='" + getImage() + "'" +
-            ", imageContentType='" + getImageContentType() + "'" +
-            ", status='" + getStatus() + "'" +
             ", type='" + getType() + "'" +
-            ", acreage=" + getAcreage() +
-            ", price=" + getPrice() +
+            ", status='" + getStatus() + "'" +
+            ", isUrgent='" + getIsUrgent() + "'" +
             "}";
     }
 }

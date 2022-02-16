@@ -128,23 +128,14 @@ public class PropertyResource {
                 if (property.getTitle() != null) {
                     existingProperty.setTitle(property.getTitle());
                 }
-                if (property.getImage() != null) {
-                    existingProperty.setImage(property.getImage());
-                }
-                if (property.getImageContentType() != null) {
-                    existingProperty.setImageContentType(property.getImageContentType());
+                if (property.getType() != null) {
+                    existingProperty.setType(property.getType());
                 }
                 if (property.getStatus() != null) {
                     existingProperty.setStatus(property.getStatus());
                 }
-                if (property.getType() != null) {
-                    existingProperty.setType(property.getType());
-                }
-                if (property.getAcreage() != null) {
-                    existingProperty.setAcreage(property.getAcreage());
-                }
-                if (property.getPrice() != null) {
-                    existingProperty.setPrice(property.getPrice());
+                if (property.getIsUrgent() != null) {
+                    existingProperty.setIsUrgent(property.getIsUrgent());
                 }
 
                 return existingProperty;

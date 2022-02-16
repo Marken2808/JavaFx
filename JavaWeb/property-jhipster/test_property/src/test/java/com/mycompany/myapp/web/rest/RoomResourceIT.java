@@ -183,6 +183,23 @@ class RoomResourceIT {
 
     @Test
     @Transactional
+    void checkAcreageIsRequired() throws Exception {
+        int databaseSizeBeforeTest = roomRepository.findAll().size();
+        // set the field null
+        room.setAcreage(null);
+
+        // Create the Room, which fails.
+
+        restRoomMockMvc
+            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(room)))
+            .andExpect(status().isBadRequest());
+
+        List<Room> roomList = roomRepository.findAll();
+        assertThat(roomList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     void getAllRooms() throws Exception {
         // Initialize the database
         roomRepository.saveAndFlush(room);

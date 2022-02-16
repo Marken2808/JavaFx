@@ -25,7 +25,8 @@ public class Room implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "acreage")
+    @NotNull
+    @Column(name = "acreage", nullable = false)
     private Double acreage;
 
     @Lob

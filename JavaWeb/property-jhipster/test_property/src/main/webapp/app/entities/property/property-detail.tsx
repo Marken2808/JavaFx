@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, openFile, byteSize } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntity } from './property.reducer';
@@ -36,24 +36,11 @@ export const PropertyDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{propertyEntity.title}</dd>
           <dt>
-            <span id="image">
-              <Translate contentKey="testPropertyApp.property.image">Image</Translate>
+            <span id="type">
+              <Translate contentKey="testPropertyApp.property.type">Type</Translate>
             </span>
           </dt>
-          <dd>
-            {propertyEntity.image ? (
-              <div>
-                {propertyEntity.imageContentType ? (
-                  <a onClick={openFile(propertyEntity.imageContentType, propertyEntity.image)}>
-                    <img src={`data:${propertyEntity.imageContentType};base64,${propertyEntity.image}`} style={{ maxHeight: '30px' }} />
-                  </a>
-                ) : null}
-                <span>
-                  {propertyEntity.imageContentType}, {byteSize(propertyEntity.image)}
-                </span>
-              </div>
-            ) : null}
-          </dd>
+          <dd>{propertyEntity.type}</dd>
           <dt>
             <span id="status">
               <Translate contentKey="testPropertyApp.property.status">Status</Translate>
@@ -61,23 +48,11 @@ export const PropertyDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{propertyEntity.status}</dd>
           <dt>
-            <span id="type">
-              <Translate contentKey="testPropertyApp.property.type">Type</Translate>
+            <span id="isUrgent">
+              <Translate contentKey="testPropertyApp.property.isUrgent">Is Urgent</Translate>
             </span>
           </dt>
-          <dd>{propertyEntity.type}</dd>
-          <dt>
-            <span id="acreage">
-              <Translate contentKey="testPropertyApp.property.acreage">Acreage</Translate>
-            </span>
-          </dt>
-          <dd>{propertyEntity.acreage}</dd>
-          <dt>
-            <span id="price">
-              <Translate contentKey="testPropertyApp.property.price">Price</Translate>
-            </span>
-          </dt>
-          <dd>{propertyEntity.price}</dd>
+          <dd>{propertyEntity.isUrgent ? 'true' : 'false'}</dd>
           <dt>
             <Translate contentKey="testPropertyApp.property.address">Address</Translate>
           </dt>

@@ -18,7 +18,7 @@
                 <constraints nullable="false" />
             </column>
             <column name="acreage" type="double">
-                <constraints nullable="true" />
+                <constraints nullable="false" />
             </column>
             <column name="image" type="longblob">
                 <constraints nullable="true" />

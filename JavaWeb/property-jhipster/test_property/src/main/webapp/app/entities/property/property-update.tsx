@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm, ValidatedBlobField } from 'react-jhipster';
+import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { IAddress } from 'app/shared/model/address.model';
@@ -13,8 +13,8 @@ import { IProperty } from 'app/shared/model/property.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { PropertyStatus } from 'app/shared/model/enumerations/property-status.model';
 import { PropertyType } from 'app/shared/model/enumerations/property-type.model';
+import { PropertyStatus } from 'app/shared/model/enumerations/property-status.model';
 
 export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const dispatch = useAppDispatch();
@@ -27,8 +27,8 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const loading = useAppSelector(state => state.property.loading);
   const updating = useAppSelector(state => state.property.updating);
   const updateSuccess = useAppSelector(state => state.property.updateSuccess);
-  const propertyStatusValues = Object.keys(PropertyStatus);
   const propertyTypeValues = Object.keys(PropertyType);
+  const propertyStatusValues = Object.keys(PropertyStatus);
   const handleClose = () => {
     props.history.push('/property');
   };
@@ -69,8 +69,8 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
     isNew
       ? {}
       : {
-          status: 'Sold',
           type: 'Accommodation',
+          status: 'Sold',
           ...propertyEntity,
           address: propertyEntity?.address?.id,
           accommodation: propertyEntity?.accommodation?.id,
@@ -111,30 +111,6 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
               />
-              <ValidatedBlobField
-                label={translate('testPropertyApp.property.image')}
-                id="property-image"
-                name="image"
-                data-cy="image"
-                isImage
-                accept="image/*"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
-                label={translate('testPropertyApp.property.status')}
-                id="property-status"
-                name="status"
-                data-cy="status"
-                type="select"
-              >
-                {propertyStatusValues.map(propertyStatus => (
-                  <option value={propertyStatus} key={propertyStatus}>
-                    {translate('testPropertyApp.PropertyStatus.' + propertyStatus)}
-                  </option>
-                ))}
-              </ValidatedField>
               <ValidatedField
                 label={translate('testPropertyApp.property.type')}
                 id="property-type"
@@ -149,26 +125,25 @@ export const PropertyUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 ))}
               </ValidatedField>
               <ValidatedField
-                label={translate('testPropertyApp.property.acreage')}
-                id="property-acreage"
-                name="acreage"
-                data-cy="acreage"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
-              />
+                label={translate('testPropertyApp.property.status')}
+                id="property-status"
+                name="status"
+                data-cy="status"
+                type="select"
+              >
+                {propertyStatusValues.map(propertyStatus => (
+                  <option value={propertyStatus} key={propertyStatus}>
+                    {translate('testPropertyApp.PropertyStatus.' + propertyStatus)}
+                  </option>
+                ))}
+              </ValidatedField>
               <ValidatedField
-                label={translate('testPropertyApp.property.price')}
-                id="property-price"
-                name="price"
-                data-cy="price"
-                type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
+                label={translate('testPropertyApp.property.isUrgent')}
+                id="property-isUrgent"
+                name="isUrgent"
+                data-cy="isUrgent"
+                check
+                type="checkbox"
               />
               <ValidatedField
                 id="property-address"

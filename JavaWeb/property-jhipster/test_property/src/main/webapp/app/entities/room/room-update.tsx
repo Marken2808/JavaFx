@@ -108,6 +108,10 @@ export const RoomUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="acreage"
                 data-cy="acreage"
                 type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                  validate: v => isNumber(v) || translate('entity.validation.number'),
+                }}
               />
               <ValidatedBlobField
                 label={translate('testPropertyApp.room.image')}

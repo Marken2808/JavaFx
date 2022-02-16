@@ -19,11 +19,9 @@
       },
       "id": "ID",
       "title": "Title",
-      "image": "Image",
-      "status": "Status",
       "type": "Type",
-      "acreage": "Acreage",
-      "price": "Price",
+      "status": "Status",
+      "isUrgent": "Is Urgent",
       "address": "Address",
       "accommodation": "Accommodation"
     }

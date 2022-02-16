@@ -11,10 +11,10 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "image",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image",
-      "fieldValidateRules": ["required"]
+      "fieldName": "type",
+      "fieldType": "PropertyType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Accommodation,Project,Land"
     },
     {
       "fieldName": "status",
@@ -23,20 +23,8 @@
       "fieldValues": "Sold,Selling,ToSell,Let,Letting,ToLet"
     },
     {
-      "fieldName": "type",
-      "fieldType": "PropertyType",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "Accommodation,Project,Land"
-    },
-    {
-      "fieldName": "acreage",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "price",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
+      "fieldName": "isUrgent",
+      "fieldType": "Boolean"
     }
   ],
   "fluentMethods": true,

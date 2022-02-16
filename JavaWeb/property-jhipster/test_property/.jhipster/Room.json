@@ -12,7 +12,8 @@
     },
     {
       "fieldName": "acreage",
-      "fieldType": "Double"
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "image",

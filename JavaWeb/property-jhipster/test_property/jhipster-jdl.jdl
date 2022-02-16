@@ -52,11 +52,9 @@ enum PropertyType {
 
 entity Property {
 	title String required,
-    image ImageBlob required,
-    status PropertyStatus required,
 	type PropertyType required,
-    acreage Double required,
-    price Double required,
+    status PropertyStatus required,
+    isUrgent Boolean,
 }
 
 enum RoomType {
@@ -75,7 +73,7 @@ enum RoomType {
 
 entity Room {
 	title String required,
-    acreage Double,
+    acreage Double required,
     image ImageBlob,
     type RoomType,
     price Double,
@@ -104,12 +102,12 @@ entity Accommodation {
 
 
 relationship OneToMany {
-	Accommodation{room(title) required} to Room{accommodation required},
     Address to Customer{address(street) required},
 }
 
 relationship ManyToOne {
     Customer{name(displayName) required} to Name,
+    Room{accommodation required} to Accommodation{room(title) required},
 }
 
 relationship OneToOne {

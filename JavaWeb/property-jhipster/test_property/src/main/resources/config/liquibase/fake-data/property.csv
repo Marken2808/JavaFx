@@ -1,11 +1,11 @@
-id;title;image;image_content_type;status;type;acreage;price;address_id;accommodation_id
-1;compress Alabama;../fake-data/blob/hipster.png;image/png;Letting;Accommodation;21477;94932;1;1
-2;feed Investment withdrawal;../fake-data/blob/hipster.png;image/png;Selling;Accommodation;87120;83478;2;2
-3;Rustic system;../fake-data/blob/hipster.png;image/png;ToSell;Project;41240;39201;3;3
-4;Baby Path GB;../fake-data/blob/hipster.png;image/png;Letting;Land;93132;61896;4;4
-5;mesh Universal ivory;../fake-data/blob/hipster.png;image/png;Let;Accommodation;39320;64893;5;5
-6;interface Colorado Pizza;../fake-data/blob/hipster.png;image/png;ToLet;Accommodation;98099;43148;6;6
-7;Future;../fake-data/blob/hipster.png;image/png;Letting;Land;37971;97805;7;7
-8;portals grow;../fake-data/blob/hipster.png;image/png;Let;Land;30150;669;8;8
-9;Implementation Tuna;../fake-data/blob/hipster.png;image/png;Sold;Accommodation;5231;86795;9;9
-10;Loan Ergonomic;../fake-data/blob/hipster.png;image/png;Sold;Land;18789;20100;10;10
+id;title;type;status;is_urgent;address_id;accommodation_id
+1;compress Alabama;Land;Selling;false;1;1
+2;1080p Rubber systems;Accommodation;Selling;false;2;2
+3;indexing Rubber lime;Project;ToSell;true;3;3
+4;exploit invoice;Project;ToSell;true;4;4
+5;Streamlined;Land;Let;true;5;5
+6;North Human;Land;Letting;true;6;6
+7;expedite;Land;ToSell;false;7;7
+8;Granite Avon;Land;ToLet;false;8;8
+9;e-services Operative Markets;Project;ToSell;false;9;9
+10;grow;Project;Letting;false;10;10

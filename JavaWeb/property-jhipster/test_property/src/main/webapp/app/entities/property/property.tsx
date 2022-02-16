@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import { openFile, byteSize, Translate } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { getEntities } from './property.reducer';
@@ -53,19 +53,13 @@ export const Property = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="testPropertyApp.property.title">Title</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="testPropertyApp.property.image">Image</Translate>
+                  <Translate contentKey="testPropertyApp.property.type">Type</Translate>
                 </th>
                 <th>
                   <Translate contentKey="testPropertyApp.property.status">Status</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="testPropertyApp.property.type">Type</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="testPropertyApp.property.acreage">Acreage</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="testPropertyApp.property.price">Price</Translate>
+                  <Translate contentKey="testPropertyApp.property.isUrgent">Is Urgent</Translate>
                 </th>
                 <th>
                   <Translate contentKey="testPropertyApp.property.address">Address</Translate>
@@ -86,28 +80,12 @@ export const Property = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{property.title}</td>
                   <td>
-                    {property.image ? (
-                      <div>
-                        {property.imageContentType ? (
-                          <a onClick={openFile(property.imageContentType, property.image)}>
-                            <img src={`data:${property.imageContentType};base64,${property.image}`} style={{ maxHeight: '30px' }} />
-                            &nbsp;
-                          </a>
-                        ) : null}
-                        <span>
-                          {property.imageContentType}, {byteSize(property.image)}
-                        </span>
-                      </div>
-                    ) : null}
+                    <Translate contentKey={`testPropertyApp.PropertyType.${property.type}`} />
                   </td>
                   <td>
                     <Translate contentKey={`testPropertyApp.PropertyStatus.${property.status}`} />
                   </td>
-                  <td>
-                    <Translate contentKey={`testPropertyApp.PropertyType.${property.type}`} />
-                  </td>
-                  <td>{property.acreage}</td>
-                  <td>{property.price}</td>
+                  <td>{property.isUrgent ? 'true' : 'false'}</td>
                   <td>{property.address ? <Link to={`address/${property.address.id}`}>{property.address.street}</Link> : ''}</td>
                   <td>
                     {property.accommodation ? (
