@@ -1,0 +1,116 @@
+enum Gender {
+    MALE, FEMALE, OTHER
+}
+
+enum Title {
+    Mr, Mrs, Miss
+}
+
+
+
+entity Name {
+	title Title required,
+    firstName String required,
+    middleName String,
+    lastName String required,
+    displayName String required,
+}
+
+entity Address {
+	numberic String,
+    street String required,
+    county String,
+    city String,
+    postcode String,
+    country String,
+}
+
+entity Customer {
+    email String required,
+    phone String required,
+    birth String required,
+    gender Gender,
+}
+
+/* Property */
+enum PropertyStatus {
+	Sold,
+    Selling,
+    ToSell,
+    Let,
+    Letting,
+    ToLet
+}
+
+enum PropertyType {
+	Accommodation,
+    Project,
+    Land
+}
+
+entity Property {
+	title String required,
+	type PropertyType required,
+    status PropertyStatus required,
+    isUrgent Boolean,
+}
+
+enum AccommodationType {
+	Flat,
+	House,
+    Studio,
+    Ensuite,
+    Apartment
+}
+
+enum AccommodationStatus {
+	Furnished,
+    Unfurnished,
+    Partfurnished
+}
+
+entity Accommodation {
+	title String required,
+    type AccommodationType required,
+    status AccommodationStatus required,
+}
+
+enum RoomType {
+	Attic,
+	Lounge,
+    Garage,
+    Basement,
+    Lavatory,
+    Bedroom,
+    Diningroom,
+    Kitchen,
+    Balcony,
+    Landing,
+    Hall
+}
+
+entity Room {
+	title String required,
+    acreage Double required,
+    image ImageBlob,
+    type RoomType,
+    price Double,
+}
+
+relationship OneToMany {
+	Address to Customer{address(street) required}
+}
+
+relationship ManyToOne {
+    Customer{name(displayName) required} to Name,
+
+}
+
+relationship OneToOne {
+    Customer{user(login) required} to User,
+    Property{address(street) required} to Address,
+}
+
+relationship ManyToMany {
+	Property to Room,
+}

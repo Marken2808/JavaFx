@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="room">
+      <h2 data-cy="roomDetailsHeading"><span>Room</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ room.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ room.title }}</span>
+        </dd>
+        <dt><span>Acreage</span></dt>
+        <dd>
+          <span>{{ room.acreage }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="room.image">
+            <a (click)="openFile(room.image, room.imageContentType)">
+              <img [src]="'data:' + room.imageContentType + ';base64,' + room.image" style="max-width: 100%" alt="room image" />
+            </a>
+            {{ room.imageContentType }}, {{ byteSize(room.image) }}
+          </div>
+        </dd>
+        <dt><span>Type</span></dt>
+        <dd>
+          <span>{{ room.type }}</span>
+        </dd>
+        <dt><span>Price</span></dt>
+        <dd>
+          <span>{{ room.price }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/room', room.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

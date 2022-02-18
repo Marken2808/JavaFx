@@ -1,0 +1,54 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218204451",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "property",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "PropertyType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Accommodation,Project,Land"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "PropertyStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Sold,Selling,ToSell,Let,Letting,ToLet"
+    },
+    {
+      "fieldName": "isUrgent",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Property",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "street",
+      "otherEntityName": "address",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "address",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "room",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "room",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "no"
+}
