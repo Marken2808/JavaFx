@@ -1,50 +1,58 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-customer-heading" data-cy="CustomerCreateUpdateHeading">Create or edit a Customer</h2>
+      <h2 id="jhi-customer-heading" data-cy="CustomerCreateUpdateHeading" jhiTranslate="testRoomApp.customer.home.createOrEditLabel">
+        Create or edit a Customer
+      </h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
 
         <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" for="field_id">ID</label>
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_email">Email</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.email" for="field_email">Email</label>
           <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
           <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_phone">Phone</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.phone" for="field_phone">Phone</label>
           <input type="text" class="form-control" name="phone" id="field_phone" data-cy="phone" formControlName="phone" />
           <div *ngIf="editForm.get('phone')!.invalid && (editForm.get('phone')!.dirty || editForm.get('phone')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('phone')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('phone')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_birth">Birth</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.birth" for="field_birth">Birth</label>
           <input type="text" class="form-control" name="birth" id="field_birth" data-cy="birth" formControlName="birth" />
           <div *ngIf="editForm.get('birth')!.invalid && (editForm.get('birth')!.dirty || editForm.get('birth')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('birth')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('birth')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_gender">Gender</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.gender" for="field_gender">Gender</label>
           <select class="form-control" name="gender" formControlName="gender" id="field_gender" data-cy="gender">
-            <option [ngValue]="null"></option>
-            <option *ngFor="let gender of genderValues" [value]="gender">gender</option>
+            <option [ngValue]="null">{{ 'testRoomApp.Gender.null' | translate }}</option>
+            <option *ngFor="let gender of genderValues" [value]="gender">{{ 'testRoomApp.Gender.' + gender | translate }}</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_user">User</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.user" for="field_user">User</label>
           <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
             <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
             <option
@@ -56,11 +64,13 @@
           </select>
         </div>
         <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required"> This field is required. </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_name">Name</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.name" for="field_name">Name</label>
           <select class="form-control" id="field_name" data-cy="name" name="name" formControlName="name">
             <option *ngIf="!editForm.get('name')!.value" [ngValue]="null" selected></option>
             <option
@@ -72,29 +82,28 @@
           </select>
         </div>
         <div *ngIf="editForm.get(['name'])!.invalid && (editForm.get(['name'])!.dirty || editForm.get(['name'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['name'])?.errors?.required"> This field is required. </small>
+          <small class="form-text text-danger" *ngIf="editForm.get(['name'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" for="field_address">Address</label>
-          <select class="form-control" id="field_address" data-cy="address" name="address" formControlName="address">
-            <option *ngIf="!editForm.get('address')!.value" [ngValue]="null" selected></option>
+          <label class="form-control-label" jhiTranslate="testRoomApp.customer.property" for="field_property">Property</label>
+          <select class="form-control" id="field_property" data-cy="property" name="property" formControlName="property">
+            <option [ngValue]="null"></option>
             <option
-              [ngValue]="addressOption.id === editForm.get('address')!.value?.id ? editForm.get('address')!.value : addressOption"
-              *ngFor="let addressOption of addressesSharedCollection; trackBy: trackAddressById"
+              [ngValue]="propertyOption.id === editForm.get('property')!.value?.id ? editForm.get('property')!.value : propertyOption"
+              *ngFor="let propertyOption of propertiesSharedCollection; trackBy: trackPropertyById"
             >
-              {{ addressOption.street }}
+              {{ propertyOption.title }}
             </option>
           </select>
-        </div>
-        <div *ngIf="editForm.get(['address'])!.invalid && (editForm.get(['address'])!.dirty || editForm.get(['address'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['address'])?.errors?.required"> This field is required. </small>
         </div>
       </div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
 
         <button
@@ -104,7 +113,7 @@
           [disabled]="editForm.invalid || isSaving"
           class="btn btn-primary"
         >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
       </div>
     </form>

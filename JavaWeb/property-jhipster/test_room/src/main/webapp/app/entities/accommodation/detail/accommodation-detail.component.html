@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <div *ngIf="accommodation">
-      <h2 data-cy="accommodationDetailsHeading"><span>Accommodation</span></h2>
+      <h2 data-cy="accommodationDetailsHeading"><span jhiTranslate="testRoomApp.accommodation.detail.title">Accommodation</span></h2>
 
       <hr />
 
@@ -10,37 +10,58 @@
       <jhi-alert></jhi-alert>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>ID</span></dt>
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
         <dd>
           <span>{{ accommodation.id }}</span>
         </dd>
-        <dt><span>Title</span></dt>
+        <dt><span jhiTranslate="testRoomApp.accommodation.title">Title</span></dt>
         <dd>
           <span>{{ accommodation.title }}</span>
         </dd>
-        <dt><span>Type</span></dt>
+        <dt><span jhiTranslate="testRoomApp.accommodation.type">Type</span></dt>
         <dd>
-          <span>{{ accommodation.type }}</span>
+          <span jhiTranslate="{{ 'testRoomApp.AccommodationType.' + accommodation.type }}">{{ accommodation.type }}</span>
         </dd>
-        <dt><span>Status</span></dt>
+        <dt><span jhiTranslate="testRoomApp.accommodation.status">Status</span></dt>
         <dd>
-          <span>{{ accommodation.status }}</span>
+          <span jhiTranslate="{{ 'testRoomApp.AccommodationStatus.' + accommodation.status }}">{{ accommodation.status }}</span>
         </dd>
-        <dt><span>Room</span></dt>
+        <dt><span jhiTranslate="testRoomApp.accommodation.acreage">Acreage</span></dt>
+        <dd>
+          <span>{{ accommodation.acreage }}</span>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.accommodation.image">Image</span></dt>
+        <dd>
+          <div *ngIf="accommodation.image">
+            <a (click)="openFile(accommodation.image, accommodation.imageContentType)">
+              <img
+                [src]="'data:' + accommodation.imageContentType + ';base64,' + accommodation.image"
+                style="max-width: 100%"
+                alt="accommodation image"
+              />
+            </a>
+            {{ accommodation.imageContentType }}, {{ byteSize(accommodation.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.accommodation.price">Price</span></dt>
+        <dd>
+          <span>{{ accommodation.price }}</span>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.accommodation.room">Room</span></dt>
         <dd>
           <span *ngFor="let room of accommodation.rooms; let last = last">
-            <a [routerLink]="['/room', room?.id, 'view']">{{ room.id }}</a
+            <a [routerLink]="['/room', room?.id, 'view']">{{ room.type }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
       <button type="button" [routerLink]="['/accommodation', accommodation.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

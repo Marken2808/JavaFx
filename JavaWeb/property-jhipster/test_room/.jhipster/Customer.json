@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220218204450",
+  "changelogDate": "20220219175550",
   "dto": "no",
   "embedded": false,
   "entityTableName": "customer",
@@ -50,12 +50,11 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityField": "street",
-      "otherEntityName": "address",
+      "otherEntityField": "title",
+      "otherEntityName": "property",
       "otherEntityRelationshipName": "customer",
-      "relationshipName": "address",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
+      "relationshipName": "property",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

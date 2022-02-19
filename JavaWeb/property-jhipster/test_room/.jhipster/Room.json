@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220218204453",
+  "changelogDate": "20220219175553",
   "dto": "no",
   "embedded": false,
   "entityTableName": "room",
@@ -11,23 +11,9 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "acreage",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "image",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
-    },
-    {
       "fieldName": "type",
       "fieldType": "RoomType",
       "fieldValues": "Attic,Lounge,Garage,Basement,Lavatory,Bedroom,Diningroom,Kitchen,Balcony,Landing,Hall"
-    },
-    {
-      "fieldName": "price",
-      "fieldType": "Double"
     }
   ],
   "fluentMethods": true,

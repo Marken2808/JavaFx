@@ -56,7 +56,7 @@ public class RoomResource {
         Room result = roomRepository.save(room);
         return ResponseEntity
             .created(new URI("/api/rooms/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class RoomResource {
         Room result = roomRepository.save(room);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, room.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, room.getId().toString()))
             .body(result);
     }
 
@@ -126,20 +126,8 @@ public class RoomResource {
                 if (room.getTitle() != null) {
                     existingRoom.setTitle(room.getTitle());
                 }
-                if (room.getAcreage() != null) {
-                    existingRoom.setAcreage(room.getAcreage());
-                }
-                if (room.getImage() != null) {
-                    existingRoom.setImage(room.getImage());
-                }
-                if (room.getImageContentType() != null) {
-                    existingRoom.setImageContentType(room.getImageContentType());
-                }
                 if (room.getType() != null) {
                     existingRoom.setType(room.getType());
-                }
-                if (room.getPrice() != null) {
-                    existingRoom.setPrice(room.getPrice());
                 }
 
                 return existingRoom;
@@ -148,7 +136,7 @@ public class RoomResource {
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, room.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, room.getId().toString())
         );
     }
 
@@ -188,7 +176,7 @@ public class RoomResource {
         roomRepository.deleteById(id);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
 }

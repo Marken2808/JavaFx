@@ -8,8 +8,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -58,7 +56,7 @@ public class AccommodationResource {
         Accommodation result = accommodationRepository.save(accommodation);
         return ResponseEntity
             .created(new URI("/api/accommodations/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -92,7 +90,7 @@ public class AccommodationResource {
         Accommodation result = accommodationRepository.save(accommodation);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, accommodation.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accommodation.getId().toString()))
             .body(result);
     }
 
@@ -136,6 +134,18 @@ public class AccommodationResource {
                 if (accommodation.getStatus() != null) {
                     existingAccommodation.setStatus(accommodation.getStatus());
                 }
+                if (accommodation.getAcreage() != null) {
+                    existingAccommodation.setAcreage(accommodation.getAcreage());
+                }
+                if (accommodation.getImage() != null) {
+                    existingAccommodation.setImage(accommodation.getImage());
+                }
+                if (accommodation.getImageContentType() != null) {
+                    existingAccommodation.setImageContentType(accommodation.getImageContentType());
+                }
+                if (accommodation.getPrice() != null) {
+                    existingAccommodation.setPrice(accommodation.getPrice());
+                }
 
                 return existingAccommodation;
             })
@@ -143,7 +153,7 @@ public class AccommodationResource {
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, accommodation.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, accommodation.getId().toString())
         );
     }
 
@@ -151,21 +161,10 @@ public class AccommodationResource {
      * {@code GET  /accommodations} : get all the accommodations.
      *
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accommodations in body.
      */
     @GetMapping("/accommodations")
-    public List<Accommodation> getAllAccommodations(
-        @RequestParam(required = false) String filter,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
-        if ("property-is-null".equals(filter)) {
-            log.debug("REST request to get all Accommodations where property is null");
-            return StreamSupport
-                .stream(accommodationRepository.findAll().spliterator(), false)
-                .filter(accommodation -> accommodation.getProperty() == null)
-                .collect(Collectors.toList());
-        }
+    public List<Accommodation> getAllAccommodations(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Accommodations");
         return accommodationRepository.findAllWithEagerRelationships();
     }
@@ -195,7 +194,7 @@ public class AccommodationResource {
         accommodationRepository.deleteById(id);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
 }

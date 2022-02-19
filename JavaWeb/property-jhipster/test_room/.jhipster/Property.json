@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220218204451",
+  "changelogDate": "20220219175551",
   "dto": "no",
   "embedded": false,
   "entityTableName": "property",
@@ -43,11 +43,10 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityName": "accommodation",
+      "otherEntityName": "customer",
       "otherEntityRelationshipName": "property",
-      "ownerSide": true,
-      "relationshipName": "accommodation",
-      "relationshipType": "one-to-one"
+      "relationshipName": "customer",
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "no"

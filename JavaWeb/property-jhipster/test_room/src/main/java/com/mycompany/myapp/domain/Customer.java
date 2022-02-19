@@ -5,12 +5,15 @@ import com.mycompany.myapp.domain.enumeration.Gender;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Customer.
  */
 @Entity
 @Table(name = "customer")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,10 +49,9 @@ public class Customer implements Serializable {
     @NotNull
     private Name name;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
-    private Address address;
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "address", "customers" }, allowSetters = true)
+    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -144,16 +146,16 @@ public class Customer implements Serializable {
         return this;
     }
 
-    public Address getAddress() {
-        return this.address;
+    public Property getProperty() {
+        return this.property;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
-    public Customer address(Address address) {
-        this.setAddress(address);
+    public Customer property(Property property) {
+        this.setProperty(property);
         return this;
     }
 

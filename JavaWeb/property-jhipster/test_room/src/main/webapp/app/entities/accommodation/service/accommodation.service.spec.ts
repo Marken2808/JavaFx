@@ -26,6 +26,10 @@ describe('Accommodation Service', () => {
       title: 'AAAAAAA',
       type: AccommodationType.Flat,
       status: AccommodationStatus.Furnished,
+      acreage: 0,
+      imageContentType: 'image/png',
+      image: 'AAAAAAA',
+      price: 0,
     };
   });
 
@@ -64,6 +68,9 @@ describe('Accommodation Service', () => {
           title: 'BBBBBB',
           type: 'BBBBBB',
           status: 'BBBBBB',
+          acreage: 1,
+          image: 'BBBBBB',
+          price: 1,
         },
         elemDefault
       );
@@ -82,6 +89,8 @@ describe('Accommodation Service', () => {
         {
           type: 'BBBBBB',
           status: 'BBBBBB',
+          acreage: 1,
+          price: 1,
         },
         new Accommodation()
       );
@@ -104,6 +113,9 @@ describe('Accommodation Service', () => {
           title: 'BBBBBB',
           type: 'BBBBBB',
           status: 'BBBBBB',
+          acreage: 1,
+          image: 'BBBBBB',
+          price: 1,
         },
         elemDefault
       );
@@ -155,7 +167,7 @@ describe('Accommodation Service', () => {
       });
 
       it('should add only unique Accommodation to an array', () => {
-        const accommodationArray: IAccommodation[] = [{ id: 123 }, { id: 456 }, { id: 68111 }];
+        const accommodationArray: IAccommodation[] = [{ id: 123 }, { id: 456 }, { id: 88645 }];
         const accommodationCollection: IAccommodation[] = [{ id: 123 }];
         expectedResult = service.addAccommodationToCollectionIfMissing(accommodationCollection, ...accommodationArray);
         expect(expectedResult).toHaveLength(3);

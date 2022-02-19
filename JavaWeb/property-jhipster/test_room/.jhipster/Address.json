@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220218204449",
+  "changelogDate": "20220219175549",
   "dto": "no",
   "embedded": false,
   "entityTableName": "address",
@@ -36,13 +36,6 @@
   "name": "Address",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "customer",
-      "otherEntityRelationshipName": "address",
-      "relationshipName": "customer",
-      "relationshipType": "one-to-many"
-    }
-  ],
+  "relationships": [],
   "service": "no"
 }

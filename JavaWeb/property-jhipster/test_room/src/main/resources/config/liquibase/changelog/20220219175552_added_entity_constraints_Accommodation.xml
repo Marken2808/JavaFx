@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Accommodation.
     -->
-    <changeSet id="20220218204452-2" author="jhipster">
+    <changeSet id="20220219175552-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="accommodation_id"
                                  baseTableName="rel_accommodation__room"

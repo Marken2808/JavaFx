@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Customer.
     -->
-    <changeSet id="20220218204450-2" author="jhipster">
+    <changeSet id="20220219175550-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="customer"
@@ -20,10 +20,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="name"/>
 
-        <addForeignKeyConstraint baseColumnNames="address_id"
+        <addForeignKeyConstraint baseColumnNames="property_id"
                                  baseTableName="customer"
-                                 constraintName="fk_customer__address_id"
+                                 constraintName="fk_customer__property_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="address"/>
+                                 referencedTableName="property"/>
     </changeSet>
 </databaseChangeLog>

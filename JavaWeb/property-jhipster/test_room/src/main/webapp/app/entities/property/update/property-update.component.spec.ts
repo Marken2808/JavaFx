@@ -10,8 +10,6 @@ import { PropertyService } from '../service/property.service';
 import { IProperty, Property } from '../property.model';
 import { IAddress } from 'app/entities/address/address.model';
 import { AddressService } from 'app/entities/address/service/address.service';
-import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
-import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
 
 import { PropertyUpdateComponent } from './property-update.component';
 
@@ -21,7 +19,6 @@ describe('Property Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let propertyService: PropertyService;
   let addressService: AddressService;
-  let accommodationService: AccommodationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,7 +41,6 @@ describe('Property Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     propertyService = TestBed.inject(PropertyService);
     addressService = TestBed.inject(AddressService);
-    accommodationService = TestBed.inject(AccommodationService);
 
     comp = fixture.componentInstance;
   });
@@ -68,37 +64,16 @@ describe('Property Management Update Component', () => {
       expect(comp.addressesCollection).toEqual(expectedCollection);
     });
 
-    it('Should call accommodation query and add missing value', () => {
-      const property: IProperty = { id: 456 };
-      const accommodation: IAccommodation = { id: 78429 };
-      property.accommodation = accommodation;
-
-      const accommodationCollection: IAccommodation[] = [{ id: 45428 }];
-      jest.spyOn(accommodationService, 'query').mockReturnValue(of(new HttpResponse({ body: accommodationCollection })));
-      const expectedCollection: IAccommodation[] = [accommodation, ...accommodationCollection];
-      jest.spyOn(accommodationService, 'addAccommodationToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ property });
-      comp.ngOnInit();
-
-      expect(accommodationService.query).toHaveBeenCalled();
-      expect(accommodationService.addAccommodationToCollectionIfMissing).toHaveBeenCalledWith(accommodationCollection, accommodation);
-      expect(comp.accommodationsCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const property: IProperty = { id: 456 };
       const address: IAddress = { id: 84136 };
       property.address = address;
-      const accommodation: IAccommodation = { id: 14100 };
-      property.accommodation = accommodation;
 
       activatedRoute.data = of({ property });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(property));
       expect(comp.addressesCollection).toContain(address);
-      expect(comp.accommodationsCollection).toContain(accommodation);
     });
   });
 
@@ -171,14 +146,6 @@ describe('Property Management Update Component', () => {
       it('Should return tracked Address primary key', () => {
         const entity = { id: 123 };
         const trackResult = comp.trackAddressById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
-    });
-
-    describe('trackAccommodationById', () => {
-      it('Should return tracked Accommodation primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackAccommodationById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

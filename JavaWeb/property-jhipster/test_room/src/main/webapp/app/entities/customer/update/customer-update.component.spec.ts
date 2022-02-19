@@ -13,8 +13,8 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IName } from 'app/entities/name/name.model';
 import { NameService } from 'app/entities/name/service/name.service';
-import { IAddress } from 'app/entities/address/address.model';
-import { AddressService } from 'app/entities/address/service/address.service';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 
 import { CustomerUpdateComponent } from './customer-update.component';
 
@@ -25,7 +25,7 @@ describe('Customer Management Update Component', () => {
   let customerService: CustomerService;
   let userService: UserService;
   let nameService: NameService;
-  let addressService: AddressService;
+  let propertyService: PropertyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,7 +49,7 @@ describe('Customer Management Update Component', () => {
     customerService = TestBed.inject(CustomerService);
     userService = TestBed.inject(UserService);
     nameService = TestBed.inject(NameService);
-    addressService = TestBed.inject(AddressService);
+    propertyService = TestBed.inject(PropertyService);
 
     comp = fixture.componentInstance;
   });
@@ -93,23 +93,23 @@ describe('Customer Management Update Component', () => {
       expect(comp.namesSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call Address query and add missing value', () => {
+    it('Should call Property query and add missing value', () => {
       const customer: ICustomer = { id: 456 };
-      const address: IAddress = { id: 4768 };
-      customer.address = address;
+      const property: IProperty = { id: 7205 };
+      customer.property = property;
 
-      const addressCollection: IAddress[] = [{ id: 14234 }];
-      jest.spyOn(addressService, 'query').mockReturnValue(of(new HttpResponse({ body: addressCollection })));
-      const additionalAddresses = [address];
-      const expectedCollection: IAddress[] = [...additionalAddresses, ...addressCollection];
-      jest.spyOn(addressService, 'addAddressToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const propertyCollection: IProperty[] = [{ id: 65575 }];
+      jest.spyOn(propertyService, 'query').mockReturnValue(of(new HttpResponse({ body: propertyCollection })));
+      const additionalProperties = [property];
+      const expectedCollection: IProperty[] = [...additionalProperties, ...propertyCollection];
+      jest.spyOn(propertyService, 'addPropertyToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ customer });
       comp.ngOnInit();
 
-      expect(addressService.query).toHaveBeenCalled();
-      expect(addressService.addAddressToCollectionIfMissing).toHaveBeenCalledWith(addressCollection, ...additionalAddresses);
-      expect(comp.addressesSharedCollection).toEqual(expectedCollection);
+      expect(propertyService.query).toHaveBeenCalled();
+      expect(propertyService.addPropertyToCollectionIfMissing).toHaveBeenCalledWith(propertyCollection, ...additionalProperties);
+      expect(comp.propertiesSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
@@ -118,8 +118,8 @@ describe('Customer Management Update Component', () => {
       customer.user = user;
       const name: IName = { id: 31146 };
       customer.name = name;
-      const address: IAddress = { id: 38010 };
-      customer.address = address;
+      const property: IProperty = { id: 55436 };
+      customer.property = property;
 
       activatedRoute.data = of({ customer });
       comp.ngOnInit();
@@ -127,7 +127,7 @@ describe('Customer Management Update Component', () => {
       expect(comp.editForm.value).toEqual(expect.objectContaining(customer));
       expect(comp.usersSharedCollection).toContain(user);
       expect(comp.namesSharedCollection).toContain(name);
-      expect(comp.addressesSharedCollection).toContain(address);
+      expect(comp.propertiesSharedCollection).toContain(property);
     });
   });
 
@@ -212,10 +212,10 @@ describe('Customer Management Update Component', () => {
       });
     });
 
-    describe('trackAddressById', () => {
-      it('Should return tracked Address primary key', () => {
+    describe('trackPropertyById', () => {
+      it('Should return tracked Property primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackAddressById(0, entity);
+        const trackResult = comp.trackPropertyById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

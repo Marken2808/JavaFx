@@ -7,12 +7,15 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Room.
  */
 @Entity
 @Table(name = "room")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,26 +30,13 @@ public class Room implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @NotNull
-    @Column(name = "acreage", nullable = false)
-    private Double acreage;
-
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
-
-    @Column(name = "image_content_type")
-    private String imageContentType;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private RoomType type;
 
-    @Column(name = "price")
-    private Double price;
-
     @ManyToMany(mappedBy = "rooms")
-    @JsonIgnoreProperties(value = { "rooms", "property" }, allowSetters = true)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
     private Set<Accommodation> accommodations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -77,45 +67,6 @@ public class Room implements Serializable {
         this.title = title;
     }
 
-    public Double getAcreage() {
-        return this.acreage;
-    }
-
-    public Room acreage(Double acreage) {
-        this.setAcreage(acreage);
-        return this;
-    }
-
-    public void setAcreage(Double acreage) {
-        this.acreage = acreage;
-    }
-
-    public byte[] getImage() {
-        return this.image;
-    }
-
-    public Room image(byte[] image) {
-        this.setImage(image);
-        return this;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return this.imageContentType;
-    }
-
-    public Room imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
     public RoomType getType() {
         return this.type;
     }
@@ -127,19 +78,6 @@ public class Room implements Serializable {
 
     public void setType(RoomType type) {
         this.type = type;
-    }
-
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public Room price(Double price) {
-        this.setPrice(price);
-        return this;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Set<Accommodation> getAccommodations() {
@@ -198,11 +136,7 @@ public class Room implements Serializable {
         return "Room{" +
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
-            ", acreage=" + getAcreage() +
-            ", image='" + getImage() + "'" +
-            ", imageContentType='" + getImageContentType() + "'" +
             ", type='" + getType() + "'" +
-            ", price=" + getPrice() +
             "}";
     }
 }

@@ -1,11 +1,11 @@
 <div>
   <h2 id="page-heading" data-cy="AccommodationHeading">
-    <span>Accommodations</span>
+    <span jhiTranslate="testRoomApp.accommodation.home.title">Accommodations</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span jhiTranslate="testRoomApp.accommodation.home.refreshListLabel">Refresh List</span>
       </button>
 
       <button
@@ -15,7 +15,7 @@
         [routerLink]="['/accommodation/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Accommodation </span>
+        <span jhiTranslate="testRoomApp.accommodation.home.createLabel"> Create a new Accommodation </span>
       </button>
     </div>
   </h2>
@@ -25,18 +25,21 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="accommodations?.length === 0">
-    <span>No accommodations found</span>
+    <span jhiTranslate="testRoomApp.accommodation.home.notFound">No accommodations found</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="accommodations && accommodations.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
-          <th scope="col"><span>ID</span></th>
-          <th scope="col"><span>Title</span></th>
-          <th scope="col"><span>Type</span></th>
-          <th scope="col"><span>Status</span></th>
-          <th scope="col"><span>Room</span></th>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.title">Title</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.acreage">Acreage</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.image">Image</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.price">Price</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.room">Room</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -46,11 +49,23 @@
             <a [routerLink]="['/accommodation', accommodation.id, 'view']">{{ accommodation.id }}</a>
           </td>
           <td>{{ accommodation.title }}</td>
-          <td>{{ accommodation.type }}</td>
-          <td>{{ accommodation.status }}</td>
+          <td jhiTranslate="{{ 'testRoomApp.AccommodationType.' + accommodation.type }}">{{ accommodation.type }}</td>
+          <td jhiTranslate="{{ 'testRoomApp.AccommodationStatus.' + accommodation.status }}">{{ accommodation.status }}</td>
+          <td>{{ accommodation.acreage }}</td>
+          <td>
+            <a *ngIf="accommodation.image" (click)="openFile(accommodation.image, accommodation.imageContentType)">
+              <img
+                [src]="'data:' + accommodation.imageContentType + ';base64,' + accommodation.image"
+                style="max-height: 30px"
+                alt="accommodation image"
+              />
+            </a>
+            <span *ngIf="accommodation.image">{{ accommodation.imageContentType }}, {{ byteSize(accommodation.image) }}</span>
+          </td>
+          <td>{{ accommodation.price }}</td>
           <td>
             <span *ngFor="let room of accommodation.rooms; let last = last">
-              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.id }}</a
+              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.type }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>
@@ -63,7 +78,7 @@
                 data-cy="entityDetailsButton"
               >
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
               </button>
 
               <button
@@ -73,12 +88,12 @@
                 data-cy="entityEditButton"
               >
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
 
               <button type="submit" (click)="delete(accommodation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>
             </div>
           </td>

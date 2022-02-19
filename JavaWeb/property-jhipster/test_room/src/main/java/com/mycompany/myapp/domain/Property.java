@@ -4,14 +4,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Property.
  */
 @Entity
 @Table(name = "property")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Property implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,16 +44,15 @@ public class Property implements Serializable {
     @Column(name = "is_urgent")
     private Boolean isUrgent;
 
-    @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)
     private Address address;
 
-    @JsonIgnoreProperties(value = { "rooms", "property" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Accommodation accommodation;
+    @OneToMany(mappedBy = "property")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "name", "property" }, allowSetters = true)
+    private Set<Customer> customers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -130,16 +134,34 @@ public class Property implements Serializable {
         return this;
     }
 
-    public Accommodation getAccommodation() {
-        return this.accommodation;
+    public Set<Customer> getCustomers() {
+        return this.customers;
     }
 
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
+    public void setCustomers(Set<Customer> customers) {
+        if (this.customers != null) {
+            this.customers.forEach(i -> i.setProperty(null));
+        }
+        if (customers != null) {
+            customers.forEach(i -> i.setProperty(this));
+        }
+        this.customers = customers;
     }
 
-    public Property accommodation(Accommodation accommodation) {
-        this.setAccommodation(accommodation);
+    public Property customers(Set<Customer> customers) {
+        this.setCustomers(customers);
+        return this;
+    }
+
+    public Property addCustomer(Customer customer) {
+        this.customers.add(customer);
+        customer.setProperty(this);
+        return this;
+    }
+
+    public Property removeCustomer(Customer customer) {
+        this.customers.remove(customer);
+        customer.setProperty(null);
         return this;
     }
 

@@ -1,11 +1,11 @@
-id;title;acreage;image;image_content_type;type;price
-1;Car;84007;../fake-data/blob/hipster.png;image/png;Hall;53348
-2;Dynamic Manager;80679;../fake-data/blob/hipster.png;image/png;Attic;64600
-3;Technician CFP supply-chains;83958;../fake-data/blob/hipster.png;image/png;Balcony;51588
-4;Guinea Steel;41358;../fake-data/blob/hipster.png;image/png;Diningroom;7918
-5;copy;86229;../fake-data/blob/hipster.png;image/png;Basement;93364
-6;Taiwan;8116;../fake-data/blob/hipster.png;image/png;Landing;92400
-7;array;92819;../fake-data/blob/hipster.png;image/png;Hall;26315
-8;Turnpike Account turquoise;159;../fake-data/blob/hipster.png;image/png;Lavatory;58391
-9;Buckinghamshire Small;66635;../fake-data/blob/hipster.png;image/png;Attic;66738
-10;Handcrafted;67778;../fake-data/blob/hipster.png;image/png;Basement;27942
+id;title;type
+1;Car;Landing
+2;Mozambique deposit Focused;Attic
+3;Principal magenta;Basement
+4;Point generate;Bedroom
+5;Research withdrawal Intelligent;Basement
+6;SQL solution asymmetric;Hall
+7;array;Hall
+8;secondary Dynamic workforce;Bedroom
+9;Tools Macao;Diningroom
+10;Baby;Attic

@@ -11,8 +11,8 @@ import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
 import { IName } from 'app/entities/name/name.model';
 import { NameService } from 'app/entities/name/service/name.service';
-import { IAddress } from 'app/entities/address/address.model';
-import { AddressService } from 'app/entities/address/service/address.service';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
 @Component({
@@ -25,7 +25,7 @@ export class CustomerUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   namesSharedCollection: IName[] = [];
-  addressesSharedCollection: IAddress[] = [];
+  propertiesSharedCollection: IProperty[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -35,14 +35,14 @@ export class CustomerUpdateComponent implements OnInit {
     gender: [],
     user: [null, Validators.required],
     name: [null, Validators.required],
-    address: [null, Validators.required],
+    property: [],
   });
 
   constructor(
     protected customerService: CustomerService,
     protected userService: UserService,
     protected nameService: NameService,
-    protected addressService: AddressService,
+    protected propertyService: PropertyService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -77,7 +77,7 @@ export class CustomerUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  trackAddressById(index: number, item: IAddress): number {
+  trackPropertyById(index: number, item: IProperty): number {
     return item.id!;
   }
 
@@ -109,12 +109,15 @@ export class CustomerUpdateComponent implements OnInit {
       gender: customer.gender,
       user: customer.user,
       name: customer.name,
-      address: customer.address,
+      property: customer.property,
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, customer.user);
     this.namesSharedCollection = this.nameService.addNameToCollectionIfMissing(this.namesSharedCollection, customer.name);
-    this.addressesSharedCollection = this.addressService.addAddressToCollectionIfMissing(this.addressesSharedCollection, customer.address);
+    this.propertiesSharedCollection = this.propertyService.addPropertyToCollectionIfMissing(
+      this.propertiesSharedCollection,
+      customer.property
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -130,13 +133,15 @@ export class CustomerUpdateComponent implements OnInit {
       .pipe(map((names: IName[]) => this.nameService.addNameToCollectionIfMissing(names, this.editForm.get('name')!.value)))
       .subscribe((names: IName[]) => (this.namesSharedCollection = names));
 
-    this.addressService
+    this.propertyService
       .query()
-      .pipe(map((res: HttpResponse<IAddress[]>) => res.body ?? []))
+      .pipe(map((res: HttpResponse<IProperty[]>) => res.body ?? []))
       .pipe(
-        map((addresses: IAddress[]) => this.addressService.addAddressToCollectionIfMissing(addresses, this.editForm.get('address')!.value))
+        map((properties: IProperty[]) =>
+          this.propertyService.addPropertyToCollectionIfMissing(properties, this.editForm.get('property')!.value)
+        )
       )
-      .subscribe((addresses: IAddress[]) => (this.addressesSharedCollection = addresses));
+      .subscribe((properties: IProperty[]) => (this.propertiesSharedCollection = properties));
   }
 
   protected createFromForm(): ICustomer {
@@ -149,7 +154,7 @@ export class CustomerUpdateComponent implements OnInit {
       gender: this.editForm.get(['gender'])!.value,
       user: this.editForm.get(['user'])!.value,
       name: this.editForm.get(['name'])!.value,
-      address: this.editForm.get(['address'])!.value,
+      property: this.editForm.get(['property'])!.value,
     };
   }
 }

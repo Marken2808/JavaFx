@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220218204452",
+  "changelogDate": "20220219175552",
   "dto": "no",
   "embedded": false,
   "entityTableName": "accommodation",
@@ -21,6 +21,20 @@
       "fieldType": "AccommodationStatus",
       "fieldValidateRules": ["required"],
       "fieldValues": "Furnished,Unfurnished,Partfurnished"
+    },
+    {
+      "fieldName": "acreage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
     }
   ],
   "fluentMethods": true,
@@ -30,18 +44,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityField": "type",
       "otherEntityName": "room",
       "otherEntityRelationshipName": "accommodation",
       "ownerSide": true,
       "relationshipName": "room",
       "relationshipType": "many-to-many"
-    },
-    {
-      "otherEntityName": "property",
-      "otherEntityRelationshipName": "accommodation",
-      "ownerSide": false,
-      "relationshipName": "property",
-      "relationshipType": "one-to-one"
     }
   ],
   "service": "no"

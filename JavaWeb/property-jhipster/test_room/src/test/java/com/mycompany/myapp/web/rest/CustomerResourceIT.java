@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
-import com.mycompany.myapp.domain.Address;
 import com.mycompany.myapp.domain.Customer;
 import com.mycompany.myapp.domain.Name;
 import com.mycompany.myapp.domain.User;
@@ -85,16 +84,6 @@ class CustomerResourceIT {
             name = TestUtil.findAll(em, Name.class).get(0);
         }
         customer.setName(name);
-        // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        customer.setAddress(address);
         return customer;
     }
 
@@ -121,16 +110,6 @@ class CustomerResourceIT {
             name = TestUtil.findAll(em, Name.class).get(0);
         }
         customer.setName(name);
-        // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createUpdatedEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        customer.setAddress(address);
         return customer;
     }
 

@@ -8,12 +8,15 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Accommodation.
  */
 @Entity
 @Table(name = "accommodation")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Accommodation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,18 +41,29 @@ public class Accommodation implements Serializable {
     @Column(name = "status", nullable = false)
     private AccommodationStatus status;
 
+    @NotNull
+    @Column(name = "acreage", nullable = false)
+    private Double acreage;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
+    @Column(name = "price")
+    private Double price;
+
     @ManyToMany
     @JoinTable(
         name = "rel_accommodation__room",
         joinColumns = @JoinColumn(name = "accommodation_id"),
         inverseJoinColumns = @JoinColumn(name = "room_id")
     )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "accommodations" }, allowSetters = true)
     private Set<Room> rooms = new HashSet<>();
-
-    @JsonIgnoreProperties(value = { "address", "accommodation" }, allowSetters = true)
-    @OneToOne(mappedBy = "accommodation")
-    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -105,6 +119,58 @@ public class Accommodation implements Serializable {
         this.status = status;
     }
 
+    public Double getAcreage() {
+        return this.acreage;
+    }
+
+    public Accommodation acreage(Double acreage) {
+        this.setAcreage(acreage);
+        return this;
+    }
+
+    public void setAcreage(Double acreage) {
+        this.acreage = acreage;
+    }
+
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Accommodation image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Accommodation imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public Accommodation price(Double price) {
+        this.setPrice(price);
+        return this;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
     public Set<Room> getRooms() {
         return this.rooms;
     }
@@ -127,25 +193,6 @@ public class Accommodation implements Serializable {
     public Accommodation removeRoom(Room room) {
         this.rooms.remove(room);
         room.getAccommodations().remove(this);
-        return this;
-    }
-
-    public Property getProperty() {
-        return this.property;
-    }
-
-    public void setProperty(Property property) {
-        if (this.property != null) {
-            this.property.setAccommodation(null);
-        }
-        if (property != null) {
-            property.setAccommodation(this);
-        }
-        this.property = property;
-    }
-
-    public Accommodation property(Property property) {
-        this.setProperty(property);
         return this;
     }
 
@@ -176,6 +223,10 @@ public class Accommodation implements Serializable {
             ", title='" + getTitle() + "'" +
             ", type='" + getType() + "'" +
             ", status='" + getStatus() + "'" +
+            ", acreage=" + getAcreage() +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
+            ", price=" + getPrice() +
             "}";
     }
 }

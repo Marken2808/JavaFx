@@ -3,8 +3,10 @@ package com.mycompany.myapp.config;
 import java.time.Duration;
 import org.ehcache.config.builders.*;
 import org.ehcache.jsr107.Eh107Configuration;
+import org.hibernate.cache.jcache.ConfigSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.cache.annotation.EnableCaching;
@@ -34,10 +36,27 @@ public class CacheConfiguration {
     }
 
     @Bean
+    public HibernatePropertiesCustomizer hibernatePropertiesCustomizer(javax.cache.CacheManager cacheManager) {
+        return hibernateProperties -> hibernateProperties.put(ConfigSettings.CACHE_MANAGER, cacheManager);
+    }
+
+    @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
             createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_LOGIN_CACHE);
             createCache(cm, com.mycompany.myapp.repository.UserRepository.USERS_BY_EMAIL_CACHE);
+            createCache(cm, com.mycompany.myapp.domain.User.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.mycompany.myapp.domain.Name.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Address.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Customer.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Property.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Property.class.getName() + ".customers");
+            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName() + ".rooms");
+            createCache(cm, com.mycompany.myapp.domain.Room.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Room.class.getName() + ".accommodations");
             // jhipster-needle-ehcache-add-entry
         };
     }

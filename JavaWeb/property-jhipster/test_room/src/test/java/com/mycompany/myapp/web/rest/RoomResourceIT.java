@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link RoomResource} REST controller.
@@ -34,19 +33,8 @@ class RoomResourceIT {
     private static final String DEFAULT_TITLE = "AAAAAAAAAA";
     private static final String UPDATED_TITLE = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_ACREAGE = 1D;
-    private static final Double UPDATED_ACREAGE = 2D;
-
-    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
-
     private static final RoomType DEFAULT_TYPE = RoomType.Attic;
     private static final RoomType UPDATED_TYPE = RoomType.Lounge;
-
-    private static final Double DEFAULT_PRICE = 1D;
-    private static final Double UPDATED_PRICE = 2D;
 
     private static final String ENTITY_API_URL = "/api/rooms";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -72,13 +60,7 @@ class RoomResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Room createEntity(EntityManager em) {
-        Room room = new Room()
-            .title(DEFAULT_TITLE)
-            .acreage(DEFAULT_ACREAGE)
-            .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .type(DEFAULT_TYPE)
-            .price(DEFAULT_PRICE);
+        Room room = new Room().title(DEFAULT_TITLE).type(DEFAULT_TYPE);
         return room;
     }
 
@@ -89,13 +71,7 @@ class RoomResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Room createUpdatedEntity(EntityManager em) {
-        Room room = new Room()
-            .title(UPDATED_TITLE)
-            .acreage(UPDATED_ACREAGE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .type(UPDATED_TYPE)
-            .price(UPDATED_PRICE);
+        Room room = new Room().title(UPDATED_TITLE).type(UPDATED_TYPE);
         return room;
     }
 
@@ -118,11 +94,7 @@ class RoomResourceIT {
         assertThat(roomList).hasSize(databaseSizeBeforeCreate + 1);
         Room testRoom = roomList.get(roomList.size() - 1);
         assertThat(testRoom.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testRoom.getAcreage()).isEqualTo(DEFAULT_ACREAGE);
-        assertThat(testRoom.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testRoom.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testRoom.getType()).isEqualTo(DEFAULT_TYPE);
-        assertThat(testRoom.getPrice()).isEqualTo(DEFAULT_PRICE);
     }
 
     @Test
@@ -162,23 +134,6 @@ class RoomResourceIT {
 
     @Test
     @Transactional
-    void checkAcreageIsRequired() throws Exception {
-        int databaseSizeBeforeTest = roomRepository.findAll().size();
-        // set the field null
-        room.setAcreage(null);
-
-        // Create the Room, which fails.
-
-        restRoomMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(room)))
-            .andExpect(status().isBadRequest());
-
-        List<Room> roomList = roomRepository.findAll();
-        assertThat(roomList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllRooms() throws Exception {
         // Initialize the database
         roomRepository.saveAndFlush(room);
@@ -190,11 +145,7 @@ class RoomResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(room.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].acreage").value(hasItem(DEFAULT_ACREAGE.doubleValue())))
-            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
+            .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())));
     }
 
     @Test
@@ -210,11 +161,7 @@ class RoomResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(room.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.acreage").value(DEFAULT_ACREAGE.doubleValue()))
-            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
+            .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()));
     }
 
     @Test
@@ -236,13 +183,7 @@ class RoomResourceIT {
         Room updatedRoom = roomRepository.findById(room.getId()).get();
         // Disconnect from session so that the updates on updatedRoom are not directly saved in db
         em.detach(updatedRoom);
-        updatedRoom
-            .title(UPDATED_TITLE)
-            .acreage(UPDATED_ACREAGE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .type(UPDATED_TYPE)
-            .price(UPDATED_PRICE);
+        updatedRoom.title(UPDATED_TITLE).type(UPDATED_TYPE);
 
         restRoomMockMvc
             .perform(
@@ -257,11 +198,7 @@ class RoomResourceIT {
         assertThat(roomList).hasSize(databaseSizeBeforeUpdate);
         Room testRoom = roomList.get(roomList.size() - 1);
         assertThat(testRoom.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testRoom.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testRoom.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testRoom.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testRoom.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testRoom.getPrice()).isEqualTo(UPDATED_PRICE);
     }
 
     @Test
@@ -332,7 +269,7 @@ class RoomResourceIT {
         Room partialUpdatedRoom = new Room();
         partialUpdatedRoom.setId(room.getId());
 
-        partialUpdatedRoom.acreage(UPDATED_ACREAGE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE).type(UPDATED_TYPE);
+        partialUpdatedRoom.type(UPDATED_TYPE);
 
         restRoomMockMvc
             .perform(
@@ -347,11 +284,7 @@ class RoomResourceIT {
         assertThat(roomList).hasSize(databaseSizeBeforeUpdate);
         Room testRoom = roomList.get(roomList.size() - 1);
         assertThat(testRoom.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testRoom.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testRoom.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testRoom.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testRoom.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testRoom.getPrice()).isEqualTo(DEFAULT_PRICE);
     }
 
     @Test
@@ -366,13 +299,7 @@ class RoomResourceIT {
         Room partialUpdatedRoom = new Room();
         partialUpdatedRoom.setId(room.getId());
 
-        partialUpdatedRoom
-            .title(UPDATED_TITLE)
-            .acreage(UPDATED_ACREAGE)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .type(UPDATED_TYPE)
-            .price(UPDATED_PRICE);
+        partialUpdatedRoom.title(UPDATED_TITLE).type(UPDATED_TYPE);
 
         restRoomMockMvc
             .perform(
@@ -387,11 +314,7 @@ class RoomResourceIT {
         assertThat(roomList).hasSize(databaseSizeBeforeUpdate);
         Room testRoom = roomList.get(roomList.size() - 1);
         assertThat(testRoom.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testRoom.getAcreage()).isEqualTo(UPDATED_ACREAGE);
-        assertThat(testRoom.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testRoom.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testRoom.getType()).isEqualTo(UPDATED_TYPE);
-        assertThat(testRoom.getPrice()).isEqualTo(UPDATED_PRICE);
     }
 
     @Test

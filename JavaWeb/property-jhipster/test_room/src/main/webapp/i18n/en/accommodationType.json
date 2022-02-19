@@ -1,0 +1,12 @@
+{
+  "testRoomApp": {
+    "AccommodationType": {
+      "null": "",
+      "Flat": "Flat",
+      "House": "House",
+      "Studio": "Studio",
+      "Ensuite": "Ensuite",
+      "Apartment": "Apartment"
+    }
+  }
+}

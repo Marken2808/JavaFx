@@ -1,5 +1,3 @@
-import { ICustomer } from 'app/entities/customer/customer.model';
-
 export interface IAddress {
   id?: number;
   numberic?: string | null;
@@ -8,7 +6,6 @@ export interface IAddress {
   city?: string | null;
   postcode?: string | null;
   country?: string | null;
-  customers?: ICustomer[] | null;
 }
 
 export class Address implements IAddress {
@@ -19,8 +16,7 @@ export class Address implements IAddress {
     public county?: string | null,
     public city?: string | null,
     public postcode?: string | null,
-    public country?: string | null,
-    public customers?: ICustomer[] | null
+    public country?: string | null
   ) {}
 }
 

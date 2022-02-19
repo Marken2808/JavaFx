@@ -1,11 +1,11 @@
-id;title;type;status
-1;Practical salmon improvement;Ensuite;Furnished
-2;Granite sexy Salad;House;Partfurnished
-3;District wireless Administrator;Studio;Furnished
-4;California International;House;Partfurnished
-5;Rustic back-end Movies;Studio;Furnished
-6;Direct Officer;Apartment;Furnished
-7;Intelligent payment Incredible;Flat;Unfurnished
-8;SAS;Studio;Unfurnished
-9;bus infrastructure;Apartment;Partfurnished
-10;Hawaii Dale;Studio;Furnished
+id;title;type;status;acreage;image;image_content_type;price
+1;Practical salmon improvement;Ensuite;Furnished;99019;../fake-data/blob/hipster.png;image/png;14500
+2;Director clear-thinking;Flat;Furnished;98492;../fake-data/blob/hipster.png;image/png;84403
+3;markets Peso infrastructures;Flat;Unfurnished;55763;../fake-data/blob/hipster.png;image/png;8852
+4;International transparent Rustic;Ensuite;Furnished;86446;../fake-data/blob/hipster.png;image/png;1393
+5;syndicate;Studio;Partfurnished;13200;../fake-data/blob/hipster.png;image/png;49575
+6;Shoes lavender Horizontal;Studio;Furnished;6394;../fake-data/blob/hipster.png;image/png;34451
+7;Ergonomic;Studio;Furnished;86602;../fake-data/blob/hipster.png;image/png;80976
+8;Port bus infrastructure;Apartment;Partfurnished;49531;../fake-data/blob/hipster.png;image/png;58041
+9;Practical;Ensuite;Unfurnished;30115;../fake-data/blob/hipster.png;image/png;29670
+10;compress;Studio;Partfurnished;39468;../fake-data/blob/hipster.png;image/png;36879
