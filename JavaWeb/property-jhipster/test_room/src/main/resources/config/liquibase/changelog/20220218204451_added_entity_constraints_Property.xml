@@ -14,16 +14,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="address"/>
 
-        <addForeignKeyConstraint baseColumnNames="property_id"
-                                 baseTableName="rel_property__room"
-                                 constraintName="fk_rel_property__room__property_id"
+        <addForeignKeyConstraint baseColumnNames="accommodation_id"
+                                 baseTableName="property"
+                                 constraintName="fk_property__accommodation_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="property"/>
-
-        <addForeignKeyConstraint baseColumnNames="room_id"
-                                 baseTableName="rel_property__room"
-                                 constraintName="fk_rel_property__room__room_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="room"/>
+                                 referencedTableName="accommodation"/>
     </changeSet>
 </databaseChangeLog>

@@ -36,12 +36,11 @@
             <a [routerLink]="['/address', property.address?.id, 'view']">{{ property.address?.street }}</a>
           </div>
         </dd>
-        <dt><span>Room</span></dt>
+        <dt><span>Accommodation</span></dt>
         <dd>
-          <span *ngFor="let room of property.rooms; let last = last">
-            <a [routerLink]="['/room', room?.id, 'view']">{{ room.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="property.accommodation">
+            <a [routerLink]="['/accommodation', property.accommodation?.id, 'view']">{{ property.accommodation?.id }}</a>
+          </div>
         </dd>
       </dl>
 

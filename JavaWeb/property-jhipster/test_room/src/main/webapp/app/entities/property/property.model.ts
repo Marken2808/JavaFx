@@ -1,5 +1,5 @@
 import { IAddress } from 'app/entities/address/address.model';
-import { IRoom } from 'app/entities/room/room.model';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
 import { PropertyType } from 'app/entities/enumerations/property-type.model';
 import { PropertyStatus } from 'app/entities/enumerations/property-status.model';
 
@@ -10,7 +10,7 @@ export interface IProperty {
   status?: PropertyStatus;
   isUrgent?: boolean | null;
   address?: IAddress;
-  rooms?: IRoom[] | null;
+  accommodation?: IAccommodation | null;
 }
 
 export class Property implements IProperty {
@@ -21,7 +21,7 @@ export class Property implements IProperty {
     public status?: PropertyStatus,
     public isUrgent?: boolean | null,
     public address?: IAddress,
-    public rooms?: IRoom[] | null
+    public accommodation?: IAccommodation | null
   ) {
     this.isUrgent = this.isUrgent ?? false;
   }

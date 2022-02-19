@@ -8,6 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { AccommodationService } from '../service/accommodation.service';
 import { IAccommodation, Accommodation } from '../accommodation.model';
+import { IRoom } from 'app/entities/room/room.model';
+import { RoomService } from 'app/entities/room/service/room.service';
 
 import { AccommodationUpdateComponent } from './accommodation-update.component';
 
@@ -16,6 +18,7 @@ describe('Accommodation Management Update Component', () => {
   let fixture: ComponentFixture<AccommodationUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let accommodationService: AccommodationService;
+  let roomService: RoomService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,18 +40,41 @@ describe('Accommodation Management Update Component', () => {
     fixture = TestBed.createComponent(AccommodationUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     accommodationService = TestBed.inject(AccommodationService);
+    roomService = TestBed.inject(RoomService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call Room query and add missing value', () => {
+      const accommodation: IAccommodation = { id: 456 };
+      const rooms: IRoom[] = [{ id: 54158 }];
+      accommodation.rooms = rooms;
+
+      const roomCollection: IRoom[] = [{ id: 48469 }];
+      jest.spyOn(roomService, 'query').mockReturnValue(of(new HttpResponse({ body: roomCollection })));
+      const additionalRooms = [...rooms];
+      const expectedCollection: IRoom[] = [...additionalRooms, ...roomCollection];
+      jest.spyOn(roomService, 'addRoomToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ accommodation });
+      comp.ngOnInit();
+
+      expect(roomService.query).toHaveBeenCalled();
+      expect(roomService.addRoomToCollectionIfMissing).toHaveBeenCalledWith(roomCollection, ...additionalRooms);
+      expect(comp.roomsSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const accommodation: IAccommodation = { id: 456 };
+      const rooms: IRoom = { id: 40475 };
+      accommodation.rooms = [rooms];
 
       activatedRoute.data = of({ accommodation });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(accommodation));
+      expect(comp.roomsSharedCollection).toContain(rooms);
     });
   });
 
@@ -113,6 +139,44 @@ describe('Accommodation Management Update Component', () => {
       expect(accommodationService.update).toHaveBeenCalledWith(accommodation);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackRoomById', () => {
+      it('Should return tracked Room primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackRoomById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+  });
+
+  describe('Getting selected relationships', () => {
+    describe('getSelectedRoom', () => {
+      it('Should return option if no Room is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedRoom(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected Room for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedRoom(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this Room is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedRoom(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
+      });
     });
   });
 });

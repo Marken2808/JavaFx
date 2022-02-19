@@ -63,13 +63,24 @@
         </div>
 
         <div class="form-group">
-          <label for="field_rooms">Room</label>
-          <select class="form-control" id="field_rooms" data-cy="room" multiple name="rooms" formControlName="rooms">
+          <label class="form-control-label" for="field_accommodation">Accommodation</label>
+          <select
+            class="form-control"
+            id="field_accommodation"
+            data-cy="accommodation"
+            name="accommodation"
+            formControlName="accommodation"
+          >
+            <option [ngValue]="null"></option>
             <option
-              [ngValue]="getSelectedRoom(roomOption, editForm.get('rooms')!.value)"
-              *ngFor="let roomOption of roomsSharedCollection; trackBy: trackRoomById"
+              [ngValue]="
+                accommodationOption.id === editForm.get('accommodation')!.value?.id
+                  ? editForm.get('accommodation')!.value
+                  : accommodationOption
+              "
+              *ngFor="let accommodationOption of accommodationsCollection; trackBy: trackAccommodationById"
             >
-              {{ roomOption.id }}
+              {{ accommodationOption.id }}
             </option>
           </select>
         </div>

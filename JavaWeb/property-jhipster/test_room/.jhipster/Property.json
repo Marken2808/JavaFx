@@ -43,11 +43,11 @@
       "relationshipValidateRules": "required"
     },
     {
-      "otherEntityName": "room",
+      "otherEntityName": "accommodation",
       "otherEntityRelationshipName": "property",
       "ownerSide": true,
-      "relationshipName": "room",
-      "relationshipType": "many-to-many"
+      "relationshipName": "accommodation",
+      "relationshipType": "one-to-one"
     }
   ],
   "service": "no"

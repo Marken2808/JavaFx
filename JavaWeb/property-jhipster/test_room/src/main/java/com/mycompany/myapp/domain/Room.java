@@ -46,8 +46,8 @@ public class Room implements Serializable {
     private Double price;
 
     @ManyToMany(mappedBy = "rooms")
-    @JsonIgnoreProperties(value = { "address", "rooms" }, allowSetters = true)
-    private Set<Property> properties = new HashSet<>();
+    @JsonIgnoreProperties(value = { "rooms", "property" }, allowSetters = true)
+    private Set<Accommodation> accommodations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -142,34 +142,34 @@ public class Room implements Serializable {
         this.price = price;
     }
 
-    public Set<Property> getProperties() {
-        return this.properties;
+    public Set<Accommodation> getAccommodations() {
+        return this.accommodations;
     }
 
-    public void setProperties(Set<Property> properties) {
-        if (this.properties != null) {
-            this.properties.forEach(i -> i.removeRoom(this));
+    public void setAccommodations(Set<Accommodation> accommodations) {
+        if (this.accommodations != null) {
+            this.accommodations.forEach(i -> i.removeRoom(this));
         }
-        if (properties != null) {
-            properties.forEach(i -> i.addRoom(this));
+        if (accommodations != null) {
+            accommodations.forEach(i -> i.addRoom(this));
         }
-        this.properties = properties;
+        this.accommodations = accommodations;
     }
 
-    public Room properties(Set<Property> properties) {
-        this.setProperties(properties);
+    public Room accommodations(Set<Accommodation> accommodations) {
+        this.setAccommodations(accommodations);
         return this;
     }
 
-    public Room addProperty(Property property) {
-        this.properties.add(property);
-        property.getRooms().add(this);
+    public Room addAccommodation(Accommodation accommodation) {
+        this.accommodations.add(accommodation);
+        accommodation.getRooms().add(this);
         return this;
     }
 
-    public Room removeProperty(Property property) {
-        this.properties.remove(property);
-        property.getRooms().remove(this);
+    public Room removeAccommodation(Accommodation accommodation) {
+        this.accommodations.remove(accommodation);
+        accommodation.getRooms().remove(this);
         return this;
     }
 

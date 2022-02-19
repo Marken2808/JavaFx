@@ -28,6 +28,21 @@
   "name": "Accommodation",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "room",
+      "otherEntityRelationshipName": "accommodation",
+      "ownerSide": true,
+      "relationshipName": "room",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "property",
+      "otherEntityRelationshipName": "accommodation",
+      "ownerSide": false,
+      "relationshipName": "property",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "no"
 }

@@ -109,8 +109,9 @@ relationship ManyToOne {
 relationship OneToOne {
     Customer{user(login) required} to User,
     Property{address(street) required} to Address,
+    Property to Accommodation,
 }
 
 relationship ManyToMany {
-	Property to Room,
+	Accommodation to Room,
 }

@@ -40,6 +40,18 @@
             <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required"> This field is required. </small>
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="field_rooms">Room</label>
+          <select class="form-control" id="field_rooms" data-cy="room" multiple name="rooms" formControlName="rooms">
+            <option
+              [ngValue]="getSelectedRoom(roomOption, editForm.get('rooms')!.value)"
+              *ngFor="let roomOption of roomsSharedCollection; trackBy: trackRoomById"
+            >
+              {{ roomOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

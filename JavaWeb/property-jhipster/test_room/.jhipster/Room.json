@@ -37,10 +37,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "property",
+      "otherEntityName": "accommodation",
       "otherEntityRelationshipName": "room",
       "ownerSide": false,
-      "relationshipName": "property",
+      "relationshipName": "accommodation",
       "relationshipType": "many-to-many"
     }
   ],

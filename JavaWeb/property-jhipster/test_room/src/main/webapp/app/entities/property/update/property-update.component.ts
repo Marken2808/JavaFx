@@ -9,8 +9,8 @@ import { IProperty, Property } from '../property.model';
 import { PropertyService } from '../service/property.service';
 import { IAddress } from 'app/entities/address/address.model';
 import { AddressService } from 'app/entities/address/service/address.service';
-import { IRoom } from 'app/entities/room/room.model';
-import { RoomService } from 'app/entities/room/service/room.service';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
+import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
 import { PropertyType } from 'app/entities/enumerations/property-type.model';
 import { PropertyStatus } from 'app/entities/enumerations/property-status.model';
 
@@ -24,7 +24,7 @@ export class PropertyUpdateComponent implements OnInit {
   propertyStatusValues = Object.keys(PropertyStatus);
 
   addressesCollection: IAddress[] = [];
-  roomsSharedCollection: IRoom[] = [];
+  accommodationsCollection: IAccommodation[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -33,13 +33,13 @@ export class PropertyUpdateComponent implements OnInit {
     status: [null, [Validators.required]],
     isUrgent: [],
     address: [null, Validators.required],
-    rooms: [],
+    accommodation: [],
   });
 
   constructor(
     protected propertyService: PropertyService,
     protected addressService: AddressService,
-    protected roomService: RoomService,
+    protected accommodationService: AccommodationService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -70,19 +70,8 @@ export class PropertyUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  trackRoomById(index: number, item: IRoom): number {
+  trackAccommodationById(index: number, item: IAccommodation): number {
     return item.id!;
-  }
-
-  getSelectedRoom(option: IRoom, selectedVals?: IRoom[]): IRoom {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IProperty>>): void {
@@ -112,11 +101,14 @@ export class PropertyUpdateComponent implements OnInit {
       status: property.status,
       isUrgent: property.isUrgent,
       address: property.address,
-      rooms: property.rooms,
+      accommodation: property.accommodation,
     });
 
     this.addressesCollection = this.addressService.addAddressToCollectionIfMissing(this.addressesCollection, property.address);
-    this.roomsSharedCollection = this.roomService.addRoomToCollectionIfMissing(this.roomsSharedCollection, ...(property.rooms ?? []));
+    this.accommodationsCollection = this.accommodationService.addAccommodationToCollectionIfMissing(
+      this.accommodationsCollection,
+      property.accommodation
+    );
   }
 
   protected loadRelationshipsOptions(): void {
@@ -128,11 +120,15 @@ export class PropertyUpdateComponent implements OnInit {
       )
       .subscribe((addresses: IAddress[]) => (this.addressesCollection = addresses));
 
-    this.roomService
-      .query()
-      .pipe(map((res: HttpResponse<IRoom[]>) => res.body ?? []))
-      .pipe(map((rooms: IRoom[]) => this.roomService.addRoomToCollectionIfMissing(rooms, ...(this.editForm.get('rooms')!.value ?? []))))
-      .subscribe((rooms: IRoom[]) => (this.roomsSharedCollection = rooms));
+    this.accommodationService
+      .query({ filter: 'property-is-null' })
+      .pipe(map((res: HttpResponse<IAccommodation[]>) => res.body ?? []))
+      .pipe(
+        map((accommodations: IAccommodation[]) =>
+          this.accommodationService.addAccommodationToCollectionIfMissing(accommodations, this.editForm.get('accommodation')!.value)
+        )
+      )
+      .subscribe((accommodations: IAccommodation[]) => (this.accommodationsCollection = accommodations));
   }
 
   protected createFromForm(): IProperty {
@@ -144,7 +140,7 @@ export class PropertyUpdateComponent implements OnInit {
       status: this.editForm.get(['status'])!.value,
       isUrgent: this.editForm.get(['isUrgent'])!.value,
       address: this.editForm.get(['address'])!.value,
-      rooms: this.editForm.get(['rooms'])!.value,
+      accommodation: this.editForm.get(['accommodation'])!.value,
     };
   }
 }

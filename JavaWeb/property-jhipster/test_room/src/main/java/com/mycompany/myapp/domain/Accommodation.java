@@ -1,8 +1,11 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.AccommodationStatus;
 import com.mycompany.myapp.domain.enumeration.AccommodationType;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -34,6 +37,19 @@ public class Accommodation implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AccommodationStatus status;
+
+    @ManyToMany
+    @JoinTable(
+        name = "rel_accommodation__room",
+        joinColumns = @JoinColumn(name = "accommodation_id"),
+        inverseJoinColumns = @JoinColumn(name = "room_id")
+    )
+    @JsonIgnoreProperties(value = { "accommodations" }, allowSetters = true)
+    private Set<Room> rooms = new HashSet<>();
+
+    @JsonIgnoreProperties(value = { "address", "accommodation" }, allowSetters = true)
+    @OneToOne(mappedBy = "accommodation")
+    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -87,6 +103,50 @@ public class Accommodation implements Serializable {
 
     public void setStatus(AccommodationStatus status) {
         this.status = status;
+    }
+
+    public Set<Room> getRooms() {
+        return this.rooms;
+    }
+
+    public void setRooms(Set<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public Accommodation rooms(Set<Room> rooms) {
+        this.setRooms(rooms);
+        return this;
+    }
+
+    public Accommodation addRoom(Room room) {
+        this.rooms.add(room);
+        room.getAccommodations().add(this);
+        return this;
+    }
+
+    public Accommodation removeRoom(Room room) {
+        this.rooms.remove(room);
+        room.getAccommodations().remove(this);
+        return this;
+    }
+
+    public Property getProperty() {
+        return this.property;
+    }
+
+    public void setProperty(Property property) {
+        if (this.property != null) {
+            this.property.setAccommodation(null);
+        }
+        if (property != null) {
+            property.setAccommodation(this);
+        }
+        this.property = property;
+    }
+
+    public Accommodation property(Property property) {
+        this.setProperty(property);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

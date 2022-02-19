@@ -1,4 +1,4 @@
-import { IProperty } from 'app/entities/property/property.model';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
 import { RoomType } from 'app/entities/enumerations/room-type.model';
 
 export interface IRoom {
@@ -9,7 +9,7 @@ export interface IRoom {
   image?: string | null;
   type?: RoomType | null;
   price?: number | null;
-  properties?: IProperty[] | null;
+  accommodations?: IAccommodation[] | null;
 }
 
 export class Room implements IRoom {
@@ -21,7 +21,7 @@ export class Room implements IRoom {
     public image?: string | null,
     public type?: RoomType | null,
     public price?: number | null,
-    public properties?: IProperty[] | null
+    public accommodations?: IAccommodation[] | null
   ) {}
 }
 

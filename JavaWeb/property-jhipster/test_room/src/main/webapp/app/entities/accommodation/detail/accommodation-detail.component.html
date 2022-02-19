@@ -26,6 +26,13 @@
         <dd>
           <span>{{ accommodation.status }}</span>
         </dd>
+        <dt><span>Room</span></dt>
+        <dd>
+          <span *ngFor="let room of accommodation.rooms; let last = last">
+            <a [routerLink]="['/room', room?.id, 'view']">{{ room.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

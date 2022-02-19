@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -47,14 +45,10 @@ public class Property implements Serializable {
     @JoinColumn(unique = true)
     private Address address;
 
-    @ManyToMany
-    @JoinTable(
-        name = "rel_property__room",
-        joinColumns = @JoinColumn(name = "property_id"),
-        inverseJoinColumns = @JoinColumn(name = "room_id")
-    )
-    @JsonIgnoreProperties(value = { "properties" }, allowSetters = true)
-    private Set<Room> rooms = new HashSet<>();
+    @JsonIgnoreProperties(value = { "rooms", "property" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Accommodation accommodation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -136,28 +130,16 @@ public class Property implements Serializable {
         return this;
     }
 
-    public Set<Room> getRooms() {
-        return this.rooms;
+    public Accommodation getAccommodation() {
+        return this.accommodation;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 
-    public Property rooms(Set<Room> rooms) {
-        this.setRooms(rooms);
-        return this;
-    }
-
-    public Property addRoom(Room room) {
-        this.rooms.add(room);
-        room.getProperties().add(this);
-        return this;
-    }
-
-    public Property removeRoom(Room room) {
-        this.rooms.remove(room);
-        room.getProperties().remove(this);
+    public Property accommodation(Accommodation accommodation) {
+        this.setAccommodation(accommodation);
         return this;
     }
 

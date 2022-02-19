@@ -29,22 +29,11 @@
             <column name="address_id" type="bigint">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_property__address_id" />
             </column>
+            <column name="accommodation_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_property__accommodation_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
-    </changeSet>
-
-    <changeSet id="20220218204451-1-relations" author="jhipster">
-
-        <createTable tableName="rel_property__room">
-            <column name="room_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="property_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="property_id, room_id" tableName="rel_property__room"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

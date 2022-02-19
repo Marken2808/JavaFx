@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -148,12 +150,24 @@ public class AccommodationResource {
     /**
      * {@code GET  /accommodations} : get all the accommodations.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accommodations in body.
      */
     @GetMapping("/accommodations")
-    public List<Accommodation> getAllAccommodations() {
+    public List<Accommodation> getAllAccommodations(
+        @RequestParam(required = false) String filter,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
+        if ("property-is-null".equals(filter)) {
+            log.debug("REST request to get all Accommodations where property is null");
+            return StreamSupport
+                .stream(accommodationRepository.findAll().spliterator(), false)
+                .filter(accommodation -> accommodation.getProperty() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Accommodations");
-        return accommodationRepository.findAll();
+        return accommodationRepository.findAllWithEagerRelationships();
     }
 
     /**
@@ -165,7 +179,7 @@ public class AccommodationResource {
     @GetMapping("/accommodations/{id}")
     public ResponseEntity<Accommodation> getAccommodation(@PathVariable Long id) {
         log.debug("REST request to get Accommodation : {}", id);
-        Optional<Accommodation> accommodation = accommodationRepository.findById(id);
+        Optional<Accommodation> accommodation = accommodationRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(accommodation);
     }
 

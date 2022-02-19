@@ -2,7 +2,6 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -12,20 +11,14 @@ import com.mycompany.myapp.domain.Property;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
 import com.mycompany.myapp.repository.PropertyRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link PropertyResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class PropertyResourceIT {
@@ -60,9 +52,6 @@ class PropertyResourceIT {
 
     @Autowired
     private PropertyRepository propertyRepository;
-
-    @Mock
-    private PropertyRepository propertyRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -223,24 +212,6 @@ class PropertyResourceIT {
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].isUrgent").value(hasItem(DEFAULT_IS_URGENT.booleanValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllPropertiesWithEagerRelationshipsIsEnabled() throws Exception {
-        when(propertyRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restPropertyMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(propertyRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllPropertiesWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(propertyRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restPropertyMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(propertyRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

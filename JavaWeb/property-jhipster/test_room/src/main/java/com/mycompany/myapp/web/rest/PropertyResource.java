@@ -151,13 +151,12 @@ public class PropertyResource {
     /**
      * {@code GET  /properties} : get all the properties.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of properties in body.
      */
     @GetMapping("/properties")
-    public List<Property> getAllProperties(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Property> getAllProperties() {
         log.debug("REST request to get all Properties");
-        return propertyRepository.findAllWithEagerRelationships();
+        return propertyRepository.findAll();
     }
 
     /**
@@ -169,7 +168,7 @@ public class PropertyResource {
     @GetMapping("/properties/{id}")
     public ResponseEntity<Property> getProperty(@PathVariable Long id) {
         log.debug("REST request to get Property : {}", id);
-        Optional<Property> property = propertyRepository.findOneWithEagerRelationships(id);
+        Optional<Property> property = propertyRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(property);
     }
 

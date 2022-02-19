@@ -38,7 +38,7 @@
           <th scope="col"><span>Status</span></th>
           <th scope="col"><span>Is Urgent</span></th>
           <th scope="col"><span>Address</span></th>
-          <th scope="col"><span>Room</span></th>
+          <th scope="col"><span>Accommodation</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -57,10 +57,9 @@
             </div>
           </td>
           <td>
-            <span *ngFor="let room of property.rooms; let last = last">
-              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="property.accommodation">
+              <a [routerLink]="['/accommodation', property.accommodation?.id, 'view']">{{ property.accommodation?.id }}</a>
+            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">
