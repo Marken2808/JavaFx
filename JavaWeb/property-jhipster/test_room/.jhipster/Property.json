@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220219235905",
+  "changelogDate": "20220220224134",
   "dto": "no",
   "embedded": false,
   "entityTableName": "property",
@@ -45,8 +45,10 @@
     {
       "otherEntityName": "customer",
       "otherEntityRelationshipName": "property",
+      "ownerSide": false,
       "relationshipName": "customer",
-      "relationshipType": "one-to-many"
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
     }
   ],
   "service": "no"

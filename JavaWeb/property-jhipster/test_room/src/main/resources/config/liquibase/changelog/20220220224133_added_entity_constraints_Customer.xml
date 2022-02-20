@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Customer.
     -->
-    <changeSet id="20220219235904-2" author="jhipster">
+    <changeSet id="20220220224133-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="customer"
@@ -14,16 +14,22 @@
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="rel_customer__property"
+                                 constraintName="fk_rel_customer__property__customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer"/>
+
+        <addForeignKeyConstraint baseColumnNames="property_id"
+                                 baseTableName="rel_customer__property"
+                                 constraintName="fk_rel_customer__property__property_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="property"/>
+
         <addForeignKeyConstraint baseColumnNames="name_id"
                                  baseTableName="customer"
                                  constraintName="fk_customer__name_id"
                                  referencedColumnNames="id"
                                  referencedTableName="name"/>
-
-        <addForeignKeyConstraint baseColumnNames="property_id"
-                                 baseTableName="customer"
-                                 constraintName="fk_customer__property_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="property"/>
     </changeSet>
 </databaseChangeLog>

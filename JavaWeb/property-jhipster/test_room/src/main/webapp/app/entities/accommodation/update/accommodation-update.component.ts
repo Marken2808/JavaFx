@@ -29,7 +29,7 @@ export class AccommodationUpdateComponent implements OnInit {
     type: [null, [Validators.required]],
     status: [null, [Validators.required]],
     total: [],
-    rooms: [],
+    rooms: [null, Validators.required],
   });
 
   constructor(

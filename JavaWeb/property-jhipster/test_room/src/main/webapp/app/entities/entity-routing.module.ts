@@ -25,9 +25,9 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./property/property.module').then(m => m.PropertyModule),
       },
       {
-        path: 'accommodation',
-        data: { pageTitle: 'testRoomApp.accommodation.home.title' },
-        loadChildren: () => import('./accommodation/accommodation.module').then(m => m.AccommodationModule),
+        path: 'area',
+        data: { pageTitle: 'testRoomApp.area.home.title' },
+        loadChildren: () => import('./area/area.module').then(m => m.AreaModule),
       },
       {
         path: 'room',
@@ -35,9 +35,9 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./room/room.module').then(m => m.RoomModule),
       },
       {
-        path: 'area',
-        data: { pageTitle: 'testRoomApp.area.home.title' },
-        loadChildren: () => import('./area/area.module').then(m => m.AreaModule),
+        path: 'accommodation',
+        data: { pageTitle: 'testRoomApp.accommodation.home.title' },
+        loadChildren: () => import('./accommodation/accommodation.module').then(m => m.AccommodationModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

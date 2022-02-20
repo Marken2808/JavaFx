@@ -11,10 +11,10 @@ import { ICustomer, Customer } from '../customer.model';
 
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
-import { IName } from 'app/entities/name/name.model';
-import { NameService } from 'app/entities/name/service/name.service';
 import { IProperty } from 'app/entities/property/property.model';
 import { PropertyService } from 'app/entities/property/service/property.service';
+import { IName } from 'app/entities/name/name.model';
+import { NameService } from 'app/entities/name/service/name.service';
 
 import { CustomerUpdateComponent } from './customer-update.component';
 
@@ -24,8 +24,8 @@ describe('Customer Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let customerService: CustomerService;
   let userService: UserService;
-  let nameService: NameService;
   let propertyService: PropertyService;
+  let nameService: NameService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,8 +48,8 @@ describe('Customer Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     customerService = TestBed.inject(CustomerService);
     userService = TestBed.inject(UserService);
-    nameService = TestBed.inject(NameService);
     propertyService = TestBed.inject(PropertyService);
+    nameService = TestBed.inject(NameService);
 
     comp = fixture.componentInstance;
   });
@@ -74,6 +74,25 @@ describe('Customer Management Update Component', () => {
       expect(comp.usersSharedCollection).toEqual(expectedCollection);
     });
 
+    it('Should call Property query and add missing value', () => {
+      const customer: ICustomer = { id: 456 };
+      const properties: IProperty[] = [{ id: 7205 }];
+      customer.properties = properties;
+
+      const propertyCollection: IProperty[] = [{ id: 65575 }];
+      jest.spyOn(propertyService, 'query').mockReturnValue(of(new HttpResponse({ body: propertyCollection })));
+      const additionalProperties = [...properties];
+      const expectedCollection: IProperty[] = [...additionalProperties, ...propertyCollection];
+      jest.spyOn(propertyService, 'addPropertyToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ customer });
+      comp.ngOnInit();
+
+      expect(propertyService.query).toHaveBeenCalled();
+      expect(propertyService.addPropertyToCollectionIfMissing).toHaveBeenCalledWith(propertyCollection, ...additionalProperties);
+      expect(comp.propertiesSharedCollection).toEqual(expectedCollection);
+    });
+
     it('Should call Name query and add missing value', () => {
       const customer: ICustomer = { id: 456 };
       const name: IName = { id: 16794 };
@@ -93,41 +112,22 @@ describe('Customer Management Update Component', () => {
       expect(comp.namesSharedCollection).toEqual(expectedCollection);
     });
 
-    it('Should call Property query and add missing value', () => {
-      const customer: ICustomer = { id: 456 };
-      const property: IProperty = { id: 7205 };
-      customer.property = property;
-
-      const propertyCollection: IProperty[] = [{ id: 65575 }];
-      jest.spyOn(propertyService, 'query').mockReturnValue(of(new HttpResponse({ body: propertyCollection })));
-      const additionalProperties = [property];
-      const expectedCollection: IProperty[] = [...additionalProperties, ...propertyCollection];
-      jest.spyOn(propertyService, 'addPropertyToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ customer });
-      comp.ngOnInit();
-
-      expect(propertyService.query).toHaveBeenCalled();
-      expect(propertyService.addPropertyToCollectionIfMissing).toHaveBeenCalledWith(propertyCollection, ...additionalProperties);
-      expect(comp.propertiesSharedCollection).toEqual(expectedCollection);
-    });
-
     it('Should update editForm', () => {
       const customer: ICustomer = { id: 456 };
       const user: IUser = { id: 90005 };
       customer.user = user;
+      const properties: IProperty = { id: 55436 };
+      customer.properties = [properties];
       const name: IName = { id: 31146 };
       customer.name = name;
-      const property: IProperty = { id: 55436 };
-      customer.property = property;
 
       activatedRoute.data = of({ customer });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(customer));
       expect(comp.usersSharedCollection).toContain(user);
+      expect(comp.propertiesSharedCollection).toContain(properties);
       expect(comp.namesSharedCollection).toContain(name);
-      expect(comp.propertiesSharedCollection).toContain(property);
     });
   });
 
@@ -204,6 +204,14 @@ describe('Customer Management Update Component', () => {
       });
     });
 
+    describe('trackPropertyById', () => {
+      it('Should return tracked Property primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackPropertyById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
+    });
+
     describe('trackNameById', () => {
       it('Should return tracked Name primary key', () => {
         const entity = { id: 123 };
@@ -211,12 +219,32 @@ describe('Customer Management Update Component', () => {
         expect(trackResult).toEqual(entity.id);
       });
     });
+  });
 
-    describe('trackPropertyById', () => {
-      it('Should return tracked Property primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackPropertyById(0, entity);
-        expect(trackResult).toEqual(entity.id);
+  describe('Getting selected relationships', () => {
+    describe('getSelectedProperty', () => {
+      it('Should return option if no Property is selected', () => {
+        const option = { id: 123 };
+        const result = comp.getSelectedProperty(option);
+        expect(result === option).toEqual(true);
+      });
+
+      it('Should return selected Property for according option', () => {
+        const option = { id: 123 };
+        const selected = { id: 123 };
+        const selected2 = { id: 456 };
+        const result = comp.getSelectedProperty(option, [selected2, selected]);
+        expect(result === selected).toEqual(true);
+        expect(result === selected2).toEqual(false);
+        expect(result === option).toEqual(false);
+      });
+
+      it('Should return option if this Property is not selected', () => {
+        const option = { id: 123 };
+        const selected = { id: 456 };
+        const result = comp.getSelectedProperty(option, [selected]);
+        expect(result === option).toEqual(true);
+        expect(result === selected).toEqual(false);
       });
     });
   });

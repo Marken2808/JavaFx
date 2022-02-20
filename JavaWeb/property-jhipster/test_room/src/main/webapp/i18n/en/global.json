@@ -11,9 +11,9 @@
         "address": "Address",
         "customer": "Customer",
         "property": "Property",
-        "accommodation": "Accommodation",
-        "room": "Room",
         "area": "Area",
+        "room": "Room",
+        "accommodation": "Accommodation",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

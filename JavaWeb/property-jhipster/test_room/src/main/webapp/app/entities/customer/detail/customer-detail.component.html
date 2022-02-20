@@ -34,16 +34,17 @@
         <dd>
           <span>{{ customer.user?.login }}</span>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.customer.property">Property</span></dt>
+        <dd>
+          <span *ngFor="let property of customer.properties; let last = last">
+            <a [routerLink]="['/property', property?.id, 'view']">{{ property.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
         <dt><span jhiTranslate="testRoomApp.customer.name">Name</span></dt>
         <dd>
           <div *ngIf="customer.name">
             <a [routerLink]="['/name', customer.name?.id, 'view']">{{ customer.name?.displayName }}</a>
-          </div>
-        </dd>
-        <dt><span jhiTranslate="testRoomApp.customer.property">Property</span></dt>
-        <dd>
-          <div *ngIf="customer.property">
-            <a [routerLink]="['/property', customer.property?.id, 'view']">{{ customer.property?.title }}</a>
           </div>
         </dd>
       </dl>

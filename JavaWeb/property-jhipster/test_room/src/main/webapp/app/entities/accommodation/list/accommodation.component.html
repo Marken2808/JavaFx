@@ -52,7 +52,7 @@
           <td>{{ accommodation.total }}</td>
           <td>
             <span *ngFor="let room of accommodation.rooms; let last = last">
-              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.type }}</a
+              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.id }}</a
               >{{ last ? '' : ', ' }}
             </span>
           </td>

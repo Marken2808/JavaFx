@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Address;
+import com.mycompany.myapp.domain.Customer;
 import com.mycompany.myapp.domain.Property;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
@@ -79,6 +80,16 @@ class PropertyResourceIT {
             address = TestUtil.findAll(em, Address.class).get(0);
         }
         property.setAddress(address);
+        // Add required entity
+        Customer customer;
+        if (TestUtil.findAll(em, Customer.class).isEmpty()) {
+            customer = CustomerResourceIT.createEntity(em);
+            em.persist(customer);
+            em.flush();
+        } else {
+            customer = TestUtil.findAll(em, Customer.class).get(0);
+        }
+        property.getCustomers().add(customer);
         return property;
     }
 
@@ -100,6 +111,16 @@ class PropertyResourceIT {
             address = TestUtil.findAll(em, Address.class).get(0);
         }
         property.setAddress(address);
+        // Add required entity
+        Customer customer;
+        if (TestUtil.findAll(em, Customer.class).isEmpty()) {
+            customer = CustomerResourceIT.createUpdatedEntity(em);
+            em.persist(customer);
+            em.flush();
+        } else {
+            customer = TestUtil.findAll(em, Customer.class).get(0);
+        }
+        property.getCustomers().add(customer);
         return property;
     }
 

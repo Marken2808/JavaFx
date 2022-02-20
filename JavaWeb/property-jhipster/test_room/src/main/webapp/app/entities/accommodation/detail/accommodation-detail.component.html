@@ -33,7 +33,7 @@
         <dt><span jhiTranslate="testRoomApp.accommodation.room">Room</span></dt>
         <dd>
           <span *ngFor="let room of accommodation.rooms; let last = last">
-            <a [routerLink]="['/room', room?.id, 'view']">{{ room.type }}</a
+            <a [routerLink]="['/room', room?.id, 'view']">{{ room.id }}</a
             >{{ last ? '' : ', ' }}
           </span>
         </dd>

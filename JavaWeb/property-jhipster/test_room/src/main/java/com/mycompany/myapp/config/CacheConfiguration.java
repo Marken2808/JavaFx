@@ -49,16 +49,18 @@ public class CacheConfiguration {
             createCache(cm, com.mycompany.myapp.domain.Authority.class.getName());
             createCache(cm, com.mycompany.myapp.domain.User.class.getName() + ".authorities");
             createCache(cm, com.mycompany.myapp.domain.Name.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Name.class.getName() + ".customers");
             createCache(cm, com.mycompany.myapp.domain.Address.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Customer.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Customer.class.getName() + ".properties");
             createCache(cm, com.mycompany.myapp.domain.Property.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Property.class.getName() + ".customers");
-            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName());
-            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName() + ".rooms");
-            createCache(cm, com.mycompany.myapp.domain.Room.class.getName());
-            createCache(cm, com.mycompany.myapp.domain.Room.class.getName() + ".accommodations");
             createCache(cm, com.mycompany.myapp.domain.Area.class.getName());
             createCache(cm, com.mycompany.myapp.domain.Area.class.getName() + ".rooms");
+            createCache(cm, com.mycompany.myapp.domain.Room.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Room.class.getName() + ".accommodations");
+            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName());
+            createCache(cm, com.mycompany.myapp.domain.Accommodation.class.getName() + ".rooms");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -9,10 +9,10 @@ import { ICustomer, Customer } from '../customer.model';
 import { CustomerService } from '../service/customer.service';
 import { IUser } from 'app/entities/user/user.model';
 import { UserService } from 'app/entities/user/user.service';
-import { IName } from 'app/entities/name/name.model';
-import { NameService } from 'app/entities/name/service/name.service';
 import { IProperty } from 'app/entities/property/property.model';
 import { PropertyService } from 'app/entities/property/service/property.service';
+import { IName } from 'app/entities/name/name.model';
+import { NameService } from 'app/entities/name/service/name.service';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
 @Component({
@@ -24,8 +24,8 @@ export class CustomerUpdateComponent implements OnInit {
   genderValues = Object.keys(Gender);
 
   usersSharedCollection: IUser[] = [];
-  namesSharedCollection: IName[] = [];
   propertiesSharedCollection: IProperty[] = [];
+  namesSharedCollection: IName[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -34,15 +34,15 @@ export class CustomerUpdateComponent implements OnInit {
     birth: [null, [Validators.required]],
     gender: [],
     user: [null, Validators.required],
+    properties: [null, Validators.required],
     name: [null, Validators.required],
-    property: [],
   });
 
   constructor(
     protected customerService: CustomerService,
     protected userService: UserService,
-    protected nameService: NameService,
     protected propertyService: PropertyService,
+    protected nameService: NameService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -73,12 +73,23 @@ export class CustomerUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackPropertyById(index: number, item: IProperty): number {
+    return item.id!;
+  }
+
   trackNameById(index: number, item: IName): number {
     return item.id!;
   }
 
-  trackPropertyById(index: number, item: IProperty): number {
-    return item.id!;
+  getSelectedProperty(option: IProperty, selectedVals?: IProperty[]): IProperty {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ICustomer>>): void {
@@ -108,16 +119,16 @@ export class CustomerUpdateComponent implements OnInit {
       birth: customer.birth,
       gender: customer.gender,
       user: customer.user,
+      properties: customer.properties,
       name: customer.name,
-      property: customer.property,
     });
 
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, customer.user);
-    this.namesSharedCollection = this.nameService.addNameToCollectionIfMissing(this.namesSharedCollection, customer.name);
     this.propertiesSharedCollection = this.propertyService.addPropertyToCollectionIfMissing(
       this.propertiesSharedCollection,
-      customer.property
+      ...(customer.properties ?? [])
     );
+    this.namesSharedCollection = this.nameService.addNameToCollectionIfMissing(this.namesSharedCollection, customer.name);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -127,21 +138,21 @@ export class CustomerUpdateComponent implements OnInit {
       .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
       .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
 
-    this.nameService
-      .query()
-      .pipe(map((res: HttpResponse<IName[]>) => res.body ?? []))
-      .pipe(map((names: IName[]) => this.nameService.addNameToCollectionIfMissing(names, this.editForm.get('name')!.value)))
-      .subscribe((names: IName[]) => (this.namesSharedCollection = names));
-
     this.propertyService
       .query()
       .pipe(map((res: HttpResponse<IProperty[]>) => res.body ?? []))
       .pipe(
         map((properties: IProperty[]) =>
-          this.propertyService.addPropertyToCollectionIfMissing(properties, this.editForm.get('property')!.value)
+          this.propertyService.addPropertyToCollectionIfMissing(properties, ...(this.editForm.get('properties')!.value ?? []))
         )
       )
       .subscribe((properties: IProperty[]) => (this.propertiesSharedCollection = properties));
+
+    this.nameService
+      .query()
+      .pipe(map((res: HttpResponse<IName[]>) => res.body ?? []))
+      .pipe(map((names: IName[]) => this.nameService.addNameToCollectionIfMissing(names, this.editForm.get('name')!.value)))
+      .subscribe((names: IName[]) => (this.namesSharedCollection = names));
   }
 
   protected createFromForm(): ICustomer {
@@ -153,8 +164,8 @@ export class CustomerUpdateComponent implements OnInit {
       birth: this.editForm.get(['birth'])!.value,
       gender: this.editForm.get(['gender'])!.value,
       user: this.editForm.get(['user'])!.value,
+      properties: this.editForm.get(['properties'])!.value,
       name: this.editForm.get(['name'])!.value,
-      property: this.editForm.get(['property'])!.value,
     };
   }
 }

@@ -49,9 +49,9 @@ public class Property implements Serializable {
     @JoinColumn(unique = true)
     private Address address;
 
-    @OneToMany(mappedBy = "property")
+    @ManyToMany(mappedBy = "properties")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "name", "property" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "user", "properties", "name" }, allowSetters = true)
     private Set<Customer> customers = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -140,10 +140,10 @@ public class Property implements Serializable {
 
     public void setCustomers(Set<Customer> customers) {
         if (this.customers != null) {
-            this.customers.forEach(i -> i.setProperty(null));
+            this.customers.forEach(i -> i.removeProperty(this));
         }
         if (customers != null) {
-            customers.forEach(i -> i.setProperty(this));
+            customers.forEach(i -> i.addProperty(this));
         }
         this.customers = customers;
     }
@@ -155,13 +155,13 @@ public class Property implements Serializable {
 
     public Property addCustomer(Customer customer) {
         this.customers.add(customer);
-        customer.setProperty(this);
+        customer.getProperties().add(this);
         return this;
     }
 
     public Property removeCustomer(Customer customer) {
         this.customers.remove(customer);
-        customer.setProperty(null);
+        customer.getProperties().remove(this);
         return this;
     }
 

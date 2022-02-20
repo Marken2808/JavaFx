@@ -2,23 +2,31 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Customer;
 import com.mycompany.myapp.domain.Name;
+import com.mycompany.myapp.domain.Property;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.domain.enumeration.Gender;
 import com.mycompany.myapp.repository.CustomerRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link CustomerResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class CustomerResourceIT {
@@ -53,6 +62,9 @@ class CustomerResourceIT {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Mock
+    private CustomerRepository customerRepositoryMock;
+
     @Autowired
     private EntityManager em;
 
@@ -74,6 +86,16 @@ class CustomerResourceIT {
         em.persist(user);
         em.flush();
         customer.setUser(user);
+        // Add required entity
+        Property property;
+        if (TestUtil.findAll(em, Property.class).isEmpty()) {
+            property = PropertyResourceIT.createEntity(em);
+            em.persist(property);
+            em.flush();
+        } else {
+            property = TestUtil.findAll(em, Property.class).get(0);
+        }
+        customer.getProperties().add(property);
         // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
@@ -100,6 +122,16 @@ class CustomerResourceIT {
         em.persist(user);
         em.flush();
         customer.setUser(user);
+        // Add required entity
+        Property property;
+        if (TestUtil.findAll(em, Property.class).isEmpty()) {
+            property = PropertyResourceIT.createUpdatedEntity(em);
+            em.persist(property);
+            em.flush();
+        } else {
+            property = TestUtil.findAll(em, Property.class).get(0);
+        }
+        customer.getProperties().add(property);
         // Add required entity
         Name name;
         if (TestUtil.findAll(em, Name.class).isEmpty()) {
@@ -222,6 +254,24 @@ class CustomerResourceIT {
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].birth").value(hasItem(DEFAULT_BIRTH)))
             .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCustomersWithEagerRelationshipsIsEnabled() throws Exception {
+        when(customerRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCustomerMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(customerRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllCustomersWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(customerRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restCustomerMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(customerRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

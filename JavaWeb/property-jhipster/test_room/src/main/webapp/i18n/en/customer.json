@@ -23,8 +23,8 @@
       "birth": "Birth",
       "gender": "Gender",
       "user": "User",
-      "name": "Name",
-      "property": "Property"
+      "property": "Property",
+      "name": "Name"
     }
   }
 }

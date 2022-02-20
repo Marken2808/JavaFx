@@ -8,7 +8,7 @@ export interface IAccommodation {
   type?: AccommodationType;
   status?: AccommodationStatus;
   total?: number | null;
-  rooms?: IRoom[] | null;
+  rooms?: IRoom[];
 }
 
 export class Accommodation implements IAccommodation {
@@ -18,7 +18,7 @@ export class Accommodation implements IAccommodation {
     public type?: AccommodationType,
     public status?: AccommodationStatus,
     public total?: number | null,
-    public rooms?: IRoom[] | null
+    public rooms?: IRoom[]
   ) {}
 }
 

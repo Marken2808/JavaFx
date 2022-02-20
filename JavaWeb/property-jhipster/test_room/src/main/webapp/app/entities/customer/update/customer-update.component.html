@@ -70,6 +70,29 @@
         </div>
 
         <div class="form-group">
+          <label jhiTranslate="testRoomApp.customer.property" for="field_properties">Property</label>
+          <select class="form-control" id="field_properties" data-cy="property" multiple name="properties" formControlName="properties">
+            <option
+              [ngValue]="getSelectedProperty(propertyOption, editForm.get('properties')!.value)"
+              *ngFor="let propertyOption of propertiesSharedCollection; trackBy: trackPropertyById"
+            >
+              {{ propertyOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['properties'])!.invalid && (editForm.get(['properties'])!.dirty || editForm.get(['properties'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['properties'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="testRoomApp.customer.name" for="field_name">Name</label>
           <select class="form-control" id="field_name" data-cy="name" name="name" formControlName="name">
             <option *ngIf="!editForm.get('name')!.value" [ngValue]="null" selected></option>
@@ -85,19 +108,6 @@
           <small class="form-text text-danger" *ngIf="editForm.get(['name'])?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.
           </small>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.customer.property" for="field_property">Property</label>
-          <select class="form-control" id="field_property" data-cy="property" name="property" formControlName="property">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="propertyOption.id === editForm.get('property')!.value?.id ? editForm.get('property')!.value : propertyOption"
-              *ngFor="let propertyOption of propertiesSharedCollection; trackBy: trackPropertyById"
-            >
-              {{ propertyOption.title }}
-            </option>
-          </select>
         </div>
       </div>
 

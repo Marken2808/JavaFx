@@ -38,8 +38,8 @@
           <th scope="col"><span jhiTranslate="testRoomApp.customer.birth">Birth</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.customer.gender">Gender</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.customer.user">User</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.customer.name">Name</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.customer.property">Property</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.customer.name">Name</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -56,13 +56,14 @@
             {{ customer.user?.login }}
           </td>
           <td>
-            <div *ngIf="customer.name">
-              <a [routerLink]="['/name', customer.name?.id, 'view']">{{ customer.name?.displayName }}</a>
-            </div>
+            <span *ngFor="let property of customer.properties; let last = last">
+              <a class="form-control-static" [routerLink]="['/property', property.id, 'view']">{{ property.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
           </td>
           <td>
-            <div *ngIf="customer.property">
-              <a [routerLink]="['/property', customer.property?.id, 'view']">{{ customer.property?.title }}</a>
+            <div *ngIf="customer.name">
+              <a [routerLink]="['/name', customer.name?.id, 'view']">{{ customer.name?.displayName }}</a>
             </div>
           </td>
           <td class="text-right">

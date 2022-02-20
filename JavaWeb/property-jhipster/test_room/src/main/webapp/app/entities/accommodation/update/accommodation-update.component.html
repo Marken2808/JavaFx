@@ -69,9 +69,14 @@
               [ngValue]="getSelectedRoom(roomOption, editForm.get('rooms')!.value)"
               *ngFor="let roomOption of roomsSharedCollection; trackBy: trackRoomById"
             >
-              {{ roomOption.type }}
+              {{ roomOption.id }}
             </option>
           </select>
+        </div>
+        <div *ngIf="editForm.get(['rooms'])!.invalid && (editForm.get(['rooms'])!.dirty || editForm.get(['rooms'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['rooms'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
       </div>
 

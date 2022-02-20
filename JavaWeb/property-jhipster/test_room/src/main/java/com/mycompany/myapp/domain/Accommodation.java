@@ -45,6 +45,7 @@ public class Accommodation implements Serializable {
     private Double total;
 
     @ManyToMany
+    @NotNull
     @JoinTable(
         name = "rel_accommodation__room",
         joinColumns = @JoinColumn(name = "accommodation_id"),

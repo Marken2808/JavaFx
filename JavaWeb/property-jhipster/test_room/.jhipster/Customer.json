@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220219235904",
+  "changelogDate": "20220220224133",
   "dto": "no",
   "embedded": false,
   "entityTableName": "customer",
@@ -42,19 +42,20 @@
       "relationshipValidateRules": "required"
     },
     {
+      "otherEntityName": "property",
+      "otherEntityRelationshipName": "customer",
+      "ownerSide": true,
+      "relationshipName": "property",
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
+    },
+    {
       "otherEntityField": "displayName",
       "otherEntityName": "name",
       "otherEntityRelationshipName": "customer",
       "relationshipName": "name",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityField": "title",
-      "otherEntityName": "property",
-      "otherEntityRelationshipName": "customer",
-      "relationshipName": "property",
-      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

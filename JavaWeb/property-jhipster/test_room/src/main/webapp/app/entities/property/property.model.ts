@@ -10,7 +10,7 @@ export interface IProperty {
   status?: PropertyStatus;
   isUrgent?: boolean | null;
   address?: IAddress;
-  customers?: ICustomer[] | null;
+  customers?: ICustomer[];
 }
 
 export class Property implements IProperty {
@@ -21,7 +21,7 @@ export class Property implements IProperty {
     public status?: PropertyStatus,
     public isUrgent?: boolean | null,
     public address?: IAddress,
-    public customers?: ICustomer[] | null
+    public customers?: ICustomer[]
   ) {
     this.isUrgent = this.isUrgent ?? false;
   }

@@ -22,7 +22,8 @@
       "firstName": "First Name",
       "middleName": "Middle Name",
       "lastName": "Last Name",
-      "displayName": "Display Name"
+      "displayName": "Display Name",
+      "customer": "Customer"
     }
   }
 }

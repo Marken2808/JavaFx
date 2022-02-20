@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220219235907",
+  "changelogDate": "20220220224136",
   "dto": "no",
   "embedded": false,
   "entityTableName": "room",
@@ -50,7 +50,8 @@
       "otherEntityRelationshipName": "room",
       "ownerSide": false,
       "relationshipName": "accommodation",
-      "relationshipType": "many-to-many"
+      "relationshipType": "many-to-many",
+      "relationshipValidateRules": "required"
     }
   ],
   "service": "no"

@@ -11,7 +11,7 @@ export interface IRoom {
   image?: string | null;
   price?: number | null;
   area?: IArea;
-  accommodations?: IAccommodation[] | null;
+  accommodations?: IAccommodation[];
 }
 
 export class Room implements IRoom {
@@ -24,7 +24,7 @@ export class Room implements IRoom {
     public image?: string | null,
     public price?: number | null,
     public area?: IArea,
-    public accommodations?: IAccommodation[] | null
+    public accommodations?: IAccommodation[]
   ) {}
 }
 

@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Accommodation;
+import com.mycompany.myapp.domain.Room;
 import com.mycompany.myapp.domain.enumeration.AccommodationStatus;
 import com.mycompany.myapp.domain.enumeration.AccommodationType;
 import com.mycompany.myapp.repository.AccommodationRepository;
@@ -83,6 +84,16 @@ class AccommodationResourceIT {
             .type(DEFAULT_TYPE)
             .status(DEFAULT_STATUS)
             .total(DEFAULT_TOTAL);
+        // Add required entity
+        Room room;
+        if (TestUtil.findAll(em, Room.class).isEmpty()) {
+            room = RoomResourceIT.createEntity(em);
+            em.persist(room);
+            em.flush();
+        } else {
+            room = TestUtil.findAll(em, Room.class).get(0);
+        }
+        accommodation.getRooms().add(room);
         return accommodation;
     }
 
@@ -98,6 +109,16 @@ class AccommodationResourceIT {
             .type(UPDATED_TYPE)
             .status(UPDATED_STATUS)
             .total(UPDATED_TOTAL);
+        // Add required entity
+        Room room;
+        if (TestUtil.findAll(em, Room.class).isEmpty()) {
+            room = RoomResourceIT.createUpdatedEntity(em);
+            em.persist(room);
+            em.flush();
+        } else {
+            room = TestUtil.findAll(em, Room.class).get(0);
+        }
+        accommodation.getRooms().add(room);
         return accommodation;
     }
 

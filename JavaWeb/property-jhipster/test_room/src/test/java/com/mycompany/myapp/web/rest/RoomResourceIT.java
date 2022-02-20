@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.Accommodation;
 import com.mycompany.myapp.domain.Area;
 import com.mycompany.myapp.domain.Room;
 import com.mycompany.myapp.domain.enumeration.RoomType;
@@ -90,6 +91,16 @@ class RoomResourceIT {
             area = TestUtil.findAll(em, Area.class).get(0);
         }
         room.setArea(area);
+        // Add required entity
+        Accommodation accommodation;
+        if (TestUtil.findAll(em, Accommodation.class).isEmpty()) {
+            accommodation = AccommodationResourceIT.createEntity(em);
+            em.persist(accommodation);
+            em.flush();
+        } else {
+            accommodation = TestUtil.findAll(em, Accommodation.class).get(0);
+        }
+        room.getAccommodations().add(accommodation);
         return room;
     }
 
@@ -117,6 +128,16 @@ class RoomResourceIT {
             area = TestUtil.findAll(em, Area.class).get(0);
         }
         room.setArea(area);
+        // Add required entity
+        Accommodation accommodation;
+        if (TestUtil.findAll(em, Accommodation.class).isEmpty()) {
+            accommodation = AccommodationResourceIT.createUpdatedEntity(em);
+            em.persist(accommodation);
+            em.flush();
+        } else {
+            accommodation = TestUtil.findAll(em, Accommodation.class).get(0);
+        }
+        room.getAccommodations().add(accommodation);
         return room;
     }
 

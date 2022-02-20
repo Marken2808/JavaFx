@@ -1,6 +1,6 @@
 import { IUser } from 'app/entities/user/user.model';
-import { IName } from 'app/entities/name/name.model';
 import { IProperty } from 'app/entities/property/property.model';
+import { IName } from 'app/entities/name/name.model';
 import { Gender } from 'app/entities/enumerations/gender.model';
 
 export interface ICustomer {
@@ -10,8 +10,8 @@ export interface ICustomer {
   birth?: string;
   gender?: Gender | null;
   user?: IUser;
+  properties?: IProperty[];
   name?: IName;
-  property?: IProperty | null;
 }
 
 export class Customer implements ICustomer {
@@ -22,8 +22,8 @@ export class Customer implements ICustomer {
     public birth?: string,
     public gender?: Gender | null,
     public user?: IUser,
-    public name?: IName,
-    public property?: IProperty | null
+    public properties?: IProperty[],
+    public name?: IName
   ) {}
 }
 

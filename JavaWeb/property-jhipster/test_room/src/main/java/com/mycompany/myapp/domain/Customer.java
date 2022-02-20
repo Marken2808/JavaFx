@@ -3,6 +3,8 @@ package com.mycompany.myapp.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.Gender;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -45,13 +47,21 @@ public class Customer implements Serializable {
     @JoinColumn(unique = true)
     private User user;
 
+    @ManyToMany
+    @NotNull
+    @JoinTable(
+        name = "rel_customer__property",
+        joinColumns = @JoinColumn(name = "customer_id"),
+        inverseJoinColumns = @JoinColumn(name = "property_id")
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "address", "customers" }, allowSetters = true)
+    private Set<Property> properties = new HashSet<>();
+
     @ManyToOne(optional = false)
     @NotNull
+    @JsonIgnoreProperties(value = { "customers" }, allowSetters = true)
     private Name name;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "address", "customers" }, allowSetters = true)
-    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -133,6 +143,31 @@ public class Customer implements Serializable {
         return this;
     }
 
+    public Set<Property> getProperties() {
+        return this.properties;
+    }
+
+    public void setProperties(Set<Property> properties) {
+        this.properties = properties;
+    }
+
+    public Customer properties(Set<Property> properties) {
+        this.setProperties(properties);
+        return this;
+    }
+
+    public Customer addProperty(Property property) {
+        this.properties.add(property);
+        property.getCustomers().add(this);
+        return this;
+    }
+
+    public Customer removeProperty(Property property) {
+        this.properties.remove(property);
+        property.getCustomers().remove(this);
+        return this;
+    }
+
     public Name getName() {
         return this.name;
     }
@@ -143,19 +178,6 @@ public class Customer implements Serializable {
 
     public Customer name(Name name) {
         this.setName(name);
-        return this;
-    }
-
-    public Property getProperty() {
-        return this.property;
-    }
-
-    public void setProperty(Property property) {
-        this.property = property;
-    }
-
-    public Customer property(Property property) {
-        this.setProperty(property);
         return this;
     }
 
