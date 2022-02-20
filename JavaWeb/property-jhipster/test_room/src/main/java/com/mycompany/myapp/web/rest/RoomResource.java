@@ -129,6 +129,18 @@ public class RoomResource {
                 if (room.getType() != null) {
                     existingRoom.setType(room.getType());
                 }
+                if (room.getAcreage() != null) {
+                    existingRoom.setAcreage(room.getAcreage());
+                }
+                if (room.getImage() != null) {
+                    existingRoom.setImage(room.getImage());
+                }
+                if (room.getImageContentType() != null) {
+                    existingRoom.setImageContentType(room.getImageContentType());
+                }
+                if (room.getPrice() != null) {
+                    existingRoom.setPrice(room.getPrice());
+                }
 
                 return existingRoom;
             })

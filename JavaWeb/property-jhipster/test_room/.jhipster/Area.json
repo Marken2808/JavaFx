@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20220219235908",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "area",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "AreaType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Attic,Lounge,Garage,Basement,Lavatory,Bedroom,Diningroom,Kitchen,Balcony,Landing,Hall"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Area",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "room",
+      "otherEntityRelationshipName": "area",
+      "relationshipName": "room",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}

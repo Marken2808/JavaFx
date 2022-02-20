@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Property.
     -->
-    <changeSet id="20220219175551-2" author="jhipster">
+    <changeSet id="20220219235905-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="address_id"
                                  baseTableName="property"

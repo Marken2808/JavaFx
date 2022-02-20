@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220219175553",
+  "changelogDate": "20220219235907",
   "dto": "no",
   "embedded": false,
   "entityTableName": "room",
@@ -13,7 +13,22 @@
     {
       "fieldName": "type",
       "fieldType": "RoomType",
-      "fieldValues": "Attic,Lounge,Garage,Basement,Lavatory,Bedroom,Diningroom,Kitchen,Balcony,Landing,Hall"
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Single_room,Double_room,King_room"
+    },
+    {
+      "fieldName": "acreage",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "Double"
     }
   ],
   "fluentMethods": true,
@@ -22,6 +37,14 @@
   "pagination": "no",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityField": "type",
+      "otherEntityName": "area",
+      "otherEntityRelationshipName": "room",
+      "relationshipName": "area",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
     {
       "otherEntityName": "accommodation",
       "otherEntityRelationshipName": "room",

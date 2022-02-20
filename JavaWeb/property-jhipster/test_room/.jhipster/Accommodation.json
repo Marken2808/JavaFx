@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220219175552",
+  "changelogDate": "20220219235906",
   "dto": "no",
   "embedded": false,
   "entityTableName": "accommodation",
@@ -23,17 +23,7 @@
       "fieldValues": "Furnished,Unfurnished,Partfurnished"
     },
     {
-      "fieldName": "acreage",
-      "fieldType": "Double",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "image",
-      "fieldType": "byte[]",
-      "fieldTypeBlobContent": "image"
-    },
-    {
-      "fieldName": "price",
+      "fieldName": "total",
       "fieldType": "Double"
     }
   ],

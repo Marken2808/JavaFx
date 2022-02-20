@@ -22,6 +22,29 @@
         <dd>
           <span jhiTranslate="{{ 'testRoomApp.RoomType.' + room.type }}">{{ room.type }}</span>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.room.acreage">Acreage</span></dt>
+        <dd>
+          <span>{{ room.acreage }}</span>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.room.image">Image</span></dt>
+        <dd>
+          <div *ngIf="room.image">
+            <a (click)="openFile(room.image, room.imageContentType)">
+              <img [src]="'data:' + room.imageContentType + ';base64,' + room.image" style="max-width: 100%" alt="room image" />
+            </a>
+            {{ room.imageContentType }}, {{ byteSize(room.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.room.price">Price</span></dt>
+        <dd>
+          <span>{{ room.price }}</span>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.room.area">Area</span></dt>
+        <dd>
+          <div *ngIf="room.area">
+            <a [routerLink]="['/area', room.area?.id, 'view']">{{ room.area?.type }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

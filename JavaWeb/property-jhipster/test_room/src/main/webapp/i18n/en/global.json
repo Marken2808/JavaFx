@@ -13,6 +13,7 @@
         "property": "Property",
         "accommodation": "Accommodation",
         "room": "Room",
+        "area": "Area",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

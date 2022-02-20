@@ -134,17 +134,8 @@ public class AccommodationResource {
                 if (accommodation.getStatus() != null) {
                     existingAccommodation.setStatus(accommodation.getStatus());
                 }
-                if (accommodation.getAcreage() != null) {
-                    existingAccommodation.setAcreage(accommodation.getAcreage());
-                }
-                if (accommodation.getImage() != null) {
-                    existingAccommodation.setImage(accommodation.getImage());
-                }
-                if (accommodation.getImageContentType() != null) {
-                    existingAccommodation.setImageContentType(accommodation.getImageContentType());
-                }
-                if (accommodation.getPrice() != null) {
-                    existingAccommodation.setPrice(accommodation.getPrice());
+                if (accommodation.getTotal() != null) {
+                    existingAccommodation.setTotal(accommodation.getTotal());
                 }
 
                 return existingAccommodation;

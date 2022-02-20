@@ -23,7 +23,11 @@ describe('Room Service', () => {
     elemDefault = {
       id: 0,
       title: 'AAAAAAA',
-      type: RoomType.Attic,
+      type: RoomType.Single_room,
+      acreage: 0,
+      imageContentType: 'image/png',
+      image: 'AAAAAAA',
+      price: 0,
     };
   });
 
@@ -61,6 +65,9 @@ describe('Room Service', () => {
           id: 1,
           title: 'BBBBBB',
           type: 'BBBBBB',
+          acreage: 1,
+          image: 'BBBBBB',
+          price: 1,
         },
         elemDefault
       );
@@ -75,7 +82,12 @@ describe('Room Service', () => {
     });
 
     it('should partial update a Room', () => {
-      const patchObject = Object.assign({}, new Room());
+      const patchObject = Object.assign(
+        {
+          image: 'BBBBBB',
+        },
+        new Room()
+      );
 
       const returnedFromService = Object.assign(patchObject, elemDefault);
 
@@ -94,6 +106,9 @@ describe('Room Service', () => {
           id: 1,
           title: 'BBBBBB',
           type: 'BBBBBB',
+          acreage: 1,
+          image: 'BBBBBB',
+          price: 1,
         },
         elemDefault
       );
@@ -145,7 +160,7 @@ describe('Room Service', () => {
       });
 
       it('should add only unique Room to an array', () => {
-        const roomArray: IRoom[] = [{ id: 123 }, { id: 456 }, { id: 2223 }];
+        const roomArray: IRoom[] = [{ id: 123 }, { id: 456 }, { id: 60693 }];
         const roomCollection: IRoom[] = [{ id: 123 }];
         expectedResult = service.addRoomToCollectionIfMissing(roomCollection, ...roomArray);
         expect(expectedResult).toHaveLength(3);

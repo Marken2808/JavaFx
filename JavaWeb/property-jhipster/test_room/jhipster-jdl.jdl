@@ -73,12 +73,24 @@ entity Accommodation {
 	title String required,
     type AccommodationType required,
     status AccommodationStatus required,
+    total Double,
+}
+
+enum RoomType {
+	Single_room,
+	Double_room,
+    King_room
+}
+
+entity Room {
+	title String required,
+    type RoomType required,
     acreage Double required,
     image ImageBlob,
     price Double,
 }
 
-enum RoomType {
+enum AreaType {
 	Attic,
 	Lounge,
     Garage,
@@ -92,13 +104,14 @@ enum RoomType {
     Hall
 }
 
-entity Room {
+entity Area {
 	title String required,
-    type RoomType,
+    type AreaType required,
 }
 
 relationship OneToMany {
     Property to Customer{property(title)},
+    Area to Room{area(type) required},
 }
 
 relationship ManyToOne {
@@ -109,10 +122,12 @@ relationship ManyToOne {
 relationship OneToOne {
     Customer{user(login) required} to User,
     Property{address(street) required} to Address,
+
 }
 
 relationship ManyToMany {
-    Accommodation{room(type)} to Room{accommodation},
+	Accommodation{room} to Room{accommodation}
+
 }
 
 

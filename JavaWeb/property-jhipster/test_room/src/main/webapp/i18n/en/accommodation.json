@@ -21,9 +21,7 @@
       "title": "Title",
       "type": "Type",
       "status": "Status",
-      "acreage": "Acreage",
-      "image": "Image",
-      "price": "Price",
+      "total": "Total",
       "room": "Room"
     }
   }

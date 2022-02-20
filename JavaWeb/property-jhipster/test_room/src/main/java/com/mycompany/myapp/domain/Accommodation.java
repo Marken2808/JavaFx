@@ -41,19 +41,8 @@ public class Accommodation implements Serializable {
     @Column(name = "status", nullable = false)
     private AccommodationStatus status;
 
-    @NotNull
-    @Column(name = "acreage", nullable = false)
-    private Double acreage;
-
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
-
-    @Column(name = "image_content_type")
-    private String imageContentType;
-
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "total")
+    private Double total;
 
     @ManyToMany
     @JoinTable(
@@ -62,7 +51,7 @@ public class Accommodation implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "room_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "accommodations" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "area", "accommodations" }, allowSetters = true)
     private Set<Room> rooms = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -119,56 +108,17 @@ public class Accommodation implements Serializable {
         this.status = status;
     }
 
-    public Double getAcreage() {
-        return this.acreage;
+    public Double getTotal() {
+        return this.total;
     }
 
-    public Accommodation acreage(Double acreage) {
-        this.setAcreage(acreage);
+    public Accommodation total(Double total) {
+        this.setTotal(total);
         return this;
     }
 
-    public void setAcreage(Double acreage) {
-        this.acreage = acreage;
-    }
-
-    public byte[] getImage() {
-        return this.image;
-    }
-
-    public Accommodation image(byte[] image) {
-        this.setImage(image);
-        return this;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return this.imageContentType;
-    }
-
-    public Accommodation imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-    }
-
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public Accommodation price(Double price) {
-        this.setPrice(price);
-        return this;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public Set<Room> getRooms() {
@@ -223,10 +173,7 @@ public class Accommodation implements Serializable {
             ", title='" + getTitle() + "'" +
             ", type='" + getType() + "'" +
             ", status='" + getStatus() + "'" +
-            ", acreage=" + getAcreage() +
-            ", image='" + getImage() + "'" +
-            ", imageContentType='" + getImageContentType() + "'" +
-            ", price=" + getPrice() +
+            ", total=" + getTotal() +
             "}";
     }
 }

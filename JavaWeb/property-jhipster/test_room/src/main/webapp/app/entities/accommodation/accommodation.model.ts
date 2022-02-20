@@ -7,10 +7,7 @@ export interface IAccommodation {
   title?: string;
   type?: AccommodationType;
   status?: AccommodationStatus;
-  acreage?: number;
-  imageContentType?: string | null;
-  image?: string | null;
-  price?: number | null;
+  total?: number | null;
   rooms?: IRoom[] | null;
 }
 
@@ -20,10 +17,7 @@ export class Accommodation implements IAccommodation {
     public title?: string,
     public type?: AccommodationType,
     public status?: AccommodationStatus,
-    public acreage?: number,
-    public imageContentType?: string | null,
-    public image?: string | null,
-    public price?: number | null,
+    public total?: number | null,
     public rooms?: IRoom[] | null
   ) {}
 }

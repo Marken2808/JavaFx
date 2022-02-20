@@ -29,6 +29,93 @@
             <option [ngValue]="null">{{ 'testRoomApp.RoomType.null' | translate }}</option>
             <option *ngFor="let roomType of roomTypeValues" [value]="roomType">{{ 'testRoomApp.RoomType.' + roomType | translate }}</option>
           </select>
+          <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.acreage" for="field_acreage">Acreage</label>
+          <input type="number" class="form-control" name="acreage" id="field_acreage" data-cy="acreage" formControlName="acreage" />
+          <div *ngIf="editForm.get('acreage')!.invalid && (editForm.get('acreage')!.dirty || editForm.get('acreage')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('acreage')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('acreage')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.image" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="room image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.price" for="field_price">Price</label>
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.area" for="field_area">Area</label>
+          <select class="form-control" id="field_area" data-cy="area" name="area" formControlName="area">
+            <option *ngIf="!editForm.get('area')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption"
+              *ngFor="let areaOption of areasSharedCollection; trackBy: trackAreaById"
+            >
+              {{ areaOption.type }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['area'])!.invalid && (editForm.get(['area'])!.dirty || editForm.get(['area'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['area'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
         </div>
       </div>
 

@@ -35,6 +35,10 @@
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.room.title">Title</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.room.type">Type</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.acreage">Acreage</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.image">Image</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.price">Price</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.area">Area</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -45,6 +49,19 @@
           </td>
           <td>{{ room.title }}</td>
           <td jhiTranslate="{{ 'testRoomApp.RoomType.' + room.type }}">{{ room.type }}</td>
+          <td>{{ room.acreage }}</td>
+          <td>
+            <a *ngIf="room.image" (click)="openFile(room.image, room.imageContentType)">
+              <img [src]="'data:' + room.imageContentType + ';base64,' + room.image" style="max-height: 30px" alt="room image" />
+            </a>
+            <span *ngIf="room.image">{{ room.imageContentType }}, {{ byteSize(room.image) }}</span>
+          </td>
+          <td>{{ room.price }}</td>
+          <td>
+            <div *ngIf="room.area">
+              <a [routerLink]="['/area', room.area?.id, 'view']">{{ room.area?.type }}</a>
+            </div>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/room', room.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

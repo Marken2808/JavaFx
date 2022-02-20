@@ -20,6 +20,10 @@
       "id": "ID",
       "title": "Title",
       "type": "Type",
+      "acreage": "Acreage",
+      "image": "Image",
+      "price": "Price",
+      "area": "Area",
       "accommodation": "Accommodation"
     }
   }

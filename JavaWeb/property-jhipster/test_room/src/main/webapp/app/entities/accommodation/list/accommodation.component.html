@@ -36,9 +36,7 @@
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.title">Title</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.type">Type</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.status">Status</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.acreage">Acreage</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.image">Image</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.price">Price</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.total">Total</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.room">Room</span></th>
           <th scope="col"></th>
         </tr>
@@ -51,18 +49,7 @@
           <td>{{ accommodation.title }}</td>
           <td jhiTranslate="{{ 'testRoomApp.AccommodationType.' + accommodation.type }}">{{ accommodation.type }}</td>
           <td jhiTranslate="{{ 'testRoomApp.AccommodationStatus.' + accommodation.status }}">{{ accommodation.status }}</td>
-          <td>{{ accommodation.acreage }}</td>
-          <td>
-            <a *ngIf="accommodation.image" (click)="openFile(accommodation.image, accommodation.imageContentType)">
-              <img
-                [src]="'data:' + accommodation.imageContentType + ';base64,' + accommodation.image"
-                style="max-height: 30px"
-                alt="accommodation image"
-              />
-            </a>
-            <span *ngIf="accommodation.image">{{ accommodation.imageContentType }}, {{ byteSize(accommodation.image) }}</span>
-          </td>
-          <td>{{ accommodation.price }}</td>
+          <td>{{ accommodation.total }}</td>
           <td>
             <span *ngFor="let room of accommodation.rooms; let last = last">
               <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.type }}</a

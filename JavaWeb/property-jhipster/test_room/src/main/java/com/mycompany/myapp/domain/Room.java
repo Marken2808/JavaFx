@@ -30,9 +30,29 @@ public class Room implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private RoomType type;
+
+    @NotNull
+    @Column(name = "acreage", nullable = false)
+    private Double acreage;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
+    @Column(name = "price")
+    private Double price;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
+    private Area area;
 
     @ManyToMany(mappedBy = "rooms")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -78,6 +98,71 @@ public class Room implements Serializable {
 
     public void setType(RoomType type) {
         this.type = type;
+    }
+
+    public Double getAcreage() {
+        return this.acreage;
+    }
+
+    public Room acreage(Double acreage) {
+        this.setAcreage(acreage);
+        return this;
+    }
+
+    public void setAcreage(Double acreage) {
+        this.acreage = acreage;
+    }
+
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Room image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Room imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
+    public Double getPrice() {
+        return this.price;
+    }
+
+    public Room price(Double price) {
+        this.setPrice(price);
+        return this;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Area getArea() {
+        return this.area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Room area(Area area) {
+        this.setArea(area);
+        return this;
     }
 
     public Set<Accommodation> getAccommodations() {
@@ -137,6 +222,10 @@ public class Room implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             ", type='" + getType() + "'" +
+            ", acreage=" + getAcreage() +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
+            ", price=" + getPrice() +
             "}";
     }
 }

@@ -1,11 +1,11 @@
-id;title;type
-1;Car;Landing
-2;Mozambique deposit Focused;Attic
-3;Principal magenta;Basement
-4;Point generate;Bedroom
-5;Research withdrawal Intelligent;Basement
-6;SQL solution asymmetric;Hall
-7;array;Hall
-8;secondary Dynamic workforce;Bedroom
-9;Tools Macao;Diningroom
-10;Baby;Attic
+id;title;type;acreage;image;image_content_type;price;area_id
+1;Car;King_room;98208;../fake-data/blob/hipster.png;image/png;53348;1
+2;Dynamic Manager;King_room;4051;../fake-data/blob/hipster.png;image/png;64600;2
+3;Technician CFP supply-chains;King_room;75973;../fake-data/blob/hipster.png;image/png;51588;3
+4;Guinea Steel;Double_room;61657;../fake-data/blob/hipster.png;image/png;7918;4
+5;copy;King_room;30741;../fake-data/blob/hipster.png;image/png;93364;5
+6;Taiwan;Single_room;89369;../fake-data/blob/hipster.png;image/png;92400;6
+7;array;King_room;97068;../fake-data/blob/hipster.png;image/png;26315;7
+8;Turnpike Account turquoise;Single_room;40657;../fake-data/blob/hipster.png;image/png;58391;8
+9;Buckinghamshire Small;Double_room;3556;../fake-data/blob/hipster.png;image/png;66738;9
+10;Handcrafted;King_room;33012;../fake-data/blob/hipster.png;image/png;27942;10
