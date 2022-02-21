@@ -1,11 +1,11 @@
-id;title;type;acreage;image;image_content_type;price;area_id
-1;Car;King_room;98208;../fake-data/blob/hipster.png;image/png;53348;1
-2;Dynamic Manager;King_room;4051;../fake-data/blob/hipster.png;image/png;64600;2
-3;Technician CFP supply-chains;King_room;75973;../fake-data/blob/hipster.png;image/png;51588;3
-4;Guinea Steel;Double_room;61657;../fake-data/blob/hipster.png;image/png;7918;4
-5;copy;King_room;30741;../fake-data/blob/hipster.png;image/png;93364;5
-6;Taiwan;Single_room;89369;../fake-data/blob/hipster.png;image/png;92400;6
-7;array;King_room;97068;../fake-data/blob/hipster.png;image/png;26315;7
-8;Turnpike Account turquoise;Single_room;40657;../fake-data/blob/hipster.png;image/png;58391;8
-9;Buckinghamshire Small;Double_room;3556;../fake-data/blob/hipster.png;image/png;66738;9
-10;Handcrafted;King_room;33012;../fake-data/blob/hipster.png;image/png;27942;10
+id;r_title;r_type;r_acreage;r_size;r_image;r_image_content_type;r_price;accommodation_id
+1;Car;Landing;98208;Double_room;../fake-data/blob/hipster.png;image/png;60491;1
+2;deposit Focused Fresh;Garage;67939;King_room;../fake-data/blob/hipster.png;image/png;30473;2
+3;Point generate;Bedroom;69240;King_room;../fake-data/blob/hipster.png;image/png;11817;3
+4;withdrawal;Attic;18009;King_room;../fake-data/blob/hipster.png;image/png;29687;4
+5;SQL solution asymmetric;Hall;14319;King_room;../fake-data/blob/hipster.png;image/png;35854;5
+6;Usability indexing Polarised;Hall;22076;Double_room;../fake-data/blob/hipster.png;image/png;64615;6
+7;engage;Bedroom;81260;Double_room;../fake-data/blob/hipster.png;image/png;10923;7
+8;payment;Kitchen;22142;Single_room;../fake-data/blob/hipster.png;image/png;70124;8
+9;Croatian;Bedroom;4365;King_room;../fake-data/blob/hipster.png;image/png;75178;9
+10;pink copying e-enable;Hall;20541;Single_room;../fake-data/blob/hipster.png;image/png;24466;10

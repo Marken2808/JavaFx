@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Address;
+import com.mycompany.myapp.domain.Property;
 import com.mycompany.myapp.repository.AddressRepository;
 import java.util.List;
 import java.util.Random;
@@ -78,6 +79,16 @@ class AddressResourceIT {
             .city(DEFAULT_CITY)
             .postcode(DEFAULT_POSTCODE)
             .country(DEFAULT_COUNTRY);
+        // Add required entity
+        Property property;
+        if (TestUtil.findAll(em, Property.class).isEmpty()) {
+            property = PropertyResourceIT.createEntity(em);
+            em.persist(property);
+            em.flush();
+        } else {
+            property = TestUtil.findAll(em, Property.class).get(0);
+        }
+        address.setProperty(property);
         return address;
     }
 
@@ -95,6 +106,16 @@ class AddressResourceIT {
             .city(UPDATED_CITY)
             .postcode(UPDATED_POSTCODE)
             .country(UPDATED_COUNTRY);
+        // Add required entity
+        Property property;
+        if (TestUtil.findAll(em, Property.class).isEmpty()) {
+            property = PropertyResourceIT.createUpdatedEntity(em);
+            em.persist(property);
+            em.flush();
+        } else {
+            property = TestUtil.findAll(em, Property.class).get(0);
+        }
+        address.setProperty(property);
         return address;
     }
 

@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IProject } from '../project.model';
 import { ProjectService } from '../service/project.service';
 import { ProjectDeleteDialogComponent } from '../delete/project-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-project',
@@ -14,7 +15,7 @@ export class ProjectComponent implements OnInit {
   projects?: IProject[];
   isLoading = false;
 
-  constructor(protected projectService: ProjectService, protected modalService: NgbModal) {}
+  constructor(protected projectService: ProjectService, protected dataUtils: DataUtils, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -36,6 +37,14 @@ export class ProjectComponent implements OnInit {
 
   trackId(index: number, item: IProject): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(project: IProject): void {

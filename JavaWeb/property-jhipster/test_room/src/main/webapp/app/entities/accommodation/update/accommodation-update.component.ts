@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,8 +7,11 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IAccommodation, Accommodation } from '../accommodation.model';
 import { AccommodationService } from '../service/accommodation.service';
-import { IRoom } from 'app/entities/room/room.model';
-import { RoomService } from 'app/entities/room/service/room.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 import { AccommodationType } from 'app/entities/enumerations/accommodation-type.model';
 import { AccommodationStatus } from 'app/entities/enumerations/accommodation-status.model';
 
@@ -21,20 +24,25 @@ export class AccommodationUpdateComponent implements OnInit {
   accommodationTypeValues = Object.keys(AccommodationType);
   accommodationStatusValues = Object.keys(AccommodationStatus);
 
-  roomsSharedCollection: IRoom[] = [];
+  propertiesCollection: IProperty[] = [];
 
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required]],
     type: [null, [Validators.required]],
     status: [null, [Validators.required]],
+    image: [],
+    imageContentType: [],
     total: [],
-    rooms: [null, Validators.required],
+    property: [],
   });
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected accommodationService: AccommodationService,
-    protected roomService: RoomService,
+    protected propertyService: PropertyService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -45,6 +53,31 @@ export class AccommodationUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('testRoomApp.error', { ...err, key: 'error.file.' + err.key })),
+    });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -61,19 +94,8 @@ export class AccommodationUpdateComponent implements OnInit {
     }
   }
 
-  trackRoomById(index: number, item: IRoom): number {
+  trackPropertyById(index: number, item: IProperty): number {
     return item.id!;
-  }
-
-  getSelectedRoom(option: IRoom, selectedVals?: IRoom[]): IRoom {
-    if (selectedVals) {
-      for (const selectedVal of selectedVals) {
-        if (option.id === selectedVal.id) {
-          return selectedVal;
-        }
-      }
-    }
-    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAccommodation>>): void {
@@ -101,19 +123,25 @@ export class AccommodationUpdateComponent implements OnInit {
       title: accommodation.title,
       type: accommodation.type,
       status: accommodation.status,
+      image: accommodation.image,
+      imageContentType: accommodation.imageContentType,
       total: accommodation.total,
-      rooms: accommodation.rooms,
+      property: accommodation.property,
     });
 
-    this.roomsSharedCollection = this.roomService.addRoomToCollectionIfMissing(this.roomsSharedCollection, ...(accommodation.rooms ?? []));
+    this.propertiesCollection = this.propertyService.addPropertyToCollectionIfMissing(this.propertiesCollection, accommodation.property);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.roomService
-      .query()
-      .pipe(map((res: HttpResponse<IRoom[]>) => res.body ?? []))
-      .pipe(map((rooms: IRoom[]) => this.roomService.addRoomToCollectionIfMissing(rooms, ...(this.editForm.get('rooms')!.value ?? []))))
-      .subscribe((rooms: IRoom[]) => (this.roomsSharedCollection = rooms));
+    this.propertyService
+      .query({ filter: 'accommodation-is-null' })
+      .pipe(map((res: HttpResponse<IProperty[]>) => res.body ?? []))
+      .pipe(
+        map((properties: IProperty[]) =>
+          this.propertyService.addPropertyToCollectionIfMissing(properties, this.editForm.get('property')!.value)
+        )
+      )
+      .subscribe((properties: IProperty[]) => (this.propertiesCollection = properties));
   }
 
   protected createFromForm(): IAccommodation {
@@ -123,8 +151,10 @@ export class AccommodationUpdateComponent implements OnInit {
       title: this.editForm.get(['title'])!.value,
       type: this.editForm.get(['type'])!.value,
       status: this.editForm.get(['status'])!.value,
+      imageContentType: this.editForm.get(['imageContentType'])!.value,
+      image: this.editForm.get(['image'])!.value,
       total: this.editForm.get(['total'])!.value,
-      rooms: this.editForm.get(['rooms'])!.value,
+      property: this.editForm.get(['property'])!.value,
     };
   }
 }

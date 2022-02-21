@@ -134,6 +134,12 @@ public class AccommodationResource {
                 if (accommodation.getStatus() != null) {
                     existingAccommodation.setStatus(accommodation.getStatus());
                 }
+                if (accommodation.getImage() != null) {
+                    existingAccommodation.setImage(accommodation.getImage());
+                }
+                if (accommodation.getImageContentType() != null) {
+                    existingAccommodation.setImageContentType(accommodation.getImageContentType());
+                }
                 if (accommodation.getTotal() != null) {
                     existingAccommodation.setTotal(accommodation.getTotal());
                 }
@@ -151,13 +157,12 @@ public class AccommodationResource {
     /**
      * {@code GET  /accommodations} : get all the accommodations.
      *
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of accommodations in body.
      */
     @GetMapping("/accommodations")
-    public List<Accommodation> getAllAccommodations(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public List<Accommodation> getAllAccommodations() {
         log.debug("REST request to get all Accommodations");
-        return accommodationRepository.findAllWithEagerRelationships();
+        return accommodationRepository.findAll();
     }
 
     /**
@@ -169,7 +174,7 @@ public class AccommodationResource {
     @GetMapping("/accommodations/{id}")
     public ResponseEntity<Accommodation> getAccommodation(@PathVariable Long id) {
         log.debug("REST request to get Accommodation : {}", id);
-        Optional<Accommodation> accommodation = accommodationRepository.findOneWithEagerRelationships(id);
+        Optional<Accommodation> accommodation = accommodationRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(accommodation);
     }
 

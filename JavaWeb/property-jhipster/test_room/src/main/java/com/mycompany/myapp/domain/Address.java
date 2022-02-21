@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -40,6 +41,12 @@ public class Address implements Serializable {
 
     @Column(name = "country")
     private String country;
+
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    @OneToOne(optional = false)
+    @NotNull
+    @JoinColumn(unique = true)
+    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -132,6 +139,19 @@ public class Address implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public Property getProperty() {
+        return this.property;
+    }
+
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
+    public Address property(Property property) {
+        this.setProperty(property);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

@@ -129,6 +129,12 @@ public class LandResource {
                 if (land.getPrice() != null) {
                     existingLand.setPrice(land.getPrice());
                 }
+                if (land.getImage() != null) {
+                    existingLand.setImage(land.getImage());
+                }
+                if (land.getImageContentType() != null) {
+                    existingLand.setImageContentType(land.getImageContentType());
+                }
 
                 return existingLand;
             })

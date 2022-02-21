@@ -14,42 +14,42 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.title" for="field_title">Title</label>
-          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
-          <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rTitle" for="field_rTitle">R Title</label>
+          <input type="text" class="form-control" name="rTitle" id="field_rTitle" data-cy="rTitle" formControlName="rTitle" />
+          <div *ngIf="editForm.get('rTitle')!.invalid && (editForm.get('rTitle')!.dirty || editForm.get('rTitle')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('rTitle')?.errors?.required" jhiTranslate="entity.validation.required">
               This field is required.
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.type" for="field_type">Type</label>
-          <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rType" for="field_rType">R Type</label>
+          <select class="form-control" name="rType" formControlName="rType" id="field_rType" data-cy="rType">
             <option [ngValue]="null">{{ 'testRoomApp.RoomType.null' | translate }}</option>
             <option *ngFor="let roomType of roomTypeValues" [value]="roomType">{{ 'testRoomApp.RoomType.' + roomType | translate }}</option>
           </select>
-          <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required" jhiTranslate="entity.validation.required">
+          <div *ngIf="editForm.get('rType')!.invalid && (editForm.get('rType')!.dirty || editForm.get('rType')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('rType')?.errors?.required" jhiTranslate="entity.validation.required">
               This field is required.
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.acreage" for="field_acreage">Acreage</label>
-          <input type="number" class="form-control" name="acreage" id="field_acreage" data-cy="acreage" formControlName="acreage" />
-          <div *ngIf="editForm.get('acreage')!.invalid && (editForm.get('acreage')!.dirty || editForm.get('acreage')!.touched)">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rAcreage" for="field_rAcreage">R Acreage</label>
+          <input type="number" class="form-control" name="rAcreage" id="field_rAcreage" data-cy="rAcreage" formControlName="rAcreage" />
+          <div *ngIf="editForm.get('rAcreage')!.invalid && (editForm.get('rAcreage')!.dirty || editForm.get('rAcreage')!.touched)">
             <small
               class="form-text text-danger"
-              *ngIf="editForm.get('acreage')?.errors?.required"
+              *ngIf="editForm.get('rAcreage')?.errors?.required"
               jhiTranslate="entity.validation.required"
             >
               This field is required.
             </small>
             <small
               class="form-text text-danger"
-              [hidden]="!editForm.get('acreage')?.errors?.number"
+              [hidden]="!editForm.get('rAcreage')?.errors?.number"
               jhiTranslate="entity.validation.number"
             >
               This field should be a number.
@@ -58,19 +58,27 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.image" for="field_image">Image</label>
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rSize" for="field_rSize">R Size</label>
+          <select class="form-control" name="rSize" formControlName="rSize" id="field_rSize" data-cy="rSize">
+            <option [ngValue]="null">{{ 'testRoomApp.RoomSize.null' | translate }}</option>
+            <option *ngFor="let roomSize of roomSizeValues" [value]="roomSize">{{ 'testRoomApp.RoomSize.' + roomSize | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rImage" for="field_rImage">R Image</label>
           <div>
             <img
-              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              [src]="'data:' + editForm.get('rImageContentType')!.value + ';base64,' + editForm.get('rImage')!.value"
               style="max-height: 100px"
-              *ngIf="editForm.get('image')!.value"
+              *ngIf="editForm.get('rImage')!.value"
               alt="room image"
             />
-            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
-              <span class="pull-left">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+            <div *ngIf="editForm.get('rImage')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('rImageContentType')!.value }}, {{ byteSize(editForm.get('rImage')!.value) }}</span>
               <button
                 type="button"
-                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                (click)="clearInputImage('rImage', 'rImageContentType', 'file_rImage')"
                 class="btn btn-secondary btn-xs pull-right"
               >
                 <fa-icon icon="times"></fa-icon>
@@ -78,42 +86,60 @@
             </div>
             <input
               type="file"
-              id="file_image"
-              data-cy="image"
-              (change)="setFileData($event, 'image', true)"
+              id="file_rImage"
+              data-cy="rImage"
+              (change)="setFileData($event, 'rImage', true)"
               accept="image/*"
               jhiTranslate="entity.action.addimage"
             />
           </div>
-          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input type="hidden" class="form-control" name="rImage" id="field_rImage" data-cy="rImage" formControlName="rImage" />
           <input
             type="hidden"
             class="form-control"
-            name="imageContentType"
-            id="field_imageContentType"
-            formControlName="imageContentType"
+            name="rImageContentType"
+            id="field_rImageContentType"
+            formControlName="rImageContentType"
           />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.price" for="field_price">Price</label>
-          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.rPrice" for="field_rPrice">R Price</label>
+          <input type="number" class="form-control" name="rPrice" id="field_rPrice" data-cy="rPrice" formControlName="rPrice" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.room.area" for="field_area">Area</label>
-          <select class="form-control" id="field_area" data-cy="area" name="area" formControlName="area">
-            <option *ngIf="!editForm.get('area')!.value" [ngValue]="null" selected></option>
+          <label class="form-control-label" jhiTranslate="testRoomApp.room.accommodation" for="field_accommodation">Accommodation</label>
+          <select
+            class="form-control"
+            id="field_accommodation"
+            data-cy="accommodation"
+            name="accommodation"
+            formControlName="accommodation"
+          >
+            <option *ngIf="!editForm.get('accommodation')!.value" [ngValue]="null" selected></option>
             <option
-              [ngValue]="areaOption.id === editForm.get('area')!.value?.id ? editForm.get('area')!.value : areaOption"
-              *ngFor="let areaOption of areasSharedCollection; trackBy: trackAreaById"
+              [ngValue]="
+                accommodationOption.id === editForm.get('accommodation')!.value?.id
+                  ? editForm.get('accommodation')!.value
+                  : accommodationOption
+              "
+              *ngFor="let accommodationOption of accommodationsSharedCollection; trackBy: trackAccommodationById"
             >
-              {{ areaOption.type }}
+              {{ accommodationOption.id }}
             </option>
           </select>
         </div>
-        <div *ngIf="editForm.get(['area'])!.invalid && (editForm.get(['area'])!.dirty || editForm.get(['area'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['area'])?.errors?.required" jhiTranslate="entity.validation.required">
+        <div
+          *ngIf="
+            editForm.get(['accommodation'])!.invalid && (editForm.get(['accommodation'])!.dirty || editForm.get(['accommodation'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['accommodation'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
             This field is required.
           </small>
         </div>

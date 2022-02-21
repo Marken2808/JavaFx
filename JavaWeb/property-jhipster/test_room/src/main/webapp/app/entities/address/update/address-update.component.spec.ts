@@ -8,6 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { AddressService } from '../service/address.service';
 import { IAddress, Address } from '../address.model';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 
 import { AddressUpdateComponent } from './address-update.component';
 
@@ -16,6 +18,7 @@ describe('Address Management Update Component', () => {
   let fixture: ComponentFixture<AddressUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let addressService: AddressService;
+  let propertyService: PropertyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -37,18 +40,40 @@ describe('Address Management Update Component', () => {
     fixture = TestBed.createComponent(AddressUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     addressService = TestBed.inject(AddressService);
+    propertyService = TestBed.inject(PropertyService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
+    it('Should call property query and add missing value', () => {
+      const address: IAddress = { id: 456 };
+      const property: IProperty = { id: 85118 };
+      address.property = property;
+
+      const propertyCollection: IProperty[] = [{ id: 23847 }];
+      jest.spyOn(propertyService, 'query').mockReturnValue(of(new HttpResponse({ body: propertyCollection })));
+      const expectedCollection: IProperty[] = [property, ...propertyCollection];
+      jest.spyOn(propertyService, 'addPropertyToCollectionIfMissing').mockReturnValue(expectedCollection);
+
+      activatedRoute.data = of({ address });
+      comp.ngOnInit();
+
+      expect(propertyService.query).toHaveBeenCalled();
+      expect(propertyService.addPropertyToCollectionIfMissing).toHaveBeenCalledWith(propertyCollection, property);
+      expect(comp.propertiesCollection).toEqual(expectedCollection);
+    });
+
     it('Should update editForm', () => {
       const address: IAddress = { id: 456 };
+      const property: IProperty = { id: 84417 };
+      address.property = property;
 
       activatedRoute.data = of({ address });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(address));
+      expect(comp.propertiesCollection).toContain(property);
     });
   });
 
@@ -113,6 +138,16 @@ describe('Address Management Update Component', () => {
       expect(addressService.update).toHaveBeenCalledWith(address);
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Tracking relationships identifiers', () => {
+    describe('trackPropertyById', () => {
+      it('Should return tracked Property primary key', () => {
+        const entity = { id: 123 };
+        const trackResult = comp.trackPropertyById(0, entity);
+        expect(trackResult).toEqual(entity.id);
+      });
     });
   });
 });

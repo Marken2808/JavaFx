@@ -36,11 +36,9 @@
           <th scope="col"><span jhiTranslate="testRoomApp.property.title">Title</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.property.type">Type</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.property.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.property.image">Image</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.property.isUrgent">Is Urgent</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.property.address">Address</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.property.accommodation">Accommodation</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.property.project">Project</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.property.land">Land</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.property.user">User</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -52,26 +50,19 @@
           <td>{{ property.title }}</td>
           <td jhiTranslate="{{ 'testRoomApp.PropertyType.' + property.type }}">{{ property.type }}</td>
           <td jhiTranslate="{{ 'testRoomApp.PropertyStatus.' + property.status }}">{{ property.status }}</td>
+          <td>
+            <a *ngIf="property.image" (click)="openFile(property.image, property.imageContentType)">
+              <img
+                [src]="'data:' + property.imageContentType + ';base64,' + property.image"
+                style="max-height: 30px"
+                alt="property image"
+              />
+            </a>
+            <span *ngIf="property.image">{{ property.imageContentType }}, {{ byteSize(property.image) }}</span>
+          </td>
           <td>{{ property.isUrgent }}</td>
           <td>
-            <div *ngIf="property.address">
-              <a [routerLink]="['/address', property.address?.id, 'view']">{{ property.address?.street }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="property.accommodation">
-              <a [routerLink]="['/accommodation', property.accommodation?.id, 'view']">{{ property.accommodation?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="property.project">
-              <a [routerLink]="['/project', property.project?.id, 'view']">{{ property.project?.id }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="property.land">
-              <a [routerLink]="['/land', property.land?.id, 'view']">{{ property.land?.id }}</a>
-            </div>
+            {{ property.user?.login }}
           </td>
           <td class="text-right">
             <div class="btn-group">

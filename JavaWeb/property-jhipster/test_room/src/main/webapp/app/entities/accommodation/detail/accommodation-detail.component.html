@@ -26,16 +26,28 @@
         <dd>
           <span jhiTranslate="{{ 'testRoomApp.AccommodationStatus.' + accommodation.status }}">{{ accommodation.status }}</span>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.accommodation.image">Image</span></dt>
+        <dd>
+          <div *ngIf="accommodation.image">
+            <a (click)="openFile(accommodation.image, accommodation.imageContentType)">
+              <img
+                [src]="'data:' + accommodation.imageContentType + ';base64,' + accommodation.image"
+                style="max-width: 100%"
+                alt="accommodation image"
+              />
+            </a>
+            {{ accommodation.imageContentType }}, {{ byteSize(accommodation.image) }}
+          </div>
+        </dd>
         <dt><span jhiTranslate="testRoomApp.accommodation.total">Total</span></dt>
         <dd>
           <span>{{ accommodation.total }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.accommodation.room">Room</span></dt>
+        <dt><span jhiTranslate="testRoomApp.accommodation.property">Property</span></dt>
         <dd>
-          <span *ngFor="let room of accommodation.rooms; let last = last">
-            <a [routerLink]="['/room', room?.id, 'view']">{{ room.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
+          <div *ngIf="accommodation.property">
+            <a [routerLink]="['/property', accommodation.property?.id, 'view']">{{ accommodation.property?.id }}</a>
+          </div>
         </dd>
       </dl>
 

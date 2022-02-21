@@ -35,6 +35,8 @@
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.project.title">Title</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.project.price">Price</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.project.image">Image</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.project.property">Property</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -45,6 +47,17 @@
           </td>
           <td>{{ project.title }}</td>
           <td>{{ project.price }}</td>
+          <td>
+            <a *ngIf="project.image" (click)="openFile(project.image, project.imageContentType)">
+              <img [src]="'data:' + project.imageContentType + ';base64,' + project.image" style="max-height: 30px" alt="project image" />
+            </a>
+            <span *ngIf="project.image">{{ project.imageContentType }}, {{ byteSize(project.image) }}</span>
+          </td>
+          <td>
+            <div *ngIf="project.property">
+              <a [routerLink]="['/property', project.property?.id, 'view']">{{ project.property?.id }}</a>
+            </div>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

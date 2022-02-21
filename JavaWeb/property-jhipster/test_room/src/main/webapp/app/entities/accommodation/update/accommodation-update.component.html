@@ -58,25 +58,59 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.accommodation.image" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="accommodation image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="testRoomApp.accommodation.total" for="field_total">Total</label>
           <input type="number" class="form-control" name="total" id="field_total" data-cy="total" formControlName="total" />
         </div>
 
         <div class="form-group">
-          <label jhiTranslate="testRoomApp.accommodation.room" for="field_rooms">Room</label>
-          <select class="form-control" id="field_rooms" data-cy="room" multiple name="rooms" formControlName="rooms">
+          <label class="form-control-label" jhiTranslate="testRoomApp.accommodation.property" for="field_property">Property</label>
+          <select class="form-control" id="field_property" data-cy="property" name="property" formControlName="property">
+            <option [ngValue]="null"></option>
             <option
-              [ngValue]="getSelectedRoom(roomOption, editForm.get('rooms')!.value)"
-              *ngFor="let roomOption of roomsSharedCollection; trackBy: trackRoomById"
+              [ngValue]="propertyOption.id === editForm.get('property')!.value?.id ? editForm.get('property')!.value : propertyOption"
+              *ngFor="let propertyOption of propertiesCollection; trackBy: trackPropertyById"
             >
-              {{ roomOption.id }}
+              {{ propertyOption.id }}
             </option>
           </select>
-        </div>
-        <div *ngIf="editForm.get(['rooms'])!.invalid && (editForm.get(['rooms'])!.dirty || editForm.get(['rooms'])!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get(['rooms'])?.errors?.required" jhiTranslate="entity.validation.required">
-            This field is required.
-          </small>
         </div>
       </div>
 

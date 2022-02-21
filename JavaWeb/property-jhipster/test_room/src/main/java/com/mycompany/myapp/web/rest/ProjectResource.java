@@ -131,6 +131,12 @@ public class ProjectResource {
                 if (project.getPrice() != null) {
                     existingProject.setPrice(project.getPrice());
                 }
+                if (project.getImage() != null) {
+                    existingProject.setImage(project.getImage());
+                }
+                if (project.getImageContentType() != null) {
+                    existingProject.setImageContentType(project.getImageContentType());
+                }
 
                 return existingProject;
             })

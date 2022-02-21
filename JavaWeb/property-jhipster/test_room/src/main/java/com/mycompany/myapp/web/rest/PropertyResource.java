@@ -134,6 +134,12 @@ public class PropertyResource {
                 if (property.getStatus() != null) {
                     existingProperty.setStatus(property.getStatus());
                 }
+                if (property.getImage() != null) {
+                    existingProperty.setImage(property.getImage());
+                }
+                if (property.getImageContentType() != null) {
+                    existingProperty.setImageContentType(property.getImageContentType());
+                }
                 if (property.getIsUrgent() != null) {
                     existingProperty.setIsUrgent(property.getIsUrgent());
                 }

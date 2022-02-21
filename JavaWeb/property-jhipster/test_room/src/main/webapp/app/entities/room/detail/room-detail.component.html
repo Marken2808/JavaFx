@@ -14,35 +14,39 @@
         <dd>
           <span>{{ room.id }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.title">Title</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.rTitle">R Title</span></dt>
         <dd>
-          <span>{{ room.title }}</span>
+          <span>{{ room.rTitle }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.type">Type</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.rType">R Type</span></dt>
         <dd>
-          <span jhiTranslate="{{ 'testRoomApp.RoomType.' + room.type }}">{{ room.type }}</span>
+          <span jhiTranslate="{{ 'testRoomApp.RoomType.' + room.rType }}">{{ room.rType }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.acreage">Acreage</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.rAcreage">R Acreage</span></dt>
         <dd>
-          <span>{{ room.acreage }}</span>
+          <span>{{ room.rAcreage }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.image">Image</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.rSize">R Size</span></dt>
         <dd>
-          <div *ngIf="room.image">
-            <a (click)="openFile(room.image, room.imageContentType)">
-              <img [src]="'data:' + room.imageContentType + ';base64,' + room.image" style="max-width: 100%" alt="room image" />
+          <span jhiTranslate="{{ 'testRoomApp.RoomSize.' + room.rSize }}">{{ room.rSize }}</span>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.room.rImage">R Image</span></dt>
+        <dd>
+          <div *ngIf="room.rImage">
+            <a (click)="openFile(room.rImage, room.rImageContentType)">
+              <img [src]="'data:' + room.rImageContentType + ';base64,' + room.rImage" style="max-width: 100%" alt="room image" />
             </a>
-            {{ room.imageContentType }}, {{ byteSize(room.image) }}
+            {{ room.rImageContentType }}, {{ byteSize(room.rImage) }}
           </div>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.price">Price</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.rPrice">R Price</span></dt>
         <dd>
-          <span>{{ room.price }}</span>
+          <span>{{ room.rPrice }}</span>
         </dd>
-        <dt><span jhiTranslate="testRoomApp.room.area">Area</span></dt>
+        <dt><span jhiTranslate="testRoomApp.room.accommodation">Accommodation</span></dt>
         <dd>
-          <div *ngIf="room.area">
-            <a [routerLink]="['/area', room.area?.id, 'view']">{{ room.area?.type }}</a>
+          <div *ngIf="room.accommodation">
+            <a [routerLink]="['/accommodation', room.accommodation?.id, 'view']">{{ room.accommodation?.id }}</a>
           </div>
         </dd>
       </dl>

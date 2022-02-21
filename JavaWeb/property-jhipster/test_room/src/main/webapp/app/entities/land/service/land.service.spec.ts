@@ -23,6 +23,8 @@ describe('Land Service', () => {
       id: 0,
       title: 'AAAAAAA',
       price: 0,
+      imageContentType: 'image/png',
+      image: 'AAAAAAA',
     };
   });
 
@@ -60,6 +62,7 @@ describe('Land Service', () => {
           id: 1,
           title: 'BBBBBB',
           price: 1,
+          image: 'BBBBBB',
         },
         elemDefault
       );
@@ -98,6 +101,7 @@ describe('Land Service', () => {
           id: 1,
           title: 'BBBBBB',
           price: 1,
+          image: 'BBBBBB',
         },
         elemDefault
       );
@@ -149,7 +153,7 @@ describe('Land Service', () => {
       });
 
       it('should add only unique Land to an array', () => {
-        const landArray: ILand[] = [{ id: 123 }, { id: 456 }, { id: 37950 }];
+        const landArray: ILand[] = [{ id: 123 }, { id: 456 }, { id: 85748 }];
         const landCollection: ILand[] = [{ id: 123 }];
         expectedResult = service.addLandToCollectionIfMissing(landCollection, ...landArray);
         expect(expectedResult).toHaveLength(3);

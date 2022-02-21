@@ -2,9 +2,17 @@
   "testRoomApp": {
     "RoomType": {
       "null": "",
-      "Single_room": "Single_room",
-      "Double_room": "Double_room",
-      "King_room": "King_room"
+      "Attic": "Attic",
+      "Lounge": "Lounge",
+      "Garage": "Garage",
+      "Basement": "Basement",
+      "Lavatory": "Lavatory",
+      "Bedroom": "Bedroom",
+      "Diningroom": "Diningroom",
+      "Kitchen": "Kitchen",
+      "Balcony": "Balcony",
+      "Landing": "Landing",
+      "Hall": "Hall"
     }
   }
 }

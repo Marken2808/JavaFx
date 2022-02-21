@@ -1,10 +1,9 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mycompany.myapp.domain.enumeration.RoomSize;
 import com.mycompany.myapp.domain.enumeration.RoomType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -27,37 +26,36 @@ public class Room implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Column(name = "r_title", nullable = false)
+    private String rTitle;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    private RoomType type;
+    @Column(name = "r_type", nullable = false)
+    private RoomType rType;
 
     @NotNull
-    @Column(name = "acreage", nullable = false)
-    private Double acreage;
+    @Column(name = "r_acreage", nullable = false)
+    private Double rAcreage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "r_size")
+    private RoomSize rSize;
 
     @Lob
-    @Column(name = "image")
-    private byte[] image;
+    @Column(name = "r_image")
+    private byte[] rImage;
 
-    @Column(name = "image_content_type")
-    private String imageContentType;
+    @Column(name = "r_image_content_type")
+    private String rImageContentType;
 
-    @Column(name = "price")
-    private Double price;
+    @Column(name = "r_price")
+    private Double rPrice;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
-    private Area area;
-
-    @ManyToMany(mappedBy = "rooms")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
-    private Set<Accommodation> accommodations = new HashSet<>();
+    @JsonIgnoreProperties(value = { "property" }, allowSetters = true)
+    private Accommodation accommodation;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -74,125 +72,107 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getrTitle() {
+        return this.rTitle;
     }
 
-    public Room title(String title) {
-        this.setTitle(title);
+    public Room rTitle(String rTitle) {
+        this.setrTitle(rTitle);
         return this;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setrTitle(String rTitle) {
+        this.rTitle = rTitle;
     }
 
-    public RoomType getType() {
-        return this.type;
+    public RoomType getrType() {
+        return this.rType;
     }
 
-    public Room type(RoomType type) {
-        this.setType(type);
+    public Room rType(RoomType rType) {
+        this.setrType(rType);
         return this;
     }
 
-    public void setType(RoomType type) {
-        this.type = type;
+    public void setrType(RoomType rType) {
+        this.rType = rType;
     }
 
-    public Double getAcreage() {
-        return this.acreage;
+    public Double getrAcreage() {
+        return this.rAcreage;
     }
 
-    public Room acreage(Double acreage) {
-        this.setAcreage(acreage);
+    public Room rAcreage(Double rAcreage) {
+        this.setrAcreage(rAcreage);
         return this;
     }
 
-    public void setAcreage(Double acreage) {
-        this.acreage = acreage;
+    public void setrAcreage(Double rAcreage) {
+        this.rAcreage = rAcreage;
     }
 
-    public byte[] getImage() {
-        return this.image;
+    public RoomSize getrSize() {
+        return this.rSize;
     }
 
-    public Room image(byte[] image) {
-        this.setImage(image);
+    public Room rSize(RoomSize rSize) {
+        this.setrSize(rSize);
         return this;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setrSize(RoomSize rSize) {
+        this.rSize = rSize;
     }
 
-    public String getImageContentType() {
-        return this.imageContentType;
+    public byte[] getrImage() {
+        return this.rImage;
     }
 
-    public Room imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
+    public Room rImage(byte[] rImage) {
+        this.setrImage(rImage);
         return this;
     }
 
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
+    public void setrImage(byte[] rImage) {
+        this.rImage = rImage;
     }
 
-    public Double getPrice() {
-        return this.price;
+    public String getrImageContentType() {
+        return this.rImageContentType;
     }
 
-    public Room price(Double price) {
-        this.setPrice(price);
+    public Room rImageContentType(String rImageContentType) {
+        this.rImageContentType = rImageContentType;
         return this;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setrImageContentType(String rImageContentType) {
+        this.rImageContentType = rImageContentType;
     }
 
-    public Area getArea() {
-        return this.area;
+    public Double getrPrice() {
+        return this.rPrice;
     }
 
-    public void setArea(Area area) {
-        this.area = area;
-    }
-
-    public Room area(Area area) {
-        this.setArea(area);
+    public Room rPrice(Double rPrice) {
+        this.setrPrice(rPrice);
         return this;
     }
 
-    public Set<Accommodation> getAccommodations() {
-        return this.accommodations;
+    public void setrPrice(Double rPrice) {
+        this.rPrice = rPrice;
     }
 
-    public void setAccommodations(Set<Accommodation> accommodations) {
-        if (this.accommodations != null) {
-            this.accommodations.forEach(i -> i.removeRoom(this));
-        }
-        if (accommodations != null) {
-            accommodations.forEach(i -> i.addRoom(this));
-        }
-        this.accommodations = accommodations;
+    public Accommodation getAccommodation() {
+        return this.accommodation;
     }
 
-    public Room accommodations(Set<Accommodation> accommodations) {
-        this.setAccommodations(accommodations);
-        return this;
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
     }
 
-    public Room addAccommodation(Accommodation accommodation) {
-        this.accommodations.add(accommodation);
-        accommodation.getRooms().add(this);
-        return this;
-    }
-
-    public Room removeAccommodation(Accommodation accommodation) {
-        this.accommodations.remove(accommodation);
-        accommodation.getRooms().remove(this);
+    public Room accommodation(Accommodation accommodation) {
+        this.setAccommodation(accommodation);
         return this;
     }
 
@@ -220,12 +200,13 @@ public class Room implements Serializable {
     public String toString() {
         return "Room{" +
             "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", type='" + getType() + "'" +
-            ", acreage=" + getAcreage() +
-            ", image='" + getImage() + "'" +
-            ", imageContentType='" + getImageContentType() + "'" +
-            ", price=" + getPrice() +
+            ", rTitle='" + getrTitle() + "'" +
+            ", rType='" + getrType() + "'" +
+            ", rAcreage=" + getrAcreage() +
+            ", rSize='" + getrSize() + "'" +
+            ", rImage='" + getrImage() + "'" +
+            ", rImageContentType='" + getrImageContentType() + "'" +
+            ", rPrice=" + getrPrice() +
             "}";
     }
 }

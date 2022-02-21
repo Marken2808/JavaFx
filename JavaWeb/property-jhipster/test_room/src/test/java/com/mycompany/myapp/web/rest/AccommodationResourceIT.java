@@ -2,40 +2,32 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Accommodation;
-import com.mycompany.myapp.domain.Room;
 import com.mycompany.myapp.domain.enumeration.AccommodationStatus;
 import com.mycompany.myapp.domain.enumeration.AccommodationType;
 import com.mycompany.myapp.repository.AccommodationRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link AccommodationResource} REST controller.
  */
 @IntegrationTest
-@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class AccommodationResourceIT {
@@ -49,6 +41,11 @@ class AccommodationResourceIT {
     private static final AccommodationStatus DEFAULT_STATUS = AccommodationStatus.Furnished;
     private static final AccommodationStatus UPDATED_STATUS = AccommodationStatus.Unfurnished;
 
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
+
     private static final Double DEFAULT_TOTAL = 1D;
     private static final Double UPDATED_TOTAL = 2D;
 
@@ -60,9 +57,6 @@ class AccommodationResourceIT {
 
     @Autowired
     private AccommodationRepository accommodationRepository;
-
-    @Mock
-    private AccommodationRepository accommodationRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -83,17 +77,9 @@ class AccommodationResourceIT {
             .title(DEFAULT_TITLE)
             .type(DEFAULT_TYPE)
             .status(DEFAULT_STATUS)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .total(DEFAULT_TOTAL);
-        // Add required entity
-        Room room;
-        if (TestUtil.findAll(em, Room.class).isEmpty()) {
-            room = RoomResourceIT.createEntity(em);
-            em.persist(room);
-            em.flush();
-        } else {
-            room = TestUtil.findAll(em, Room.class).get(0);
-        }
-        accommodation.getRooms().add(room);
         return accommodation;
     }
 
@@ -108,17 +94,9 @@ class AccommodationResourceIT {
             .title(UPDATED_TITLE)
             .type(UPDATED_TYPE)
             .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .total(UPDATED_TOTAL);
-        // Add required entity
-        Room room;
-        if (TestUtil.findAll(em, Room.class).isEmpty()) {
-            room = RoomResourceIT.createUpdatedEntity(em);
-            em.persist(room);
-            em.flush();
-        } else {
-            room = TestUtil.findAll(em, Room.class).get(0);
-        }
-        accommodation.getRooms().add(room);
         return accommodation;
     }
 
@@ -143,6 +121,8 @@ class AccommodationResourceIT {
         assertThat(testAccommodation.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testAccommodation.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testAccommodation.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testAccommodation.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testAccommodation.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testAccommodation.getTotal()).isEqualTo(DEFAULT_TOTAL);
     }
 
@@ -230,25 +210,9 @@ class AccommodationResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())));
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllAccommodationsWithEagerRelationshipsIsEnabled() throws Exception {
-        when(accommodationRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restAccommodationMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(accommodationRepositoryMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    @SuppressWarnings({ "unchecked" })
-    void getAllAccommodationsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        when(accommodationRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        restAccommodationMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
-
-        verify(accommodationRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -266,6 +230,8 @@ class AccommodationResourceIT {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.doubleValue()));
     }
 
@@ -288,7 +254,13 @@ class AccommodationResourceIT {
         Accommodation updatedAccommodation = accommodationRepository.findById(accommodation.getId()).get();
         // Disconnect from session so that the updates on updatedAccommodation are not directly saved in db
         em.detach(updatedAccommodation);
-        updatedAccommodation.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).total(UPDATED_TOTAL);
+        updatedAccommodation
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .total(UPDATED_TOTAL);
 
         restAccommodationMockMvc
             .perform(
@@ -305,6 +277,8 @@ class AccommodationResourceIT {
         assertThat(testAccommodation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testAccommodation.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testAccommodation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAccommodation.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testAccommodation.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testAccommodation.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 
@@ -376,7 +350,13 @@ class AccommodationResourceIT {
         Accommodation partialUpdatedAccommodation = new Accommodation();
         partialUpdatedAccommodation.setId(accommodation.getId());
 
-        partialUpdatedAccommodation.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).total(UPDATED_TOTAL);
+        partialUpdatedAccommodation
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .total(UPDATED_TOTAL);
 
         restAccommodationMockMvc
             .perform(
@@ -393,6 +373,8 @@ class AccommodationResourceIT {
         assertThat(testAccommodation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testAccommodation.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testAccommodation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAccommodation.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testAccommodation.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testAccommodation.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 
@@ -408,7 +390,13 @@ class AccommodationResourceIT {
         Accommodation partialUpdatedAccommodation = new Accommodation();
         partialUpdatedAccommodation.setId(accommodation.getId());
 
-        partialUpdatedAccommodation.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).total(UPDATED_TOTAL);
+        partialUpdatedAccommodation
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .total(UPDATED_TOTAL);
 
         restAccommodationMockMvc
             .perform(
@@ -425,6 +413,8 @@ class AccommodationResourceIT {
         assertThat(testAccommodation.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testAccommodation.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testAccommodation.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testAccommodation.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testAccommodation.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testAccommodation.getTotal()).isEqualTo(UPDATED_TOTAL);
     }
 

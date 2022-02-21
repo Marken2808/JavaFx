@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -7,14 +7,11 @@ import { finalize, map } from 'rxjs/operators';
 
 import { IProperty, Property } from '../property.model';
 import { PropertyService } from '../service/property.service';
-import { IAddress } from 'app/entities/address/address.model';
-import { AddressService } from 'app/entities/address/service/address.service';
-import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
-import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
-import { IProject } from 'app/entities/project/project.model';
-import { ProjectService } from 'app/entities/project/service/project.service';
-import { ILand } from 'app/entities/land/land.model';
-import { LandService } from 'app/entities/land/service/land.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
 import { PropertyType } from 'app/entities/enumerations/property-type.model';
 import { PropertyStatus } from 'app/entities/enumerations/property-status.model';
 
@@ -27,29 +24,25 @@ export class PropertyUpdateComponent implements OnInit {
   propertyTypeValues = Object.keys(PropertyType);
   propertyStatusValues = Object.keys(PropertyStatus);
 
-  addressesCollection: IAddress[] = [];
-  accommodationsCollection: IAccommodation[] = [];
-  projectsCollection: IProject[] = [];
-  landsCollection: ILand[] = [];
+  usersSharedCollection: IUser[] = [];
 
   editForm = this.fb.group({
     id: [],
     title: [null, [Validators.required]],
     type: [null, [Validators.required]],
     status: [null, [Validators.required]],
+    image: [],
+    imageContentType: [],
     isUrgent: [],
-    address: [null, Validators.required],
-    accommodation: [],
-    project: [],
-    land: [],
+    user: [],
   });
 
   constructor(
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
     protected propertyService: PropertyService,
-    protected addressService: AddressService,
-    protected accommodationService: AccommodationService,
-    protected projectService: ProjectService,
-    protected landService: LandService,
+    protected userService: UserService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -60,6 +53,31 @@ export class PropertyUpdateComponent implements OnInit {
 
       this.loadRelationshipsOptions();
     });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('testRoomApp.error', { ...err, key: 'error.file.' + err.key })),
+    });
+  }
+
+  clearInputImage(field: string, fieldContentType: string, idInput: string): void {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null,
+    });
+    if (idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
   }
 
   previousState(): void {
@@ -76,19 +94,7 @@ export class PropertyUpdateComponent implements OnInit {
     }
   }
 
-  trackAddressById(index: number, item: IAddress): number {
-    return item.id!;
-  }
-
-  trackAccommodationById(index: number, item: IAccommodation): number {
-    return item.id!;
-  }
-
-  trackProjectById(index: number, item: IProject): number {
-    return item.id!;
-  }
-
-  trackLandById(index: number, item: ILand): number {
+  trackUserById(index: number, item: IUser): number {
     return item.id!;
   }
 
@@ -117,54 +123,21 @@ export class PropertyUpdateComponent implements OnInit {
       title: property.title,
       type: property.type,
       status: property.status,
+      image: property.image,
+      imageContentType: property.imageContentType,
       isUrgent: property.isUrgent,
-      address: property.address,
-      accommodation: property.accommodation,
-      project: property.project,
-      land: property.land,
+      user: property.user,
     });
 
-    this.addressesCollection = this.addressService.addAddressToCollectionIfMissing(this.addressesCollection, property.address);
-    this.accommodationsCollection = this.accommodationService.addAccommodationToCollectionIfMissing(
-      this.accommodationsCollection,
-      property.accommodation
-    );
-    this.projectsCollection = this.projectService.addProjectToCollectionIfMissing(this.projectsCollection, property.project);
-    this.landsCollection = this.landService.addLandToCollectionIfMissing(this.landsCollection, property.land);
+    this.usersSharedCollection = this.userService.addUserToCollectionIfMissing(this.usersSharedCollection, property.user);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.addressService
-      .query({ filter: 'property-is-null' })
-      .pipe(map((res: HttpResponse<IAddress[]>) => res.body ?? []))
-      .pipe(
-        map((addresses: IAddress[]) => this.addressService.addAddressToCollectionIfMissing(addresses, this.editForm.get('address')!.value))
-      )
-      .subscribe((addresses: IAddress[]) => (this.addressesCollection = addresses));
-
-    this.accommodationService
-      .query({ filter: 'property-is-null' })
-      .pipe(map((res: HttpResponse<IAccommodation[]>) => res.body ?? []))
-      .pipe(
-        map((accommodations: IAccommodation[]) =>
-          this.accommodationService.addAccommodationToCollectionIfMissing(accommodations, this.editForm.get('accommodation')!.value)
-        )
-      )
-      .subscribe((accommodations: IAccommodation[]) => (this.accommodationsCollection = accommodations));
-
-    this.projectService
-      .query({ filter: 'property-is-null' })
-      .pipe(map((res: HttpResponse<IProject[]>) => res.body ?? []))
-      .pipe(
-        map((projects: IProject[]) => this.projectService.addProjectToCollectionIfMissing(projects, this.editForm.get('project')!.value))
-      )
-      .subscribe((projects: IProject[]) => (this.projectsCollection = projects));
-
-    this.landService
-      .query({ filter: 'property-is-null' })
-      .pipe(map((res: HttpResponse<ILand[]>) => res.body ?? []))
-      .pipe(map((lands: ILand[]) => this.landService.addLandToCollectionIfMissing(lands, this.editForm.get('land')!.value)))
-      .subscribe((lands: ILand[]) => (this.landsCollection = lands));
+    this.userService
+      .query()
+      .pipe(map((res: HttpResponse<IUser[]>) => res.body ?? []))
+      .pipe(map((users: IUser[]) => this.userService.addUserToCollectionIfMissing(users, this.editForm.get('user')!.value)))
+      .subscribe((users: IUser[]) => (this.usersSharedCollection = users));
   }
 
   protected createFromForm(): IProperty {
@@ -174,11 +147,10 @@ export class PropertyUpdateComponent implements OnInit {
       title: this.editForm.get(['title'])!.value,
       type: this.editForm.get(['type'])!.value,
       status: this.editForm.get(['status'])!.value,
+      imageContentType: this.editForm.get(['imageContentType'])!.value,
+      image: this.editForm.get(['image'])!.value,
       isUrgent: this.editForm.get(['isUrgent'])!.value,
-      address: this.editForm.get(['address'])!.value,
-      accommodation: this.editForm.get(['accommodation'])!.value,
-      project: this.editForm.get(['project'])!.value,
-      land: this.editForm.get(['land'])!.value,
+      user: this.editForm.get(['user'])!.value,
     };
   }
 }

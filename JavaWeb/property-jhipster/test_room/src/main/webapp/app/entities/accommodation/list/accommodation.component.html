@@ -36,8 +36,9 @@
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.title">Title</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.type">Type</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.image">Image</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.accommodation.total">Total</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.room">Room</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.accommodation.property">Property</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -49,12 +50,21 @@
           <td>{{ accommodation.title }}</td>
           <td jhiTranslate="{{ 'testRoomApp.AccommodationType.' + accommodation.type }}">{{ accommodation.type }}</td>
           <td jhiTranslate="{{ 'testRoomApp.AccommodationStatus.' + accommodation.status }}">{{ accommodation.status }}</td>
+          <td>
+            <a *ngIf="accommodation.image" (click)="openFile(accommodation.image, accommodation.imageContentType)">
+              <img
+                [src]="'data:' + accommodation.imageContentType + ';base64,' + accommodation.image"
+                style="max-height: 30px"
+                alt="accommodation image"
+              />
+            </a>
+            <span *ngIf="accommodation.image">{{ accommodation.imageContentType }}, {{ byteSize(accommodation.image) }}</span>
+          </td>
           <td>{{ accommodation.total }}</td>
           <td>
-            <span *ngFor="let room of accommodation.rooms; let last = last">
-              <a class="form-control-static" [routerLink]="['/room', room.id, 'view']">{{ room.id }}</a
-              >{{ last ? '' : ', ' }}
-            </span>
+            <div *ngIf="accommodation.property">
+              <a [routerLink]="['/property', accommodation.property?.id, 'view']">{{ accommodation.property?.id }}</a>
+            </div>
           </td>
           <td class="text-right">
             <div class="btn-group">

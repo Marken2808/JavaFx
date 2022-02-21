@@ -21,12 +21,9 @@
       "title": "Title",
       "type": "Type",
       "status": "Status",
+      "image": "Image",
       "isUrgent": "Is Urgent",
-      "address": "Address",
-      "accommodation": "Accommodation",
-      "project": "Project",
-      "land": "Land",
-      "customer": "Customer"
+      "user": "User"
     }
   }
 }

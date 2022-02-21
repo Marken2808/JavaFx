@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220220224134",
+  "changelogDate": "20220221191841",
   "dto": "no",
   "embedded": false,
   "entityTableName": "property",
@@ -23,6 +23,11 @@
       "fieldValues": "Sold,Selling,ToSell,Let,Letting,ToLet"
     },
     {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
       "fieldName": "isUrgent",
       "fieldType": "Boolean"
     }
@@ -34,42 +39,11 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "street",
-      "otherEntityName": "address",
+      "otherEntityField": "login",
+      "otherEntityName": "user",
       "otherEntityRelationshipName": "property",
-      "ownerSide": true,
-      "relationshipName": "address",
-      "relationshipType": "one-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
-      "otherEntityName": "accommodation",
-      "otherEntityRelationshipName": "property",
-      "ownerSide": true,
-      "relationshipName": "accommodation",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "project",
-      "otherEntityRelationshipName": "property",
-      "ownerSide": true,
-      "relationshipName": "project",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "land",
-      "otherEntityRelationshipName": "property",
-      "ownerSide": true,
-      "relationshipName": "land",
-      "relationshipType": "one-to-one"
-    },
-    {
-      "otherEntityName": "customer",
-      "otherEntityRelationshipName": "property",
-      "ownerSide": false,
-      "relationshipName": "customer",
-      "relationshipType": "many-to-many",
-      "relationshipValidateRules": "required"
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
     }
   ],
   "service": "no"

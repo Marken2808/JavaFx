@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ILand } from '../land.model';
 import { LandService } from '../service/land.service';
 import { LandDeleteDialogComponent } from '../delete/land-delete-dialog.component';
+import { DataUtils } from 'app/core/util/data-util.service';
 
 @Component({
   selector: 'jhi-land',
@@ -14,7 +15,7 @@ export class LandComponent implements OnInit {
   lands?: ILand[];
   isLoading = false;
 
-  constructor(protected landService: LandService, protected modalService: NgbModal) {}
+  constructor(protected landService: LandService, protected dataUtils: DataUtils, protected modalService: NgbModal) {}
 
   loadAll(): void {
     this.isLoading = true;
@@ -36,6 +37,14 @@ export class LandComponent implements OnInit {
 
   trackId(index: number, item: ILand): number {
     return item.id!;
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    return this.dataUtils.openFile(base64String, contentType);
   }
 
   delete(land: ILand): void {

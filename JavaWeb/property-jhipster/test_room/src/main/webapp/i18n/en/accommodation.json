@@ -21,8 +21,9 @@
       "title": "Title",
       "type": "Type",
       "status": "Status",
+      "image": "Image",
       "total": "Total",
-      "room": "Room"
+      "property": "Property"
     }
   }
 }

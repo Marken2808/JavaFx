@@ -123,23 +123,26 @@ public class RoomResource {
         Optional<Room> result = roomRepository
             .findById(room.getId())
             .map(existingRoom -> {
-                if (room.getTitle() != null) {
-                    existingRoom.setTitle(room.getTitle());
+                if (room.getrTitle() != null) {
+                    existingRoom.setrTitle(room.getrTitle());
                 }
-                if (room.getType() != null) {
-                    existingRoom.setType(room.getType());
+                if (room.getrType() != null) {
+                    existingRoom.setrType(room.getrType());
                 }
-                if (room.getAcreage() != null) {
-                    existingRoom.setAcreage(room.getAcreage());
+                if (room.getrAcreage() != null) {
+                    existingRoom.setrAcreage(room.getrAcreage());
                 }
-                if (room.getImage() != null) {
-                    existingRoom.setImage(room.getImage());
+                if (room.getrSize() != null) {
+                    existingRoom.setrSize(room.getrSize());
                 }
-                if (room.getImageContentType() != null) {
-                    existingRoom.setImageContentType(room.getImageContentType());
+                if (room.getrImage() != null) {
+                    existingRoom.setrImage(room.getrImage());
                 }
-                if (room.getPrice() != null) {
-                    existingRoom.setPrice(room.getPrice());
+                if (room.getrImageContentType() != null) {
+                    existingRoom.setrImageContentType(room.getrImageContentType());
+                }
+                if (room.getrPrice() != null) {
+                    existingRoom.setrPrice(room.getrPrice());
                 }
 
                 return existingRoom;

@@ -6,16 +6,6 @@ enum Title {
     Mr, Mrs, Miss
 }
 
-
-
-entity Name {
-	title Title required,
-    firstName String required,
-    middleName String,
-    lastName String required,
-    displayName String required,
-}
-
 entity Address {
 	numberic String,
     street String required,
@@ -23,13 +13,6 @@ entity Address {
     city String,
     postcode String,
     country String,
-}
-
-entity Customer {
-    email String required,
-    phone String required,
-    birth String required,
-    gender Gender,
 }
 
 /* Property */
@@ -52,6 +35,7 @@ entity Property {
 	title String required,
 	type PropertyType required,
     status PropertyStatus required,
+    image ImageBlob,
     isUrgent Boolean,
 }
 
@@ -73,14 +57,11 @@ entity Accommodation {
 	title String required,
     type AccommodationType required,
     status AccommodationStatus required,
+    image ImageBlob,
     total Double,
 }
 
-entity Area {
-	title String required,
-    type AreaType required,
-}
-enum AreaType {
+enum RoomType {
 	Attic,
 	Lounge,
     Garage,
@@ -94,51 +75,45 @@ enum AreaType {
     Hall
 }
 
-enum RoomType {
+enum RoomSize {
 	Single_room,
 	Double_room,
     King_room
 }
 
 entity Room {
-	title String required,
-    type RoomType required,
-    acreage Double required,
-    image ImageBlob,
-    price Double,
+	rTitle String required,
+    rType RoomType required,
+    rAcreage Double required,
+    rSize RoomSize,
+    rImage ImageBlob,
+    rPrice Double,
 }
 
 entity Project {
 	title String required,
     price Double required,
+    image ImageBlob,
 }
 
 entity Land {
 	title String required,
 	price Double required,
+    image ImageBlob,
 }
 
 
-
-
-
-relationship OneToMany {
-    Name to Customer{name(displayName) required},
-    Area to Room{area(type) required},
-
+relationship ManyToOne {
+    Room{accommodation required} to Accommodation,
+    Property{user(login)} to User,
 }
 
 relationship OneToOne {
-    Customer{user(login) required} to User,
-    Property{address(street) required} to Address,
-    Property{accommodation} to Accommodation,
-    Property{project} to Project,
-    Property{land} to Land
+    Address{property required} to Property,
+    Accommodation{property} to Property,
+    Project{property} to Property,
+    Land{property} to Property,
 }
 
-relationship ManyToMany {
-	Customer{property required} to Property{customer required},
-    Accommodation{room required} to Room{accommodation required},
-}
 
 

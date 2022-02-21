@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220220224132",
+  "changelogDate": "20220221191840",
   "dto": "no",
   "embedded": false,
   "entityTableName": "address",
@@ -36,6 +36,15 @@
   "name": "Address",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "property",
+      "otherEntityRelationshipName": "address",
+      "ownerSide": true,
+      "relationshipName": "property",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
   "service": "no"
 }

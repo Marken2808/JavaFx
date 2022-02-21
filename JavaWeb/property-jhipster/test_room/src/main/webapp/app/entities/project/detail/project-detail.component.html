@@ -22,6 +22,21 @@
         <dd>
           <span>{{ project.price }}</span>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.project.image">Image</span></dt>
+        <dd>
+          <div *ngIf="project.image">
+            <a (click)="openFile(project.image, project.imageContentType)">
+              <img [src]="'data:' + project.imageContentType + ';base64,' + project.image" style="max-width: 100%" alt="project image" />
+            </a>
+            {{ project.imageContentType }}, {{ byteSize(project.image) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.project.property">Property</span></dt>
+        <dd>
+          <div *ngIf="project.property">
+            <a [routerLink]="['/property', project.property?.id, 'view']">{{ project.property?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

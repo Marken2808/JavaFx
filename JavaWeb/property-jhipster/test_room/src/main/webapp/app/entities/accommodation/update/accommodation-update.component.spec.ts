@@ -8,8 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { AccommodationService } from '../service/accommodation.service';
 import { IAccommodation, Accommodation } from '../accommodation.model';
-import { IRoom } from 'app/entities/room/room.model';
-import { RoomService } from 'app/entities/room/service/room.service';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 
 import { AccommodationUpdateComponent } from './accommodation-update.component';
 
@@ -18,7 +18,7 @@ describe('Accommodation Management Update Component', () => {
   let fixture: ComponentFixture<AccommodationUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let accommodationService: AccommodationService;
-  let roomService: RoomService;
+  let propertyService: PropertyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +40,40 @@ describe('Accommodation Management Update Component', () => {
     fixture = TestBed.createComponent(AccommodationUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     accommodationService = TestBed.inject(AccommodationService);
-    roomService = TestBed.inject(RoomService);
+    propertyService = TestBed.inject(PropertyService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Room query and add missing value', () => {
+    it('Should call property query and add missing value', () => {
       const accommodation: IAccommodation = { id: 456 };
-      const rooms: IRoom[] = [{ id: 54158 }];
-      accommodation.rooms = rooms;
+      const property: IProperty = { id: 98527 };
+      accommodation.property = property;
 
-      const roomCollection: IRoom[] = [{ id: 48469 }];
-      jest.spyOn(roomService, 'query').mockReturnValue(of(new HttpResponse({ body: roomCollection })));
-      const additionalRooms = [...rooms];
-      const expectedCollection: IRoom[] = [...additionalRooms, ...roomCollection];
-      jest.spyOn(roomService, 'addRoomToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const propertyCollection: IProperty[] = [{ id: 64616 }];
+      jest.spyOn(propertyService, 'query').mockReturnValue(of(new HttpResponse({ body: propertyCollection })));
+      const expectedCollection: IProperty[] = [property, ...propertyCollection];
+      jest.spyOn(propertyService, 'addPropertyToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ accommodation });
       comp.ngOnInit();
 
-      expect(roomService.query).toHaveBeenCalled();
-      expect(roomService.addRoomToCollectionIfMissing).toHaveBeenCalledWith(roomCollection, ...additionalRooms);
-      expect(comp.roomsSharedCollection).toEqual(expectedCollection);
+      expect(propertyService.query).toHaveBeenCalled();
+      expect(propertyService.addPropertyToCollectionIfMissing).toHaveBeenCalledWith(propertyCollection, property);
+      expect(comp.propertiesCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const accommodation: IAccommodation = { id: 456 };
-      const rooms: IRoom = { id: 40475 };
-      accommodation.rooms = [rooms];
+      const property: IProperty = { id: 52047 };
+      accommodation.property = property;
 
       activatedRoute.data = of({ accommodation });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(accommodation));
-      expect(comp.roomsSharedCollection).toContain(rooms);
+      expect(comp.propertiesCollection).toContain(property);
     });
   });
 
@@ -143,39 +142,11 @@ describe('Accommodation Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackRoomById', () => {
-      it('Should return tracked Room primary key', () => {
+    describe('trackPropertyById', () => {
+      it('Should return tracked Property primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackRoomById(0, entity);
+        const trackResult = comp.trackPropertyById(0, entity);
         expect(trackResult).toEqual(entity.id);
-      });
-    });
-  });
-
-  describe('Getting selected relationships', () => {
-    describe('getSelectedRoom', () => {
-      it('Should return option if no Room is selected', () => {
-        const option = { id: 123 };
-        const result = comp.getSelectedRoom(option);
-        expect(result === option).toEqual(true);
-      });
-
-      it('Should return selected Room for according option', () => {
-        const option = { id: 123 };
-        const selected = { id: 123 };
-        const selected2 = { id: 456 };
-        const result = comp.getSelectedRoom(option, [selected2, selected]);
-        expect(result === selected).toEqual(true);
-        expect(result === selected2).toEqual(false);
-        expect(result === option).toEqual(false);
-      });
-
-      it('Should return option if this Room is not selected', () => {
-        const option = { id: 123 };
-        const selected = { id: 456 };
-        const result = comp.getSelectedRoom(option, [selected]);
-        expect(result === option).toEqual(true);
-        expect(result === selected).toEqual(false);
       });
     });
   });

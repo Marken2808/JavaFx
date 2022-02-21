@@ -1,6 +1,6 @@
 {
   "applications": "*",
-  "changelogDate": "20220221113535",
+  "changelogDate": "20220221191844",
   "dto": "no",
   "embedded": false,
   "entityTableName": "project",
@@ -14,6 +14,11 @@
       "fieldName": "price",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
     }
   ],
   "fluentMethods": true,
@@ -21,6 +26,14 @@
   "name": "Project",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "property",
+      "otherEntityRelationshipName": "project",
+      "ownerSide": true,
+      "relationshipName": "property",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "no"
 }

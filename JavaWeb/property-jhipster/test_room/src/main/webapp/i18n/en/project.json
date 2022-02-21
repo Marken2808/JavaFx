@@ -19,7 +19,9 @@
       },
       "id": "ID",
       "title": "Title",
-      "price": "Price"
+      "price": "Price",
+      "image": "Image",
+      "property": "Property"
     }
   }
 }

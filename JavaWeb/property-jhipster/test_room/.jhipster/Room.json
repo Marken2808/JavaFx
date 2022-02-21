@@ -1,33 +1,38 @@
 {
   "applications": "*",
-  "changelogDate": "20220220224136",
+  "changelogDate": "20220221191843",
   "dto": "no",
   "embedded": false,
   "entityTableName": "room",
   "fields": [
     {
-      "fieldName": "title",
+      "fieldName": "rTitle",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "type",
+      "fieldName": "rType",
       "fieldType": "RoomType",
       "fieldValidateRules": ["required"],
-      "fieldValues": "Single_room,Double_room,King_room"
+      "fieldValues": "Attic,Lounge,Garage,Basement,Lavatory,Bedroom,Diningroom,Kitchen,Balcony,Landing,Hall"
     },
     {
-      "fieldName": "acreage",
+      "fieldName": "rAcreage",
       "fieldType": "Double",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "image",
+      "fieldName": "rSize",
+      "fieldType": "RoomSize",
+      "fieldValues": "Single_room,Double_room,King_room"
+    },
+    {
+      "fieldName": "rImage",
       "fieldType": "byte[]",
       "fieldTypeBlobContent": "image"
     },
     {
-      "fieldName": "price",
+      "fieldName": "rPrice",
       "fieldType": "Double"
     }
   ],
@@ -38,19 +43,10 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "type",
-      "otherEntityName": "area",
-      "otherEntityRelationshipName": "room",
-      "relationshipName": "area",
-      "relationshipType": "many-to-one",
-      "relationshipValidateRules": "required"
-    },
-    {
       "otherEntityName": "accommodation",
       "otherEntityRelationshipName": "room",
-      "ownerSide": false,
       "relationshipName": "accommodation",
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "relationshipValidateRules": "required"
     }
   ],

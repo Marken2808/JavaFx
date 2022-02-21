@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { RoomType } from 'app/entities/enumerations/room-type.model';
+import { RoomSize } from 'app/entities/enumerations/room-size.model';
 import { IRoom, Room } from '../room.model';
 
 import { RoomService } from './room.service';
@@ -22,12 +23,13 @@ describe('Room Service', () => {
 
     elemDefault = {
       id: 0,
-      title: 'AAAAAAA',
-      type: RoomType.Single_room,
-      acreage: 0,
-      imageContentType: 'image/png',
-      image: 'AAAAAAA',
-      price: 0,
+      rTitle: 'AAAAAAA',
+      rType: RoomType.Attic,
+      rAcreage: 0,
+      rSize: RoomSize.Single_room,
+      rImageContentType: 'image/png',
+      rImage: 'AAAAAAA',
+      rPrice: 0,
     };
   });
 
@@ -63,11 +65,12 @@ describe('Room Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          type: 'BBBBBB',
-          acreage: 1,
-          image: 'BBBBBB',
-          price: 1,
+          rTitle: 'BBBBBB',
+          rType: 'BBBBBB',
+          rAcreage: 1,
+          rSize: 'BBBBBB',
+          rImage: 'BBBBBB',
+          rPrice: 1,
         },
         elemDefault
       );
@@ -84,7 +87,8 @@ describe('Room Service', () => {
     it('should partial update a Room', () => {
       const patchObject = Object.assign(
         {
-          image: 'BBBBBB',
+          rSize: 'BBBBBB',
+          rPrice: 1,
         },
         new Room()
       );
@@ -104,11 +108,12 @@ describe('Room Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          title: 'BBBBBB',
-          type: 'BBBBBB',
-          acreage: 1,
-          image: 'BBBBBB',
-          price: 1,
+          rTitle: 'BBBBBB',
+          rType: 'BBBBBB',
+          rAcreage: 1,
+          rSize: 'BBBBBB',
+          rImage: 'BBBBBB',
+          rPrice: 1,
         },
         elemDefault
       );
@@ -160,7 +165,7 @@ describe('Room Service', () => {
       });
 
       it('should add only unique Room to an array', () => {
-        const roomArray: IRoom[] = [{ id: 123 }, { id: 456 }, { id: 60693 }];
+        const roomArray: IRoom[] = [{ id: 123 }, { id: 456 }, { id: 40853 }];
         const roomCollection: IRoom[] = [{ id: 123 }];
         expectedResult = service.addRoomToCollectionIfMissing(roomCollection, ...roomArray);
         expect(expectedResult).toHaveLength(3);

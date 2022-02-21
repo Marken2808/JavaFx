@@ -8,8 +8,8 @@ import { of, Subject, from } from 'rxjs';
 
 import { RoomService } from '../service/room.service';
 import { IRoom, Room } from '../room.model';
-import { IArea } from 'app/entities/area/area.model';
-import { AreaService } from 'app/entities/area/service/area.service';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
+import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
 
 import { RoomUpdateComponent } from './room-update.component';
 
@@ -18,7 +18,7 @@ describe('Room Management Update Component', () => {
   let fixture: ComponentFixture<RoomUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let roomService: RoomService;
-  let areaService: AreaService;
+  let accommodationService: AccommodationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,41 +40,44 @@ describe('Room Management Update Component', () => {
     fixture = TestBed.createComponent(RoomUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     roomService = TestBed.inject(RoomService);
-    areaService = TestBed.inject(AreaService);
+    accommodationService = TestBed.inject(AccommodationService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call Area query and add missing value', () => {
+    it('Should call Accommodation query and add missing value', () => {
       const room: IRoom = { id: 456 };
-      const area: IArea = { id: 1584 };
-      room.area = area;
+      const accommodation: IAccommodation = { id: 7475 };
+      room.accommodation = accommodation;
 
-      const areaCollection: IArea[] = [{ id: 17177 }];
-      jest.spyOn(areaService, 'query').mockReturnValue(of(new HttpResponse({ body: areaCollection })));
-      const additionalAreas = [area];
-      const expectedCollection: IArea[] = [...additionalAreas, ...areaCollection];
-      jest.spyOn(areaService, 'addAreaToCollectionIfMissing').mockReturnValue(expectedCollection);
+      const accommodationCollection: IAccommodation[] = [{ id: 42646 }];
+      jest.spyOn(accommodationService, 'query').mockReturnValue(of(new HttpResponse({ body: accommodationCollection })));
+      const additionalAccommodations = [accommodation];
+      const expectedCollection: IAccommodation[] = [...additionalAccommodations, ...accommodationCollection];
+      jest.spyOn(accommodationService, 'addAccommodationToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ room });
       comp.ngOnInit();
 
-      expect(areaService.query).toHaveBeenCalled();
-      expect(areaService.addAreaToCollectionIfMissing).toHaveBeenCalledWith(areaCollection, ...additionalAreas);
-      expect(comp.areasSharedCollection).toEqual(expectedCollection);
+      expect(accommodationService.query).toHaveBeenCalled();
+      expect(accommodationService.addAccommodationToCollectionIfMissing).toHaveBeenCalledWith(
+        accommodationCollection,
+        ...additionalAccommodations
+      );
+      expect(comp.accommodationsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const room: IRoom = { id: 456 };
-      const area: IArea = { id: 48098 };
-      room.area = area;
+      const accommodation: IAccommodation = { id: 81975 };
+      room.accommodation = accommodation;
 
       activatedRoute.data = of({ room });
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(room));
-      expect(comp.areasSharedCollection).toContain(area);
+      expect(comp.accommodationsSharedCollection).toContain(accommodation);
     });
   });
 
@@ -143,10 +146,10 @@ describe('Room Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackAreaById', () => {
-      it('Should return tracked Area primary key', () => {
+    describe('trackAccommodationById', () => {
+      it('Should return tracked Accommodation primary key', () => {
         const entity = { id: 123 };
-        const trackResult = comp.trackAreaById(0, entity);
+        const trackResult = comp.trackAccommodationById(0, entity);
         expect(trackResult).toEqual(entity.id);
       });
     });

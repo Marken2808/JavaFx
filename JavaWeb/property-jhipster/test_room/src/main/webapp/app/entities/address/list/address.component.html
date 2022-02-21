@@ -39,6 +39,7 @@
           <th scope="col"><span jhiTranslate="testRoomApp.address.city">City</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.address.postcode">Postcode</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.address.country">Country</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.address.property">Property</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,6 +54,11 @@
           <td>{{ address.city }}</td>
           <td>{{ address.postcode }}</td>
           <td>{{ address.country }}</td>
+          <td>
+            <div *ngIf="address.property">
+              <a [routerLink]="['/property', address.property?.id, 'view']">{{ address.property?.id }}</a>
+            </div>
+          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

@@ -1,7 +1,23 @@
 export enum RoomType {
-  Single_room = 'Single_room',
+  Attic = 'Attic',
 
-  Double_room = 'Double_room',
+  Lounge = 'Lounge',
 
-  King_room = 'King_room',
+  Garage = 'Garage',
+
+  Basement = 'Basement',
+
+  Lavatory = 'Lavatory',
+
+  Bedroom = 'Bedroom',
+
+  Diningroom = 'Diningroom',
+
+  Kitchen = 'Kitchen',
+
+  Balcony = 'Balcony',
+
+  Landing = 'Landing',
+
+  Hall = 'Hall',
 }

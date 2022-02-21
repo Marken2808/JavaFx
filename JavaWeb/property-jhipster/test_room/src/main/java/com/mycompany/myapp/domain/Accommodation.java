@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.AccommodationStatus;
 import com.mycompany.myapp.domain.enumeration.AccommodationType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -41,19 +39,20 @@ public class Accommodation implements Serializable {
     @Column(name = "status", nullable = false)
     private AccommodationStatus status;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @Column(name = "total")
     private Double total;
 
-    @ManyToMany
-    @NotNull
-    @JoinTable(
-        name = "rel_accommodation__room",
-        joinColumns = @JoinColumn(name = "accommodation_id"),
-        inverseJoinColumns = @JoinColumn(name = "room_id")
-    )
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "area", "accommodations" }, allowSetters = true)
-    private Set<Room> rooms = new HashSet<>();
+    @JsonIgnoreProperties(value = { "user" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Property property;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -109,6 +108,32 @@ public class Accommodation implements Serializable {
         this.status = status;
     }
 
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Accommodation image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Accommodation imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
     public Double getTotal() {
         return this.total;
     }
@@ -122,28 +147,16 @@ public class Accommodation implements Serializable {
         this.total = total;
     }
 
-    public Set<Room> getRooms() {
-        return this.rooms;
+    public Property getProperty() {
+        return this.property;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        this.rooms = rooms;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 
-    public Accommodation rooms(Set<Room> rooms) {
-        this.setRooms(rooms);
-        return this;
-    }
-
-    public Accommodation addRoom(Room room) {
-        this.rooms.add(room);
-        room.getAccommodations().add(this);
-        return this;
-    }
-
-    public Accommodation removeRoom(Room room) {
-        this.rooms.remove(room);
-        room.getAccommodations().remove(this);
+    public Accommodation property(Property property) {
+        this.setProperty(property);
         return this;
     }
 
@@ -174,6 +187,8 @@ public class Accommodation implements Serializable {
             ", title='" + getTitle() + "'" +
             ", type='" + getType() + "'" +
             ", status='" + getStatus() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             ", total=" + getTotal() +
             "}";
     }

@@ -26,6 +26,8 @@ describe('Property Service', () => {
       title: 'AAAAAAA',
       type: PropertyType.Accommodation,
       status: PropertyStatus.Sold,
+      imageContentType: 'image/png',
+      image: 'AAAAAAA',
       isUrgent: false,
     };
   });
@@ -65,6 +67,7 @@ describe('Property Service', () => {
           title: 'BBBBBB',
           type: 'BBBBBB',
           status: 'BBBBBB',
+          image: 'BBBBBB',
           isUrgent: true,
         },
         elemDefault
@@ -84,6 +87,7 @@ describe('Property Service', () => {
         {
           title: 'BBBBBB',
           type: 'BBBBBB',
+          isUrgent: true,
         },
         new Property()
       );
@@ -106,6 +110,7 @@ describe('Property Service', () => {
           title: 'BBBBBB',
           type: 'BBBBBB',
           status: 'BBBBBB',
+          image: 'BBBBBB',
           isUrgent: true,
         },
         elemDefault
@@ -158,7 +163,7 @@ describe('Property Service', () => {
       });
 
       it('should add only unique Property to an array', () => {
-        const propertyArray: IProperty[] = [{ id: 123 }, { id: 456 }, { id: 84907 }];
+        const propertyArray: IProperty[] = [{ id: 123 }, { id: 456 }, { id: 2250 }];
         const propertyCollection: IProperty[] = [{ id: 123 }];
         expectedResult = service.addPropertyToCollectionIfMissing(propertyCollection, ...propertyArray);
         expect(expectedResult).toHaveLength(3);

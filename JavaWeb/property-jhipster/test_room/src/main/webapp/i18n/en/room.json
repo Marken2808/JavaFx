@@ -18,12 +18,12 @@
         "title": "Room"
       },
       "id": "ID",
-      "title": "Title",
-      "type": "Type",
-      "acreage": "Acreage",
-      "image": "Image",
-      "price": "Price",
-      "area": "Area",
+      "rTitle": "R Title",
+      "rType": "R Type",
+      "rAcreage": "R Acreage",
+      "rSize": "R Size",
+      "rImage": "R Image",
+      "rPrice": "R Price",
       "accommodation": "Accommodation"
     }
   }

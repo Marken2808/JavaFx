@@ -1,11 +1,8 @@
 package com.mycompany.myapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -41,31 +38,18 @@ public class Property implements Serializable {
     @Column(name = "status", nullable = false)
     private PropertyStatus status;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    @Column(name = "image_content_type")
+    private String imageContentType;
+
     @Column(name = "is_urgent")
     private Boolean isUrgent;
 
-    @OneToOne(optional = false)
-    @NotNull
-    @JoinColumn(unique = true)
-    private Address address;
-
-    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Accommodation accommodation;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Project project;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Land land;
-
-    @ManyToMany(mappedBy = "properties")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "user", "properties", "name" }, allowSetters = true)
-    private Set<Customer> customers = new HashSet<>();
+    @ManyToOne
+    private User user;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -121,6 +105,32 @@ public class Property implements Serializable {
         this.status = status;
     }
 
+    public byte[] getImage() {
+        return this.image;
+    }
+
+    public Property image(byte[] image) {
+        this.setImage(image);
+        return this;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getImageContentType() {
+        return this.imageContentType;
+    }
+
+    public Property imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+        return this;
+    }
+
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
+    }
+
     public Boolean getIsUrgent() {
         return this.isUrgent;
     }
@@ -134,86 +144,16 @@ public class Property implements Serializable {
         this.isUrgent = isUrgent;
     }
 
-    public Address getAddress() {
-        return this.address;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Property address(Address address) {
-        this.setAddress(address);
-        return this;
-    }
-
-    public Accommodation getAccommodation() {
-        return this.accommodation;
-    }
-
-    public void setAccommodation(Accommodation accommodation) {
-        this.accommodation = accommodation;
-    }
-
-    public Property accommodation(Accommodation accommodation) {
-        this.setAccommodation(accommodation);
-        return this;
-    }
-
-    public Project getProject() {
-        return this.project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    public Property project(Project project) {
-        this.setProject(project);
-        return this;
-    }
-
-    public Land getLand() {
-        return this.land;
-    }
-
-    public void setLand(Land land) {
-        this.land = land;
-    }
-
-    public Property land(Land land) {
-        this.setLand(land);
-        return this;
-    }
-
-    public Set<Customer> getCustomers() {
-        return this.customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        if (this.customers != null) {
-            this.customers.forEach(i -> i.removeProperty(this));
-        }
-        if (customers != null) {
-            customers.forEach(i -> i.addProperty(this));
-        }
-        this.customers = customers;
-    }
-
-    public Property customers(Set<Customer> customers) {
-        this.setCustomers(customers);
-        return this;
-    }
-
-    public Property addCustomer(Customer customer) {
-        this.customers.add(customer);
-        customer.getProperties().add(this);
-        return this;
-    }
-
-    public Property removeCustomer(Customer customer) {
-        this.customers.remove(customer);
-        customer.getProperties().remove(this);
+    public Property user(User user) {
+        this.setUser(user);
         return this;
     }
 
@@ -244,6 +184,8 @@ public class Property implements Serializable {
             ", title='" + getTitle() + "'" +
             ", type='" + getType() + "'" +
             ", status='" + getStatus() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             ", isUrgent='" + getIsUrgent() + "'" +
             "}";
     }

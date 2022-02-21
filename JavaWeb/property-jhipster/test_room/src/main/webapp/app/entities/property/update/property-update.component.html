@@ -54,79 +54,57 @@
         </div>
 
         <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.property.image" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="property image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-left">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-right"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_image"
+              data-cy="image"
+              (change)="setFileData($event, 'image', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+        </div>
+
+        <div class="form-group">
           <label class="form-control-label" jhiTranslate="testRoomApp.property.isUrgent" for="field_isUrgent">Is Urgent</label>
           <input type="checkbox" class="form-check" name="isUrgent" id="field_isUrgent" data-cy="isUrgent" formControlName="isUrgent" />
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.property.address" for="field_address">Address</label>
-          <select class="form-control" id="field_address" data-cy="address" name="address" formControlName="address">
-            <option *ngIf="editForm.get(['address'])!.value == null" [ngValue]="null" selected></option>
-            <option
-              [ngValue]="addressOption.id === editForm.get('address')!.value?.id ? editForm.get('address')!.value : addressOption"
-              *ngFor="let addressOption of addressesCollection; trackBy: trackAddressById"
-            >
-              {{ addressOption.street }}
-            </option>
-          </select>
-        </div>
-        <div *ngIf="editForm.get(['address'])!.invalid && (editForm.get(['address'])!.dirty || editForm.get(['address'])!.touched)">
-          <small
-            class="form-text text-danger"
-            *ngIf="editForm.get(['address'])?.errors?.required"
-            jhiTranslate="entity.validation.required"
-          >
-            This field is required.
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.property.accommodation" for="field_accommodation"
-            >Accommodation</label
-          >
-          <select
-            class="form-control"
-            id="field_accommodation"
-            data-cy="accommodation"
-            name="accommodation"
-            formControlName="accommodation"
-          >
+          <label class="form-control-label" jhiTranslate="testRoomApp.property.user" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="
-                accommodationOption.id === editForm.get('accommodation')!.value?.id
-                  ? editForm.get('accommodation')!.value
-                  : accommodationOption
-              "
-              *ngFor="let accommodationOption of accommodationsCollection; trackBy: trackAccommodationById"
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
             >
-              {{ accommodationOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.property.project" for="field_project">Project</label>
-          <select class="form-control" id="field_project" data-cy="project" name="project" formControlName="project">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="projectOption.id === editForm.get('project')!.value?.id ? editForm.get('project')!.value : projectOption"
-              *ngFor="let projectOption of projectsCollection; trackBy: trackProjectById"
-            >
-              {{ projectOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="testRoomApp.property.land" for="field_land">Land</label>
-          <select class="form-control" id="field_land" data-cy="land" name="land" formControlName="land">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="landOption.id === editForm.get('land')!.value?.id ? editForm.get('land')!.value : landOption"
-              *ngFor="let landOption of landsCollection; trackBy: trackLandById"
-            >
-              {{ landOption.id }}
+              {{ userOption.login }}
             </option>
           </select>
         </div>

@@ -1,11 +1,11 @@
-id;title;type;status;total
-1;Practical salmon improvement;Ensuite;Furnished;99019
-2;Zimbabwe;Studio;Furnished;16380
-3;Gloves programming Keyboard;Studio;Furnished;52674
-4;Overpass;Apartment;Partfurnished;70928
-5;transparent Rustic;Ensuite;Furnished;86446
-6;Fantastic;House;Unfurnished;91038
-7;Cambridgeshire;Studio;Partfurnished;21103
-8;Intelligent payment Incredible;Flat;Unfurnished;6979
-9;neural withdrawal SSL;Studio;Furnished;87741
-10;Borders Practical hard;House;Furnished;77134
+id;title;type;status;image;image_content_type;total
+1;Practical salmon improvement;Ensuite;Furnished;../fake-data/blob/hipster.png;image/png;99019
+2;Zimbabwe;Studio;Furnished;../fake-data/blob/hipster.png;image/png;16380
+3;Gloves programming Keyboard;Studio;Furnished;../fake-data/blob/hipster.png;image/png;52674
+4;Overpass;Apartment;Partfurnished;../fake-data/blob/hipster.png;image/png;70928
+5;transparent Rustic;Ensuite;Furnished;../fake-data/blob/hipster.png;image/png;86446
+6;Fantastic;House;Unfurnished;../fake-data/blob/hipster.png;image/png;91038
+7;Cambridgeshire;Studio;Partfurnished;../fake-data/blob/hipster.png;image/png;21103
+8;Intelligent payment Incredible;Flat;Unfurnished;../fake-data/blob/hipster.png;image/png;6979
+9;neural withdrawal SSL;Studio;Furnished;../fake-data/blob/hipster.png;image/png;87741
+10;Borders Practical hard;House;Furnished;../fake-data/blob/hipster.png;image/png;77134

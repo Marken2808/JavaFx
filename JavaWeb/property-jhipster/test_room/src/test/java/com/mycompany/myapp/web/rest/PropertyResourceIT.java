@@ -6,8 +6,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
-import com.mycompany.myapp.domain.Address;
-import com.mycompany.myapp.domain.Customer;
 import com.mycompany.myapp.domain.Property;
 import com.mycompany.myapp.domain.enumeration.PropertyStatus;
 import com.mycompany.myapp.domain.enumeration.PropertyType;
@@ -24,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link PropertyResource} REST controller.
@@ -41,6 +40,11 @@ class PropertyResourceIT {
 
     private static final PropertyStatus DEFAULT_STATUS = PropertyStatus.Sold;
     private static final PropertyStatus UPDATED_STATUS = PropertyStatus.Selling;
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     private static final Boolean DEFAULT_IS_URGENT = false;
     private static final Boolean UPDATED_IS_URGENT = true;
@@ -69,27 +73,13 @@ class PropertyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Property createEntity(EntityManager em) {
-        Property property = new Property().title(DEFAULT_TITLE).type(DEFAULT_TYPE).status(DEFAULT_STATUS).isUrgent(DEFAULT_IS_URGENT);
-        // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        property.setAddress(address);
-        // Add required entity
-        Customer customer;
-        if (TestUtil.findAll(em, Customer.class).isEmpty()) {
-            customer = CustomerResourceIT.createEntity(em);
-            em.persist(customer);
-            em.flush();
-        } else {
-            customer = TestUtil.findAll(em, Customer.class).get(0);
-        }
-        property.getCustomers().add(customer);
+        Property property = new Property()
+            .title(DEFAULT_TITLE)
+            .type(DEFAULT_TYPE)
+            .status(DEFAULT_STATUS)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
+            .isUrgent(DEFAULT_IS_URGENT);
         return property;
     }
 
@@ -100,27 +90,13 @@ class PropertyResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Property createUpdatedEntity(EntityManager em) {
-        Property property = new Property().title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
-        // Add required entity
-        Address address;
-        if (TestUtil.findAll(em, Address.class).isEmpty()) {
-            address = AddressResourceIT.createUpdatedEntity(em);
-            em.persist(address);
-            em.flush();
-        } else {
-            address = TestUtil.findAll(em, Address.class).get(0);
-        }
-        property.setAddress(address);
-        // Add required entity
-        Customer customer;
-        if (TestUtil.findAll(em, Customer.class).isEmpty()) {
-            customer = CustomerResourceIT.createUpdatedEntity(em);
-            em.persist(customer);
-            em.flush();
-        } else {
-            customer = TestUtil.findAll(em, Customer.class).get(0);
-        }
-        property.getCustomers().add(customer);
+        Property property = new Property()
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .isUrgent(UPDATED_IS_URGENT);
         return property;
     }
 
@@ -145,6 +121,8 @@ class PropertyResourceIT {
         assertThat(testProperty.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testProperty.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testProperty.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProperty.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testProperty.getIsUrgent()).isEqualTo(DEFAULT_IS_URGENT);
     }
 
@@ -232,6 +210,8 @@ class PropertyResourceIT {
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].isUrgent").value(hasItem(DEFAULT_IS_URGENT.booleanValue())));
     }
 
@@ -250,6 +230,8 @@ class PropertyResourceIT {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.isUrgent").value(DEFAULT_IS_URGENT.booleanValue()));
     }
 
@@ -272,7 +254,13 @@ class PropertyResourceIT {
         Property updatedProperty = propertyRepository.findById(property.getId()).get();
         // Disconnect from session so that the updates on updatedProperty are not directly saved in db
         em.detach(updatedProperty);
-        updatedProperty.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
+        updatedProperty
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -289,6 +277,8 @@ class PropertyResourceIT {
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProperty.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProperty.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 
@@ -360,7 +350,11 @@ class PropertyResourceIT {
         Property partialUpdatedProperty = new Property();
         partialUpdatedProperty.setId(property.getId());
 
-        partialUpdatedProperty.title(UPDATED_TITLE).isUrgent(UPDATED_IS_URGENT);
+        partialUpdatedProperty
+            .title(UPDATED_TITLE)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -377,6 +371,8 @@ class PropertyResourceIT {
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProperty.getType()).isEqualTo(DEFAULT_TYPE);
         assertThat(testProperty.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testProperty.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProperty.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 
@@ -392,7 +388,13 @@ class PropertyResourceIT {
         Property partialUpdatedProperty = new Property();
         partialUpdatedProperty.setId(property.getId());
 
-        partialUpdatedProperty.title(UPDATED_TITLE).type(UPDATED_TYPE).status(UPDATED_STATUS).isUrgent(UPDATED_IS_URGENT);
+        partialUpdatedProperty
+            .title(UPDATED_TITLE)
+            .type(UPDATED_TYPE)
+            .status(UPDATED_STATUS)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
+            .isUrgent(UPDATED_IS_URGENT);
 
         restPropertyMockMvc
             .perform(
@@ -409,6 +411,8 @@ class PropertyResourceIT {
         assertThat(testProperty.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProperty.getType()).isEqualTo(UPDATED_TYPE);
         assertThat(testProperty.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testProperty.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProperty.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testProperty.getIsUrgent()).isEqualTo(UPDATED_IS_URGENT);
     }
 

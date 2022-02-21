@@ -47,6 +47,28 @@
           <label class="form-control-label" jhiTranslate="testRoomApp.address.country" for="field_country">Country</label>
           <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.address.property" for="field_property">Property</label>
+          <select class="form-control" id="field_property" data-cy="property" name="property" formControlName="property">
+            <option *ngIf="editForm.get(['property'])!.value == null" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="propertyOption.id === editForm.get('property')!.value?.id ? editForm.get('property')!.value : propertyOption"
+              *ngFor="let propertyOption of propertiesCollection; trackBy: trackPropertyById"
+            >
+              {{ propertyOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['property'])!.invalid && (editForm.get(['property'])!.dirty || editForm.get(['property'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['property'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
       </div>
 
       <div>

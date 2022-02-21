@@ -23,6 +23,8 @@ describe('Project Service', () => {
       id: 0,
       title: 'AAAAAAA',
       price: 0,
+      imageContentType: 'image/png',
+      image: 'AAAAAAA',
     };
   });
 
@@ -60,6 +62,7 @@ describe('Project Service', () => {
           id: 1,
           title: 'BBBBBB',
           price: 1,
+          image: 'BBBBBB',
         },
         elemDefault
       );
@@ -98,6 +101,7 @@ describe('Project Service', () => {
           id: 1,
           title: 'BBBBBB',
           price: 1,
+          image: 'BBBBBB',
         },
         elemDefault
       );
@@ -149,7 +153,7 @@ describe('Project Service', () => {
       });
 
       it('should add only unique Project to an array', () => {
-        const projectArray: IProject[] = [{ id: 123 }, { id: 456 }, { id: 22718 }];
+        const projectArray: IProject[] = [{ id: 123 }, { id: 456 }, { id: 38197 }];
         const projectCollection: IProject[] = [{ id: 123 }];
         expectedResult = service.addProjectToCollectionIfMissing(projectCollection, ...projectArray);
         expect(expectedResult).toHaveLength(3);

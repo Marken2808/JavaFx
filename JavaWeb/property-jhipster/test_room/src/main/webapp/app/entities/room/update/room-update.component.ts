@@ -10,9 +10,10 @@ import { RoomService } from '../service/room.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
-import { IArea } from 'app/entities/area/area.model';
-import { AreaService } from 'app/entities/area/service/area.service';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
+import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
 import { RoomType } from 'app/entities/enumerations/room-type.model';
+import { RoomSize } from 'app/entities/enumerations/room-size.model';
 
 @Component({
   selector: 'jhi-room-update',
@@ -21,25 +22,27 @@ import { RoomType } from 'app/entities/enumerations/room-type.model';
 export class RoomUpdateComponent implements OnInit {
   isSaving = false;
   roomTypeValues = Object.keys(RoomType);
+  roomSizeValues = Object.keys(RoomSize);
 
-  areasSharedCollection: IArea[] = [];
+  accommodationsSharedCollection: IAccommodation[] = [];
 
   editForm = this.fb.group({
     id: [],
-    title: [null, [Validators.required]],
-    type: [null, [Validators.required]],
-    acreage: [null, [Validators.required]],
-    image: [],
-    imageContentType: [],
-    price: [],
-    area: [null, Validators.required],
+    rTitle: [null, [Validators.required]],
+    rType: [null, [Validators.required]],
+    rAcreage: [null, [Validators.required]],
+    rSize: [],
+    rImage: [],
+    rImageContentType: [],
+    rPrice: [],
+    accommodation: [null, Validators.required],
   });
 
   constructor(
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected roomService: RoomService,
-    protected areaService: AreaService,
+    protected accommodationService: AccommodationService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -92,7 +95,7 @@ export class RoomUpdateComponent implements OnInit {
     }
   }
 
-  trackAreaById(index: number, item: IArea): number {
+  trackAccommodationById(index: number, item: IAccommodation): number {
     return item.id!;
   }
 
@@ -118,37 +121,46 @@ export class RoomUpdateComponent implements OnInit {
   protected updateForm(room: IRoom): void {
     this.editForm.patchValue({
       id: room.id,
-      title: room.title,
-      type: room.type,
-      acreage: room.acreage,
-      image: room.image,
-      imageContentType: room.imageContentType,
-      price: room.price,
-      area: room.area,
+      rTitle: room.rTitle,
+      rType: room.rType,
+      rAcreage: room.rAcreage,
+      rSize: room.rSize,
+      rImage: room.rImage,
+      rImageContentType: room.rImageContentType,
+      rPrice: room.rPrice,
+      accommodation: room.accommodation,
     });
 
-    this.areasSharedCollection = this.areaService.addAreaToCollectionIfMissing(this.areasSharedCollection, room.area);
+    this.accommodationsSharedCollection = this.accommodationService.addAccommodationToCollectionIfMissing(
+      this.accommodationsSharedCollection,
+      room.accommodation
+    );
   }
 
   protected loadRelationshipsOptions(): void {
-    this.areaService
+    this.accommodationService
       .query()
-      .pipe(map((res: HttpResponse<IArea[]>) => res.body ?? []))
-      .pipe(map((areas: IArea[]) => this.areaService.addAreaToCollectionIfMissing(areas, this.editForm.get('area')!.value)))
-      .subscribe((areas: IArea[]) => (this.areasSharedCollection = areas));
+      .pipe(map((res: HttpResponse<IAccommodation[]>) => res.body ?? []))
+      .pipe(
+        map((accommodations: IAccommodation[]) =>
+          this.accommodationService.addAccommodationToCollectionIfMissing(accommodations, this.editForm.get('accommodation')!.value)
+        )
+      )
+      .subscribe((accommodations: IAccommodation[]) => (this.accommodationsSharedCollection = accommodations));
   }
 
   protected createFromForm(): IRoom {
     return {
       ...new Room(),
       id: this.editForm.get(['id'])!.value,
-      title: this.editForm.get(['title'])!.value,
-      type: this.editForm.get(['type'])!.value,
-      acreage: this.editForm.get(['acreage'])!.value,
-      imageContentType: this.editForm.get(['imageContentType'])!.value,
-      image: this.editForm.get(['image'])!.value,
-      price: this.editForm.get(['price'])!.value,
-      area: this.editForm.get(['area'])!.value,
+      rTitle: this.editForm.get(['rTitle'])!.value,
+      rType: this.editForm.get(['rType'])!.value,
+      rAcreage: this.editForm.get(['rAcreage'])!.value,
+      rSize: this.editForm.get(['rSize'])!.value,
+      rImageContentType: this.editForm.get(['rImageContentType'])!.value,
+      rImage: this.editForm.get(['rImage'])!.value,
+      rPrice: this.editForm.get(['rPrice'])!.value,
+      accommodation: this.editForm.get(['accommodation'])!.value,
     };
   }
 }

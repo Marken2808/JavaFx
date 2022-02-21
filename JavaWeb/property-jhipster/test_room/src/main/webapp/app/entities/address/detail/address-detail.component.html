@@ -38,6 +38,12 @@
         <dd>
           <span>{{ address.country }}</span>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.address.property">Property</span></dt>
+        <dd>
+          <div *ngIf="address.property">
+            <a [routerLink]="['/property', address.property?.id, 'view']">{{ address.property?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

@@ -1,8 +1,4 @@
-import { IAddress } from 'app/entities/address/address.model';
-import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
-import { IProject } from 'app/entities/project/project.model';
-import { ILand } from 'app/entities/land/land.model';
-import { ICustomer } from 'app/entities/customer/customer.model';
+import { IUser } from 'app/entities/user/user.model';
 import { PropertyType } from 'app/entities/enumerations/property-type.model';
 import { PropertyStatus } from 'app/entities/enumerations/property-status.model';
 
@@ -11,12 +7,10 @@ export interface IProperty {
   title?: string;
   type?: PropertyType;
   status?: PropertyStatus;
+  imageContentType?: string | null;
+  image?: string | null;
   isUrgent?: boolean | null;
-  address?: IAddress;
-  accommodation?: IAccommodation | null;
-  project?: IProject | null;
-  land?: ILand | null;
-  customers?: ICustomer[];
+  user?: IUser | null;
 }
 
 export class Property implements IProperty {
@@ -25,12 +19,10 @@ export class Property implements IProperty {
     public title?: string,
     public type?: PropertyType,
     public status?: PropertyStatus,
+    public imageContentType?: string | null,
+    public image?: string | null,
     public isUrgent?: boolean | null,
-    public address?: IAddress,
-    public accommodation?: IAccommodation | null,
-    public project?: IProject | null,
-    public land?: ILand | null,
-    public customers?: ICustomer[]
+    public user?: IUser | null
   ) {
     this.isUrgent = this.isUrgent ?? false;
   }

@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link LandResource} REST controller.
@@ -34,6 +35,11 @@ class LandResourceIT {
 
     private static final Double DEFAULT_PRICE = 1D;
     private static final Double UPDATED_PRICE = 2D;
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     private static final String ENTITY_API_URL = "/api/lands";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -59,7 +65,7 @@ class LandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Land createEntity(EntityManager em) {
-        Land land = new Land().title(DEFAULT_TITLE).price(DEFAULT_PRICE);
+        Land land = new Land().title(DEFAULT_TITLE).price(DEFAULT_PRICE).image(DEFAULT_IMAGE).imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return land;
     }
 
@@ -70,7 +76,7 @@ class LandResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Land createUpdatedEntity(EntityManager em) {
-        Land land = new Land().title(UPDATED_TITLE).price(UPDATED_PRICE);
+        Land land = new Land().title(UPDATED_TITLE).price(UPDATED_PRICE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         return land;
     }
 
@@ -94,6 +100,8 @@ class LandResourceIT {
         Land testLand = landList.get(landList.size() - 1);
         assertThat(testLand.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testLand.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testLand.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testLand.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -161,7 +169,9 @@ class LandResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(land.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
 
     @Test
@@ -177,7 +187,9 @@ class LandResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(land.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
+            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -199,7 +211,7 @@ class LandResourceIT {
         Land updatedLand = landRepository.findById(land.getId()).get();
         // Disconnect from session so that the updates on updatedLand are not directly saved in db
         em.detach(updatedLand);
-        updatedLand.title(UPDATED_TITLE).price(UPDATED_PRICE);
+        updatedLand.title(UPDATED_TITLE).price(UPDATED_PRICE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restLandMockMvc
             .perform(
@@ -215,6 +227,8 @@ class LandResourceIT {
         Land testLand = landList.get(landList.size() - 1);
         assertThat(testLand.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testLand.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testLand.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testLand.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -285,6 +299,8 @@ class LandResourceIT {
         Land partialUpdatedLand = new Land();
         partialUpdatedLand.setId(land.getId());
 
+        partialUpdatedLand.image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
+
         restLandMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedLand.getId())
@@ -299,6 +315,8 @@ class LandResourceIT {
         Land testLand = landList.get(landList.size() - 1);
         assertThat(testLand.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testLand.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testLand.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testLand.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -313,7 +331,7 @@ class LandResourceIT {
         Land partialUpdatedLand = new Land();
         partialUpdatedLand.setId(land.getId());
 
-        partialUpdatedLand.title(UPDATED_TITLE).price(UPDATED_PRICE);
+        partialUpdatedLand.title(UPDATED_TITLE).price(UPDATED_PRICE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restLandMockMvc
             .perform(
@@ -329,6 +347,8 @@ class LandResourceIT {
         Land testLand = landList.get(landList.size() - 1);
         assertThat(testLand.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testLand.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testLand.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testLand.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test

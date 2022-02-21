@@ -33,12 +33,13 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.title">Title</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.type">Type</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.acreage">Acreage</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.image">Image</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.price">Price</span></th>
-          <th scope="col"><span jhiTranslate="testRoomApp.room.area">Area</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rTitle">R Title</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rType">R Type</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rAcreage">R Acreage</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rSize">R Size</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rImage">R Image</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.rPrice">R Price</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.room.accommodation">Accommodation</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -47,19 +48,20 @@
           <td>
             <a [routerLink]="['/room', room.id, 'view']">{{ room.id }}</a>
           </td>
-          <td>{{ room.title }}</td>
-          <td jhiTranslate="{{ 'testRoomApp.RoomType.' + room.type }}">{{ room.type }}</td>
-          <td>{{ room.acreage }}</td>
+          <td>{{ room.rTitle }}</td>
+          <td jhiTranslate="{{ 'testRoomApp.RoomType.' + room.rType }}">{{ room.rType }}</td>
+          <td>{{ room.rAcreage }}</td>
+          <td jhiTranslate="{{ 'testRoomApp.RoomSize.' + room.rSize }}">{{ room.rSize }}</td>
           <td>
-            <a *ngIf="room.image" (click)="openFile(room.image, room.imageContentType)">
-              <img [src]="'data:' + room.imageContentType + ';base64,' + room.image" style="max-height: 30px" alt="room image" />
+            <a *ngIf="room.rImage" (click)="openFile(room.rImage, room.rImageContentType)">
+              <img [src]="'data:' + room.rImageContentType + ';base64,' + room.rImage" style="max-height: 30px" alt="room image" />
             </a>
-            <span *ngIf="room.image">{{ room.imageContentType }}, {{ byteSize(room.image) }}</span>
+            <span *ngIf="room.rImage">{{ room.rImageContentType }}, {{ byteSize(room.rImage) }}</span>
           </td>
-          <td>{{ room.price }}</td>
+          <td>{{ room.rPrice }}</td>
           <td>
-            <div *ngIf="room.area">
-              <a [routerLink]="['/area', room.area?.id, 'view']">{{ room.area?.type }}</a>
+            <div *ngIf="room.accommodation">
+              <a [routerLink]="['/accommodation', room.accommodation?.id, 'view']">{{ room.accommodation?.id }}</a>
             </div>
           </td>
           <td class="text-right">

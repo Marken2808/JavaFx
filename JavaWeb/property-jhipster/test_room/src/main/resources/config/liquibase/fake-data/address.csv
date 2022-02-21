@@ -1,11 +1,11 @@
-id;numberic;street;county;city;postcode;country
-1;mindshare Interactions Versatile;Wilderman Spring;Rubber line applications;Alexandria;Chicken Passage JSON;Isle of Man
-2;Corporate Mandatory;Kunde Land;didactic Chips purple;Rohanland;microchip Chile Tuna;Hungary
-3;Berkshire Designer the;Stamm Radial;policy;Ellieville;Bike Timor-Leste grow;Congo
-4;SMTP Toys;Price Gateway;synthesizing;Grand Forks;initiative Loan calculating;Antarctica (the territory South of 60 deg S)
-5;optical Rustic USB;Isabelle Flat;Bacon morph;Riverside;National;Sudan
-6;Fresh state Savings;Rick Garden;parse Luxembourg;South Ethantown;Identity calculate bus;Christmas Island
-7;payment boliviano Garden;Bogisich Islands;Ramp benchmark Rubber;Novato;Dynamic Pound;Andorra
-8;Cameroon Pizza Grass-roots;Senger Ville;purple alarm;Lake Kelsie;Plastic compressing;Barbados
-9;compelling Haven Plastic;Royal Tunnel;Steel CSS compress;Lake Flaviemouth;Practical Factors;Venezuela
-10;HTTP calculate;Becker Prairie;Grocery Soft;South Mohamedview;Namibia;Christmas Island
+id;numberic;street;county;city;postcode;country;property_id
+1;mindshare Interactions Versatile;Wilderman Spring;Rubber line applications;Alexandria;Chicken Passage JSON;Isle of Man;1
+2;Corporate Mandatory;Kunde Land;didactic Chips purple;Rohanland;microchip Chile Tuna;Hungary;2
+3;Berkshire Designer the;Stamm Radial;policy;Ellieville;Bike Timor-Leste grow;Congo;3
+4;SMTP Toys;Price Gateway;synthesizing;Grand Forks;initiative Loan calculating;Antarctica (the territory South of 60 deg S);4
+5;optical Rustic USB;Isabelle Flat;Bacon morph;Riverside;National;Sudan;5
+6;Fresh state Savings;Rick Garden;parse Luxembourg;South Ethantown;Identity calculate bus;Christmas Island;6
+7;payment boliviano Garden;Bogisich Islands;Ramp benchmark Rubber;Novato;Dynamic Pound;Andorra;7
+8;Cameroon Pizza Grass-roots;Senger Ville;purple alarm;Lake Kelsie;Plastic compressing;Barbados;8
+9;compelling Haven Plastic;Royal Tunnel;Steel CSS compress;Lake Flaviemouth;Practical Factors;Venezuela;9
+10;HTTP calculate;Becker Prairie;Grocery Soft;South Mohamedview;Namibia;Christmas Island;10

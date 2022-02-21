@@ -3,10 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IAddress, Address } from '../address.model';
 import { AddressService } from '../service/address.service';
+import { IProperty } from 'app/entities/property/property.model';
+import { PropertyService } from 'app/entities/property/service/property.service';
 
 @Component({
   selector: 'jhi-address-update',
@@ -14,6 +16,8 @@ import { AddressService } from '../service/address.service';
 })
 export class AddressUpdateComponent implements OnInit {
   isSaving = false;
+
+  propertiesCollection: IProperty[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -23,13 +27,21 @@ export class AddressUpdateComponent implements OnInit {
     city: [],
     postcode: [],
     country: [],
+    property: [null, Validators.required],
   });
 
-  constructor(protected addressService: AddressService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected addressService: AddressService,
+    protected propertyService: PropertyService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ address }) => {
       this.updateForm(address);
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -45,6 +57,10 @@ export class AddressUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.addressService.create(address));
     }
+  }
+
+  trackPropertyById(index: number, item: IProperty): number {
+    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IAddress>>): void {
@@ -75,7 +91,22 @@ export class AddressUpdateComponent implements OnInit {
       city: address.city,
       postcode: address.postcode,
       country: address.country,
+      property: address.property,
     });
+
+    this.propertiesCollection = this.propertyService.addPropertyToCollectionIfMissing(this.propertiesCollection, address.property);
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.propertyService
+      .query({ filter: 'address-is-null' })
+      .pipe(map((res: HttpResponse<IProperty[]>) => res.body ?? []))
+      .pipe(
+        map((properties: IProperty[]) =>
+          this.propertyService.addPropertyToCollectionIfMissing(properties, this.editForm.get('property')!.value)
+        )
+      )
+      .subscribe((properties: IProperty[]) => (this.propertiesCollection = properties));
   }
 
   protected createFromForm(): IAddress {
@@ -88,6 +119,7 @@ export class AddressUpdateComponent implements OnInit {
       city: this.editForm.get(['city'])!.value,
       postcode: this.editForm.get(['postcode'])!.value,
       country: this.editForm.get(['country'])!.value,
+      property: this.editForm.get(['property'])!.value,
     };
   }
 }

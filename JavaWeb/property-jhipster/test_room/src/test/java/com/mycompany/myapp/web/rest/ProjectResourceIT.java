@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 /**
  * Integration tests for the {@link ProjectResource} REST controller.
@@ -34,6 +35,11 @@ class ProjectResourceIT {
 
     private static final Double DEFAULT_PRICE = 1D;
     private static final Double UPDATED_PRICE = 2D;
+
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     private static final String ENTITY_API_URL = "/api/projects";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -59,7 +65,11 @@ class ProjectResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Project createEntity(EntityManager em) {
-        Project project = new Project().title(DEFAULT_TITLE).price(DEFAULT_PRICE);
+        Project project = new Project()
+            .title(DEFAULT_TITLE)
+            .price(DEFAULT_PRICE)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         return project;
     }
 
@@ -70,7 +80,11 @@ class ProjectResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Project createUpdatedEntity(EntityManager em) {
-        Project project = new Project().title(UPDATED_TITLE).price(UPDATED_PRICE);
+        Project project = new Project()
+            .title(UPDATED_TITLE)
+            .price(UPDATED_PRICE)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         return project;
     }
 
@@ -94,6 +108,8 @@ class ProjectResourceIT {
         Project testProject = projectList.get(projectList.size() - 1);
         assertThat(testProject.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testProject.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testProject.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProject.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -161,7 +177,9 @@ class ProjectResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(project.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
+            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))));
     }
 
     @Test
@@ -177,7 +195,9 @@ class ProjectResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(project.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()));
+            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.doubleValue()))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)));
     }
 
     @Test
@@ -199,7 +219,7 @@ class ProjectResourceIT {
         Project updatedProject = projectRepository.findById(project.getId()).get();
         // Disconnect from session so that the updates on updatedProject are not directly saved in db
         em.detach(updatedProject);
-        updatedProject.title(UPDATED_TITLE).price(UPDATED_PRICE);
+        updatedProject.title(UPDATED_TITLE).price(UPDATED_PRICE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restProjectMockMvc
             .perform(
@@ -215,6 +235,8 @@ class ProjectResourceIT {
         Project testProject = projectList.get(projectList.size() - 1);
         assertThat(testProject.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProject.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testProject.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProject.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -301,6 +323,8 @@ class ProjectResourceIT {
         Project testProject = projectList.get(projectList.size() - 1);
         assertThat(testProject.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProject.getPrice()).isEqualTo(DEFAULT_PRICE);
+        assertThat(testProject.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testProject.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
     }
 
     @Test
@@ -315,7 +339,7 @@ class ProjectResourceIT {
         Project partialUpdatedProject = new Project();
         partialUpdatedProject.setId(project.getId());
 
-        partialUpdatedProject.title(UPDATED_TITLE).price(UPDATED_PRICE);
+        partialUpdatedProject.title(UPDATED_TITLE).price(UPDATED_PRICE).image(UPDATED_IMAGE).imageContentType(UPDATED_IMAGE_CONTENT_TYPE);
 
         restProjectMockMvc
             .perform(
@@ -331,6 +355,8 @@ class ProjectResourceIT {
         Project testProject = projectList.get(projectList.size() - 1);
         assertThat(testProject.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testProject.getPrice()).isEqualTo(UPDATED_PRICE);
+        assertThat(testProject.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testProject.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
     }
 
     @Test
