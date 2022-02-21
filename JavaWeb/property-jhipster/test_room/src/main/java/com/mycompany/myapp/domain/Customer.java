@@ -55,7 +55,7 @@ public class Customer implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "property_id")
     )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "address", "customers" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "address", "accommodation", "project", "land", "customers" }, allowSetters = true)
     private Set<Property> properties = new HashSet<>();
 
     @ManyToOne(optional = false)

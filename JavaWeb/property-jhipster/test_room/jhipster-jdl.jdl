@@ -55,11 +55,11 @@ entity Property {
     isUrgent Boolean,
 }
 
-entity Area {
-	title String required,
-    type AreaType required,
+enum AccommodationStatus {
+	Furnished,
+    Unfurnished,
+    Partfurnished
 }
-
 
 enum AccommodationType {
 	Flat,
@@ -67,6 +67,31 @@ enum AccommodationType {
     Studio,
     Ensuite,
     Apartment
+}
+
+entity Accommodation {
+	title String required,
+    type AccommodationType required,
+    status AccommodationStatus required,
+    total Double,
+}
+
+entity Area {
+	title String required,
+    type AreaType required,
+}
+enum AreaType {
+	Attic,
+	Lounge,
+    Garage,
+    Basement,
+    Lavatory,
+    Bedroom,
+    Diningroom,
+    Kitchen,
+    Balcony,
+    Landing,
+    Hall
 }
 
 enum RoomType {
@@ -83,44 +108,32 @@ entity Room {
     price Double,
 }
 
-enum AreaType {
-	Attic,
-	Lounge,
-    Garage,
-    Basement,
-    Lavatory,
-    Bedroom,
-    Diningroom,
-    Kitchen,
-    Balcony,
-    Landing,
-    Hall
-}
-
-
-
-enum AccommodationStatus {
-	Furnished,
-    Unfurnished,
-    Partfurnished
-}
-
-entity Accommodation {
+entity Project {
 	title String required,
-    type AccommodationType required,
-    status AccommodationStatus required,
-    total Double,
+    price Double required,
 }
+
+entity Land {
+	title String required,
+	price Double required,
+}
+
+
+
+
 
 relationship OneToMany {
     Name to Customer{name(displayName) required},
     Area to Room{area(type) required},
-}
 
+}
 
 relationship OneToOne {
     Customer{user(login) required} to User,
     Property{address(street) required} to Address,
+    Property{accommodation} to Accommodation,
+    Property{project} to Project,
+    Property{land} to Land
 }
 
 relationship ManyToMany {

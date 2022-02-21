@@ -36,6 +36,24 @@
             <a [routerLink]="['/address', property.address?.id, 'view']">{{ property.address?.street }}</a>
           </div>
         </dd>
+        <dt><span jhiTranslate="testRoomApp.property.accommodation">Accommodation</span></dt>
+        <dd>
+          <div *ngIf="property.accommodation">
+            <a [routerLink]="['/accommodation', property.accommodation?.id, 'view']">{{ property.accommodation?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.property.project">Project</span></dt>
+        <dd>
+          <div *ngIf="property.project">
+            <a [routerLink]="['/project', property.project?.id, 'view']">{{ property.project?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="testRoomApp.property.land">Land</span></dt>
+        <dd>
+          <div *ngIf="property.land">
+            <a [routerLink]="['/land', property.land?.id, 'view']">{{ property.land?.id }}</a>
+          </div>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

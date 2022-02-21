@@ -79,6 +79,57 @@
             This field is required.
           </small>
         </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.property.accommodation" for="field_accommodation"
+            >Accommodation</label
+          >
+          <select
+            class="form-control"
+            id="field_accommodation"
+            data-cy="accommodation"
+            name="accommodation"
+            formControlName="accommodation"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                accommodationOption.id === editForm.get('accommodation')!.value?.id
+                  ? editForm.get('accommodation')!.value
+                  : accommodationOption
+              "
+              *ngFor="let accommodationOption of accommodationsCollection; trackBy: trackAccommodationById"
+            >
+              {{ accommodationOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.property.project" for="field_project">Project</label>
+          <select class="form-control" id="field_project" data-cy="project" name="project" formControlName="project">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="projectOption.id === editForm.get('project')!.value?.id ? editForm.get('project')!.value : projectOption"
+              *ngFor="let projectOption of projectsCollection; trackBy: trackProjectById"
+            >
+              {{ projectOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="testRoomApp.property.land" for="field_land">Land</label>
+          <select class="form-control" id="field_land" data-cy="land" name="land" formControlName="land">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="landOption.id === editForm.get('land')!.value?.id ? editForm.get('land')!.value : landOption"
+              *ngFor="let landOption of landsCollection; trackBy: trackLandById"
+            >
+              {{ landOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

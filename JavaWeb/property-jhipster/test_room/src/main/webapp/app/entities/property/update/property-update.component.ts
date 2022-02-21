@@ -9,6 +9,12 @@ import { IProperty, Property } from '../property.model';
 import { PropertyService } from '../service/property.service';
 import { IAddress } from 'app/entities/address/address.model';
 import { AddressService } from 'app/entities/address/service/address.service';
+import { IAccommodation } from 'app/entities/accommodation/accommodation.model';
+import { AccommodationService } from 'app/entities/accommodation/service/accommodation.service';
+import { IProject } from 'app/entities/project/project.model';
+import { ProjectService } from 'app/entities/project/service/project.service';
+import { ILand } from 'app/entities/land/land.model';
+import { LandService } from 'app/entities/land/service/land.service';
 import { PropertyType } from 'app/entities/enumerations/property-type.model';
 import { PropertyStatus } from 'app/entities/enumerations/property-status.model';
 
@@ -22,6 +28,9 @@ export class PropertyUpdateComponent implements OnInit {
   propertyStatusValues = Object.keys(PropertyStatus);
 
   addressesCollection: IAddress[] = [];
+  accommodationsCollection: IAccommodation[] = [];
+  projectsCollection: IProject[] = [];
+  landsCollection: ILand[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -30,11 +39,17 @@ export class PropertyUpdateComponent implements OnInit {
     status: [null, [Validators.required]],
     isUrgent: [],
     address: [null, Validators.required],
+    accommodation: [],
+    project: [],
+    land: [],
   });
 
   constructor(
     protected propertyService: PropertyService,
     protected addressService: AddressService,
+    protected accommodationService: AccommodationService,
+    protected projectService: ProjectService,
+    protected landService: LandService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -65,6 +80,18 @@ export class PropertyUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackAccommodationById(index: number, item: IAccommodation): number {
+    return item.id!;
+  }
+
+  trackProjectById(index: number, item: IProject): number {
+    return item.id!;
+  }
+
+  trackLandById(index: number, item: ILand): number {
+    return item.id!;
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IProperty>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -92,9 +119,18 @@ export class PropertyUpdateComponent implements OnInit {
       status: property.status,
       isUrgent: property.isUrgent,
       address: property.address,
+      accommodation: property.accommodation,
+      project: property.project,
+      land: property.land,
     });
 
     this.addressesCollection = this.addressService.addAddressToCollectionIfMissing(this.addressesCollection, property.address);
+    this.accommodationsCollection = this.accommodationService.addAccommodationToCollectionIfMissing(
+      this.accommodationsCollection,
+      property.accommodation
+    );
+    this.projectsCollection = this.projectService.addProjectToCollectionIfMissing(this.projectsCollection, property.project);
+    this.landsCollection = this.landService.addLandToCollectionIfMissing(this.landsCollection, property.land);
   }
 
   protected loadRelationshipsOptions(): void {
@@ -105,6 +141,30 @@ export class PropertyUpdateComponent implements OnInit {
         map((addresses: IAddress[]) => this.addressService.addAddressToCollectionIfMissing(addresses, this.editForm.get('address')!.value))
       )
       .subscribe((addresses: IAddress[]) => (this.addressesCollection = addresses));
+
+    this.accommodationService
+      .query({ filter: 'property-is-null' })
+      .pipe(map((res: HttpResponse<IAccommodation[]>) => res.body ?? []))
+      .pipe(
+        map((accommodations: IAccommodation[]) =>
+          this.accommodationService.addAccommodationToCollectionIfMissing(accommodations, this.editForm.get('accommodation')!.value)
+        )
+      )
+      .subscribe((accommodations: IAccommodation[]) => (this.accommodationsCollection = accommodations));
+
+    this.projectService
+      .query({ filter: 'property-is-null' })
+      .pipe(map((res: HttpResponse<IProject[]>) => res.body ?? []))
+      .pipe(
+        map((projects: IProject[]) => this.projectService.addProjectToCollectionIfMissing(projects, this.editForm.get('project')!.value))
+      )
+      .subscribe((projects: IProject[]) => (this.projectsCollection = projects));
+
+    this.landService
+      .query({ filter: 'property-is-null' })
+      .pipe(map((res: HttpResponse<ILand[]>) => res.body ?? []))
+      .pipe(map((lands: ILand[]) => this.landService.addLandToCollectionIfMissing(lands, this.editForm.get('land')!.value)))
+      .subscribe((lands: ILand[]) => (this.landsCollection = lands));
   }
 
   protected createFromForm(): IProperty {
@@ -116,6 +176,9 @@ export class PropertyUpdateComponent implements OnInit {
       status: this.editForm.get(['status'])!.value,
       isUrgent: this.editForm.get(['isUrgent'])!.value,
       address: this.editForm.get(['address'])!.value,
+      accommodation: this.editForm.get(['accommodation'])!.value,
+      project: this.editForm.get(['project'])!.value,
+      land: this.editForm.get(['land'])!.value,
     };
   }
 }

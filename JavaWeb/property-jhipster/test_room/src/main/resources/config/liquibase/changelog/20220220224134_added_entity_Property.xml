@@ -29,6 +29,15 @@
             <column name="address_id" type="bigint">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_property__address_id" />
             </column>
+            <column name="accommodation_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_property__accommodation_id" />
+            </column>
+            <column name="project_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_property__project_id" />
+            </column>
+            <column name="land_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_property__land_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>

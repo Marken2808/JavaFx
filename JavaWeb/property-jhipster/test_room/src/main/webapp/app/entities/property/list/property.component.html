@@ -38,6 +38,9 @@
           <th scope="col"><span jhiTranslate="testRoomApp.property.status">Status</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.property.isUrgent">Is Urgent</span></th>
           <th scope="col"><span jhiTranslate="testRoomApp.property.address">Address</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.property.accommodation">Accommodation</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.property.project">Project</span></th>
+          <th scope="col"><span jhiTranslate="testRoomApp.property.land">Land</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -53,6 +56,21 @@
           <td>
             <div *ngIf="property.address">
               <a [routerLink]="['/address', property.address?.id, 'view']">{{ property.address?.street }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="property.accommodation">
+              <a [routerLink]="['/accommodation', property.accommodation?.id, 'view']">{{ property.accommodation?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="property.project">
+              <a [routerLink]="['/project', property.project?.id, 'view']">{{ property.project?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="property.land">
+              <a [routerLink]="['/land', property.land?.id, 'view']">{{ property.land?.id }}</a>
             </div>
           </td>
           <td class="text-right">

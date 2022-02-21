@@ -39,6 +39,16 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'testRoomApp.accommodation.home.title' },
         loadChildren: () => import('./accommodation/accommodation.module').then(m => m.AccommodationModule),
       },
+      {
+        path: 'project',
+        data: { pageTitle: 'testRoomApp.project.home.title' },
+        loadChildren: () => import('./project/project.module').then(m => m.ProjectModule),
+      },
+      {
+        path: 'land',
+        data: { pageTitle: 'testRoomApp.land.home.title' },
+        loadChildren: () => import('./land/land.module').then(m => m.LandModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

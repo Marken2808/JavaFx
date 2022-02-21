@@ -23,6 +23,9 @@
       "status": "Status",
       "isUrgent": "Is Urgent",
       "address": "Address",
+      "accommodation": "Accommodation",
+      "project": "Project",
+      "land": "Land",
       "customer": "Customer"
     }
   }

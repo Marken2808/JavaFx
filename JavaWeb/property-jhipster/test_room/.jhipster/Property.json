@@ -43,6 +43,27 @@
       "relationshipValidateRules": "required"
     },
     {
+      "otherEntityName": "accommodation",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "accommodation",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "project",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "project",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "land",
+      "otherEntityRelationshipName": "property",
+      "ownerSide": true,
+      "relationshipName": "land",
+      "relationshipType": "one-to-one"
+    },
+    {
       "otherEntityName": "customer",
       "otherEntityRelationshipName": "property",
       "ownerSide": false,

@@ -13,5 +13,23 @@
                                  constraintName="fk_property__address_id"
                                  referencedColumnNames="id"
                                  referencedTableName="address"/>
+
+        <addForeignKeyConstraint baseColumnNames="accommodation_id"
+                                 baseTableName="property"
+                                 constraintName="fk_property__accommodation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="accommodation"/>
+
+        <addForeignKeyConstraint baseColumnNames="project_id"
+                                 baseTableName="property"
+                                 constraintName="fk_property__project_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="project"/>
+
+        <addForeignKeyConstraint baseColumnNames="land_id"
+                                 baseTableName="property"
+                                 constraintName="fk_property__land_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="land"/>
     </changeSet>
 </databaseChangeLog>

@@ -49,6 +49,19 @@ public class Property implements Serializable {
     @JoinColumn(unique = true)
     private Address address;
 
+    @JsonIgnoreProperties(value = { "rooms" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Accommodation accommodation;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Project project;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Land land;
+
     @ManyToMany(mappedBy = "properties")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "user", "properties", "name" }, allowSetters = true)
@@ -131,6 +144,45 @@ public class Property implements Serializable {
 
     public Property address(Address address) {
         this.setAddress(address);
+        return this;
+    }
+
+    public Accommodation getAccommodation() {
+        return this.accommodation;
+    }
+
+    public void setAccommodation(Accommodation accommodation) {
+        this.accommodation = accommodation;
+    }
+
+    public Property accommodation(Accommodation accommodation) {
+        this.setAccommodation(accommodation);
+        return this;
+    }
+
+    public Project getProject() {
+        return this.project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Property project(Project project) {
+        this.setProject(project);
+        return this;
+    }
+
+    public Land getLand() {
+        return this.land;
+    }
+
+    public void setLand(Land land) {
+        this.land = land;
+    }
+
+    public Property land(Land land) {
+        this.setLand(land);
         return this;
     }
 
