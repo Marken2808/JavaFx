@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/Chapter 1/1/1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Chapter 1/1/2" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Chapter 1/1.8 Check If N and Its Double Exist" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Chapter 1/1.9 Valid Mountain Array" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
