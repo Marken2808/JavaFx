@@ -63,7 +63,10 @@ class wise
 
     public static String checkDetailsAreValid(String accountNumber, String bankCode) {
 
-        if(!accountNumber.contains("-") || (accountNumber.split("-")[0]).length() >2) {
+        if(!accountNumber.contains("-")
+                || (accountNumber.split("-")[0]).length() >2
+                || (!bankCode.matches("[A-Z]+"))
+        ) {
             return null;
         } else {
             StringBuilder sb = new StringBuilder((accountNumber.split("-")[1]));
@@ -91,7 +94,7 @@ class wise
 
     public static void main (String[] args)
     {
-        checkDetailsAreValid("1234567","AB12");
+        checkDetailsAreValid("11-1234567","1112");
 
     }
 }
