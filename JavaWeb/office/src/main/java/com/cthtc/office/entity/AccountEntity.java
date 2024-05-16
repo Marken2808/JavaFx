@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.cthtc.office.model.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,11 +18,17 @@ import jakarta.persistence.Id;
 @Entity
 public class AccountEntity implements UserDetails {
 	
-	@Id		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column
     private String username;
 
+	@Column
    	private String password;
 
+	@Column
     private Role role;
 
 	public AccountEntity() {
@@ -31,6 +38,14 @@ public class AccountEntity implements UserDetails {
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -85,4 +100,11 @@ public class AccountEntity implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "AccountEntity [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
+	
+	
 }

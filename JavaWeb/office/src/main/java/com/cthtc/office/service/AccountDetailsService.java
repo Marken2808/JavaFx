@@ -20,13 +20,11 @@ import com.cthtc.office.repository.AccountRepository;
 public class AccountDetailsService implements UserDetailsService{
 
 	@Autowired
-	AccountRepository accountRepository;
-
-	
+	private AccountRepository accountRepository;
 	  
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<AccountEntity> user = accountRepository.findById(username);
+		Optional<AccountEntity> user = accountRepository.findUserByUsername(username);
 		System.out.println(user);
 		if(user.isPresent()){
             return new User(user.get().getUsername(), user.get().getPassword(), user.get().getAuthorities());

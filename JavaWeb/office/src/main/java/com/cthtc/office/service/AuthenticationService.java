@@ -23,7 +23,7 @@ public class AuthenticationService{
 	public void createAdminAccount() {
 		Optional<AccountEntity> optionalUser = accountRepository.findUserByRole(Role.ADMIN);
 		if(optionalUser.isEmpty()) {
-			AccountEntity user = new AccountEntity("admin", new BCryptPasswordEncoder().encode("admin"), Role.ADMIN);
+			AccountEntity user = new AccountEntity( "admin", new BCryptPasswordEncoder().encode("admin"), Role.ADMIN);
 			accountRepository.save(user);
 			System.out.println("Create Admin account successfully!");
 		} else {
@@ -39,8 +39,8 @@ public class AuthenticationService{
 		accountRepository.save(user);
 	}
 	
-	public boolean hasUserAlreadyExist(String username) {
-		return accountRepository.findById(username).isPresent();
+	public boolean hasUserAlreadyExist(String username) {	// should be identical email???
+		return accountRepository.findUserByUsername(username).isPresent();
 	}
 	
 	

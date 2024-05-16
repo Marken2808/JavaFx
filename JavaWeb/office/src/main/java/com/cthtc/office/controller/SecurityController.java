@@ -42,7 +42,7 @@ public class SecurityController {
 	public String hello() {return "The application said HELLO ...";}
 	
 	@PostMapping("/api/authenticate/signin")
-	public AuthenticationResponse getJwtAuthToken(@RequestBody AuthenticationRequest authRequest) {
+	public AuthenticationResponse signinUser(@RequestBody AuthenticationRequest authRequest) {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authRequest.getUsername(),	authRequest.getPassword())
