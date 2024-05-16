@@ -6,7 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.cthtc.office.model.TaskStatus;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,10 +42,21 @@ public class TaskEntity {
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
+	@JsonProperty
 	private AccountEntity user;
 	
-	
+	/*	Test API body
+	{
+	   "title":"DDD",
+	   "description":"DDD",
+	   "dueDate":"2024-05-16",
+	   "priority":"HIGH",
+	   "user": {
+	       "id":2
+	   }
+	}
+	*/
+	public TaskEntity() {}
 
 	public TaskEntity(String title, String description, String priority, Date dueDate, TaskStatus taskStatus, AccountEntity user) {
 		this.title = title;
@@ -56,9 +67,9 @@ public class TaskEntity {
 		this.user = user;
 	}
 	
-	public TaskDTO getTaskDTO() {
-		return new TaskDTO(this.title, this.description, this.priority, this.dueDate, this.taskStatus, this.user.getId(), this.user.getUsername());
-	}
+//	public TaskDTO getTaskDTO() {
+//		return new TaskDTO(this.title, this.description, this.priority, this.dueDate, this.taskStatus, this.user.getId(), this.user.getUsername());
+//	}
 
 
 	@Override
@@ -114,6 +125,15 @@ public class TaskEntity {
 	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
 	}
+
+	public AccountEntity getUser() {
+		return user;
+	}
+
+	public void setUser(AccountEntity user) {
+		this.user = user;
+	}
+	
 	
 	
 	
