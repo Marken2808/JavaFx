@@ -25,10 +25,14 @@ public class AdminService {
 	@Autowired
 	private TaskRepository taskRepository;
 	
-	public List<AccountEntity> getUsers() {
+	//USER
+	
+	public List<AccountEntity> getGuestUsers() {
 		return accountRepository.findAll().stream().filter(user -> user.getRole() == Role.GUEST)
 				.collect(Collectors.toList());
 	}
+	
+	// TASK
 	
 	public TaskEntity createTask(TaskEntity taskEntity) {
 		System.out.print(taskEntity);
@@ -49,6 +53,13 @@ public class AdminService {
 		return null;
 	}
 	
+	public List<TaskEntity> searchTaskByTitle(String title) {
+		return taskRepository.findAllByTitleContaining(title)
+				.stream()
+				.sorted(Comparator.comparing(TaskEntity::getDueDate).reversed())
+				.collect(Collectors.toList());
+	}
+	
 	public List<TaskEntity> getAllTasks() {
 		return taskRepository.findAll().stream()
 				.sorted(Comparator.comparing(TaskEntity::getDueDate).reversed())
@@ -59,5 +70,34 @@ public class AdminService {
 		taskRepository.deleteById(id);
 	}
 	
+	public TaskEntity getTaskById(Long id) {
+		Optional<TaskEntity> optionalTask = taskRepository.findById(id);
+		return optionalTask.orElse(null);
+	}
 	
+	public TaskEntity updateTaskById(Long id, TaskEntity newTask) {
+		Optional<TaskEntity> optionalTask = taskRepository.findById(id);
+		Optional<AccountEntity> optionalUser = accountRepository.findById(newTask.getUser().getId());
+		if(optionalTask.isPresent() && optionalUser.isPresent()) {
+			TaskEntity existTask = optionalTask.get();
+			existTask.setTitle(newTask.getTitle());
+			existTask.setDescription(newTask.getDescription());
+			existTask.setPriority(newTask.getPriority());
+			existTask.setDueDate(newTask.getDueDate());
+			existTask.setTaskStatus(mapToTaskStatus(newTask.getTaskStatus().toString()));
+			existTask.setUser(optionalUser.get()); // not update user
+			
+			return taskRepository.save(existTask);
+		}
+		return null;
+	}
+	
+	private TaskStatus mapToTaskStatus(String status) {
+		return switch(status) {
+			case "PENDING" -> TaskStatus.PENDING;
+			case "INPROGRESS" -> TaskStatus.INPROGRESS;
+			case "COMPLETED" -> TaskStatus.COMPLETED;
+			default -> TaskStatus.CANCELLED;
+		};
+	}
 }

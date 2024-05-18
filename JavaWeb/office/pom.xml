@@ -72,6 +72,13 @@
 			<version>8.0.30</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- Additional Tools-->
+		<dependency>
+	        <groupId>org.projectlombok</groupId>
+	        <artifactId>lombok</artifactId>
+	        <scope>provided</scope>
+	    </dependency>
 	</dependencies>
 
 	<build>
